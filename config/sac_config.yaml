@@ -1,0 +1,55 @@
+model_params:
+
+  # Training 
+  training_steps: 5000      # The number of training steps to perform
+
+  # Save params
+  save_freq: 1000
+  save_prefix: sac_model
+  trained_model_name: trained_model
+  save_replay_buffer: False
+
+  # Load model params
+  load_model: False
+  model_name: sac_model_5000_steps
+
+  # Logging parameters
+  log_folder: SAC_1
+  log_interval: 4 # The number of episodes between logs
+  reset_num_timesteps: False # If true, will reset the number of timesteps to 0 every training 
+
+  # Use custom policy - Only MlpPolicy is supported (Only used when new model is created)
+  use_custom_policy: False
+  policy_params:
+    net_arch: [400, 300] # List of hidden layer sizes
+    activation_fn: relu  # relu, tanh, elu or selu
+    features_extractor_class: FlattenExtractor # FlattenExtractor, BaseFeaturesExtractor or CombinedExtractor
+    optimizer_class: Adam # Adam, Adadelta, Adagrad, RMSprop or SGD
+
+  # UseAction noise
+  use_action_noise: True # For now only Gaussian noise is supported
+  action_noise:
+    mean: 0.0
+    sigma: 0.01
+
+  # Use SDE
+  use_sde: True
+  sde_params:
+    sde_sample_freq: -1
+    use_sde_at_warmup: False
+
+  # SAC parameters
+  sac_params:
+    learning_rate: 0.0003
+    buffer_size: 1000000
+    learning_starts: 100
+    batch_size: 256
+    tau: 0.005
+    gamma: 0.99 
+    gradient_steps: 1 
+    ent_coef: auto 
+    target_update_interval: 1 
+    target_entropy: auto
+    train_freq:
+      freq: 20
+      unit: step  # episode or step
