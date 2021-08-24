@@ -1,16 +1,13 @@
 #!/bin/python3
 
 import rospy
-import rospkg
-import os
-import xacro
 import time
 from gym_gazebo_sb3.common import ros_gazebo
 from gym_gazebo_sb3.common import ros_controllers
 from gym_gazebo_sb3.common import ros_node
-from gym_gazebo_sb3.common import ros_launch
 from gym_gazebo_sb3.common import ros_params
 from gym_gazebo_sb3.common import ros_urdf
+from gym_gazebo_sb3.common import ros_launch
 
 def Init_robot_state_pub(namespace="/", max_pub_freq=None) -> bool:
     """
@@ -26,8 +23,11 @@ def Init_robot_state_pub(namespace="/", max_pub_freq=None) -> bool:
     """
 
     if max_pub_freq is not None:
-        max_pub_freq = rospy.set_param(namespace + "/rob_st_pub/publish_frequency", max_pub_freq)
-
+        if namespace != "/":
+            max_pub_freq = rospy.set_param(namespace + "/rob_st_pub/publish_frequency", max_pub_freq)
+        else:
+            max_pub_freq = rospy.set_param("/rob_st_pub/publish_frequency", max_pub_freq)
+            
     return ros_node.ROS_Node_from_pkg("robot_state_publisher", "robot_state_publisher", name="rob_st_pub", ns=namespace)
 
 

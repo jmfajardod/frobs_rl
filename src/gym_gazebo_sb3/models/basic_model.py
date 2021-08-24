@@ -98,6 +98,7 @@ class BasicModel:
             rospy.logwarn("Trained model name already exists, saving as: " + trained_model_name + "_" + dt_string)
 
         self.model.save(self.save_trained_model_path)
+        self.save_replay_buffer()
         
         return True
 

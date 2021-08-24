@@ -5,6 +5,7 @@ import rospkg
 import os
 import subprocess
 import roslaunch
+import time
 
 def ROS_Launch_from_pkg(pkg_name, launch_file, args=None) -> bool:
     """
@@ -34,19 +35,14 @@ def ROS_Launch_from_pkg(pkg_name, launch_file, args=None) -> bool:
         print("Launch file " + launch_file + " in " + file_path + " does not exists")
         return False
 
-    cli_args = [file_path]
+    term_command = "roslaunch " + pkg_name + " " + launch_file
 
     if args is not None:
-        cli_args += args
+        for arg in args:
+            term_command += " " + arg
 
-    roslaunch_args = cli_args[1:]
-    roslaunch_file = [(roslaunch.rlutil.resolve_launch_arguments(cli_args)[0], roslaunch_args)]
-
-    uuid = roslaunch.rlutil.get_or_generate_uuid(None, False)
-    roslaunch.configure_logging(uuid)
-    parent = roslaunch.parent.ROSLaunchParent(uuid, roslaunch_file)
-
-    parent.start()
+    subprocess.Popen("xterm -e ' " + term_command + "'", shell=True)
+    time.sleep(5.0)
 
     return True
 
@@ -66,19 +62,14 @@ def ROS_Launch_from_path(launch_file_path, args=None) -> bool:
         print("Launch file " + launch_file_path + " does not exists")
         return False
 
-    cli_args = [launch_file_path]
+    term_command = "roslaunch " + launch_file_path
 
     if args is not None:
-        cli_args += args
+        for arg in args:
+            term_command += " " + arg
 
-    roslaunch_args = cli_args[1:]
-    roslaunch_file = [(roslaunch.rlutil.resolve_launch_arguments(cli_args)[0], roslaunch_args)]
-
-    uuid = roslaunch.rlutil.get_or_generate_uuid(None, False)
-    roslaunch.configure_logging(uuid)
-    parent = roslaunch.parent.ROSLaunchParent(uuid, roslaunch_file)
-
-    parent.start()
+    subprocess.Popen("xterm -e ' " + term_command + "'", shell=True)
+    time.sleep(5.0)
 
     return True
 
@@ -89,6 +80,6 @@ def ROS_Kill_Launch_Process() -> bool:
     @return: True if the roslaunch processes were killed.
     """
     term_command = "killall -9 roslaunch"
-    subprocess.Popen(term_command, shell=True).wait()
+    subprocess.Popen("xterm -e ' " + term_command + "'", shell=True).wait()
     return True
 
