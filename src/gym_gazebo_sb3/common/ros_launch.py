@@ -4,6 +4,7 @@ import rospy
 import rospkg
 import os
 import subprocess
+import roslaunch
 
 def ROS_Launch_from_pkg(pkg_name, launch_file, args=None) -> bool:
     """
@@ -15,7 +16,7 @@ def ROS_Launch_from_pkg(pkg_name, launch_file, args=None) -> bool:
     @type launch_file: str
     
     @param args: Args to pass to the launch file.
-    @type args: str
+    @type args: list of str
 
     @return: True if the launch file was executed.
     """
@@ -33,12 +34,20 @@ def ROS_Launch_from_pkg(pkg_name, launch_file, args=None) -> bool:
         print("Launch file " + launch_file + " in " + file_path + " does not exists")
         return False
 
-    term_command = "roslaunch " + pkg_name + " " + launch_file
+    cli_args = [file_path]
 
     if args is not None:
-        term_command = term_command + " " + args
+        cli_args += args
 
-    subprocess.Popen(term_command, shell=True)
+    roslaunch_args = cli_args[1:]
+    roslaunch_file = [(roslaunch.rlutil.resolve_launch_arguments(cli_args)[0], roslaunch_args)]
+
+    uuid = roslaunch.rlutil.get_or_generate_uuid(None, False)
+    roslaunch.configure_logging(uuid)
+    parent = roslaunch.parent.ROSLaunchParent(uuid, roslaunch_file)
+
+    parent.start()
+
     return True
 
 def ROS_Launch_from_path(launch_file_path, args=None) -> bool:
@@ -48,7 +57,7 @@ def ROS_Launch_from_path(launch_file_path, args=None) -> bool:
     @type launch_file_path: str
 
     @param args: Args to pass to the launch file.
-    @type args: str
+    @type args: list str
 
     @return: True if the launch file was executed.
     """
@@ -57,12 +66,20 @@ def ROS_Launch_from_path(launch_file_path, args=None) -> bool:
         print("Launch file " + launch_file_path + " does not exists")
         return False
 
-    term_command = "roslaunch " + launch_file_path
+    cli_args = [launch_file_path]
 
     if args is not None:
-        term_command = term_command + " " + args
+        cli_args += args
 
-    subprocess.Popen(term_command, shell=True)
+    roslaunch_args = cli_args[1:]
+    roslaunch_file = [(roslaunch.rlutil.resolve_launch_arguments(cli_args)[0], roslaunch_args)]
+
+    uuid = roslaunch.rlutil.get_or_generate_uuid(None, False)
+    roslaunch.configure_logging(uuid)
+    parent = roslaunch.parent.ROSLaunchParent(uuid, roslaunch_file)
+
+    parent.start()
+
     return True
 
 def ROS_Kill_Launch_Process() -> bool:
@@ -74,3 +91,4 @@ def ROS_Kill_Launch_Process() -> bool:
     term_command = "killall -9 roslaunch"
     subprocess.Popen(term_command, shell=True).wait()
     return True
+

@@ -1,6 +1,7 @@
 #!/bin/python3
 
 import rospy
+import roslaunch
 import rospkg
 import os
 import subprocess
@@ -73,32 +74,34 @@ def Launch_Gazebo(  paused=False, use_sim_time=True, gui=True, recording=False, 
         rospy.logerr("The package gazebo_ros was not found")
         return False
 
-    term_command = "roslaunch gazebo_ros empty_world.launch"
+    launch_filepath = pkg_path + "/launch/empty_world.launch"
+
+    cli_args = [launch_filepath]
 
     # Init world paused
-    term_command += " paused:="+str(paused)
+    cli_args += ["paused:="+str(paused)]
 
     # Use sim time
-    term_command += " use_sim_time:="+str(use_sim_time)
+    cli_args += ["use_sim_time:="+str(use_sim_time)]
 
     # Enable/Disable gui
-    term_command += " gui:="+str(gui)
+    cli_args += ["gui:="+str(gui)]
 
     # Enable/Disable recording
-    term_command += " recording:="+str(recording)
+    cli_args += ["recording:="+str(recording)]
 
     # Enable/Disable debug
-    term_command += " debug:="+str(debug)
+    cli_args += ["debug:="+str(debug)]
 
     # Enable/Disable verbose
-    term_command += " verbose:="+str(verbose)
+    cli_args += ["verbose:="+str(verbose)]
 
     # Select output type (screen or log)
-    term_command += " output:="+str(output)
+    cli_args += ["output:="+str(output)]
 
     # Select world
     if custom_world_path is not None:
-        term_command += " world_name:="+str(custom_world_path)
+        cli_args += ["world_name:="+str(custom_world_path)]
     elif custom_world_pkg is not None and custom_world_name is not None:
         try:
             world_pkg_path = rospack.get_path(custom_world_pkg)
@@ -106,25 +109,35 @@ def Launch_Gazebo(  paused=False, use_sim_time=True, gui=True, recording=False, 
             rospy.logwarn("Package where world file is located was NOT FOUND")
 
         world_file_path = world_pkg_path + "/worlds/" + custom_world_name
-        term_command += " world_name:="+str(world_file_path)
+        cli_args += ["world_name:="+str(world_file_path)]
 
     # Enable re-spawning of gazebo 
-    term_command += " respawn_gazebo:="+str(respawn_gazebo)
+    cli_args += ["respawn_gazebo:="+str(respawn_gazebo)]
 
     # Set gazebo_ros publish rate
-    term_command += " pub_clock_frequency:="+str(pub_clock_frequency)
+    cli_args += ["pub_clock_frequency:="+str(pub_clock_frequency)]
 
     # Set if gazebo server is required
-    term_command += " server_required:="+str(server_required)
+    cli_args += ["server_required:="+str(server_required)]
 
     # Set if gui is required
-    term_command += " gui_required:="+str(gui_required)
+    cli_args += ["gui_required:="+str(gui_required)]
+
+    print(cli_args)
         
     # Execute command
-    process = subprocess.Popen(term_command, shell=True)
+    roslaunch_args = cli_args[1:]
+    roslaunch_file = [(roslaunch.rlutil.resolve_launch_arguments(cli_args)[0], roslaunch_args)]
+
+    uuid = roslaunch.rlutil.get_or_generate_uuid(None, False)
+    roslaunch.configure_logging(uuid)
+    parent = roslaunch.parent.ROSLaunchParent(uuid, roslaunch_file)
+
+    parent.start()
     rospy.wait_for_service('/gazebo/pause_physics')
 
     return True
+
 
 def Close_Gazebo() -> bool:
     """

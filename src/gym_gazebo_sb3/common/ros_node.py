@@ -4,16 +4,18 @@ import rospy
 import rospkg
 import os
 import subprocess
+import roslaunch
 import time
 
 
-def ROS_Node_from_pkg(pkg_name, node_name, launch_master=False, name=None, ns=None) -> bool:
+def ROS_Node_from_pkg(pkg_name, node_name, launch_master=False, name=None, ns="/", args="", respawn=False, output="log") -> bool:
     """
     Function to launch a ROS node from a package.
-    @param pkg_name: Package name.
+
+    @param pkg_name: Name of the package to launch the node from.
     @type pkg_name: str
 
-    @param node_name: Node executable name.
+    @param node_name: Name of the node to launch.
     @type node_name: str
 
     @param launch_master: If ROSMASTER is not running launch it.
@@ -24,6 +26,15 @@ def ROS_Node_from_pkg(pkg_name, node_name, launch_master=False, name=None, ns=No
 
     @param ns: Namespace to give the node to be launched.
     @type ns: str
+
+    @param args: Arguments to give to the node.
+    @type args: str
+
+    @param respawn:  if True, respawn node if it dies.
+    @type respawn: bool
+
+    @param output:  log, screen, or None.
+    @type output: str
 
     @return: True if the node was launched, False otherwise.
     """
@@ -37,70 +48,31 @@ def ROS_Node_from_pkg(pkg_name, node_name, launch_master=False, name=None, ns=No
         return False
 
     if launch_master:
-        print("Launch Master")
-        
+        print("Launching Master")
         try:
             rospy.get_master().getPid()
         except:
             print("Master not running")
             subprocess.Popen("roscore", shell=True)
+            time.sleep(3)
         else:
             print("Master is running")
 
-    term_command = "rosrun " + pkg_name + " " + node_name
-
-    if name is not None:
-        term_command += " __name:=" + name
-
-    if ns is not None:
-        term_command += " __ns:=" + ns
-
-    subprocess.Popen(term_command, shell=True)
-    return True
-
-def ROS_Node_from_path(node_path, launch_master=True, name=None, ns=None) -> bool:
-    """
-    Function to launch a ROS node from a path.
-    @param node_path: Path to the node executable.
-    @type node_path: str
-
-    @param launch_master: If ROSMASTER is not running launch it.
-    @type launch_master: bool
-
-    @param name: Name to give the node to be launched.
-    @type name: str
-
-    @param ns: Namespace to give the node to be launched.
-    @type ns: str
-
-    @return: True if the node was launched, False otherwise.
-    """
-
-    if os.path.exists(node_path) is False:
-        print("Node " + node_path + " does not exists")
+    try:
+        rospy.get_master().getPid()
+    except:
+        print("Master not running")
         return False
+    else:
+        print("Master is running")
 
-    if launch_master:
-        print("Launch Master")
-        
-        try:
-            rospy.get_master().getPid()
-        except:
-            print("Master not running")
-            subprocess.Popen("roscore", shell=True)
-        else:
-            print("Master is running")
+    node = roslaunch.core.Node(pkg_name, node_name, name=name, namespace=ns, args=args, respawn=respawn, output=output)
+    launch = roslaunch.scriptapi.ROSLaunch()
+    launch.start()
 
-    term_command = "rosrun " + node_path
+    process = launch.launch(node)
 
-    if name is not None:
-        term_command += " __name:=" + name
-
-    if ns is not None:
-        term_command += " __ns:=" + ns
-
-    subprocess.Popen(term_command, shell=True)
-    return True
+    return process.is_alive()
 
 def ROS_Kill_Node(node_name) -> bool:
     """
@@ -159,5 +131,5 @@ def ROS_Kill_All_processes() -> bool:
     term_command = "killall -9 rosout roslaunch rosmaster gzserver nodelet robot_state_publisher gzclient"
     subprocess.Popen(term_command, shell=True).wait()
     return True
-    
+
 
