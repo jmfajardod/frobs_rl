@@ -1,10 +1,6 @@
 #!/bin/python3
 
 import rospy
-import rospkg
-import os
-import subprocess
-import time
 from controller_manager_msgs.srv import *
 
 def Load_controller_srv(controller_name, ns=None, max_retries=5) -> bool:

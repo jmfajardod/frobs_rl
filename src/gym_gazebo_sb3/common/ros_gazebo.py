@@ -74,34 +74,32 @@ def Launch_Gazebo(  paused=False, use_sim_time=True, gui=True, recording=False, 
         rospy.logerr("The package gazebo_ros was not found")
         return False
 
-    launch_filepath = pkg_path + "/launch/empty_world.launch"
-
-    cli_args = [launch_filepath]
+    term_command = "roslaunch gazebo_ros empty_world.launch "
 
     # Init world paused
-    cli_args += ["paused:="+str(paused)]
+    term_command += " paused:="+str(paused)
 
     # Use sim time
-    cli_args += ["use_sim_time:="+str(use_sim_time)]
+    term_command += " use_sim_time:="+str(use_sim_time)
 
     # Enable/Disable gui
-    cli_args += ["gui:="+str(gui)]
+    term_command += " gui:="+str(gui)
 
     # Enable/Disable recording
-    cli_args += ["recording:="+str(recording)]
+    term_command += " recording:="+str(recording)
 
     # Enable/Disable debug
-    cli_args += ["debug:="+str(debug)]
+    term_command += " debug:="+str(debug)
 
     # Enable/Disable verbose
-    cli_args += ["verbose:="+str(verbose)]
+    term_command += " verbose:="+str(verbose)
 
     # Select output type (screen or log)
-    cli_args += ["output:="+str(output)]
+    term_command += " output:="+str(output)
 
     # Select world
     if custom_world_path is not None:
-        cli_args += ["world_name:="+str(custom_world_path)]
+        term_command += " world_name:="+str(custom_world_path)
     elif custom_world_pkg is not None and custom_world_name is not None:
         try:
             world_pkg_path = rospack.get_path(custom_world_pkg)
@@ -109,31 +107,26 @@ def Launch_Gazebo(  paused=False, use_sim_time=True, gui=True, recording=False, 
             rospy.logwarn("Package where world file is located was NOT FOUND")
 
         world_file_path = world_pkg_path + "/worlds/" + custom_world_name
-        cli_args += ["world_name:="+str(world_file_path)]
+        term_command += " world_name:="+str(world_file_path)
 
     # Enable re-spawning of gazebo 
-    cli_args += ["respawn_gazebo:="+str(respawn_gazebo)]
+    term_command += " respawn_gazebo:="+str(respawn_gazebo)
 
     # Set gazebo_ros publish rate
-    cli_args += ["pub_clock_frequency:="+str(pub_clock_frequency)]
+    term_command += " pub_clock_frequency:="+str(pub_clock_frequency)
 
     # Set if gazebo server is required
-    cli_args += ["server_required:="+str(server_required)]
+    term_command += " server_required:="+str(server_required)
 
     # Set if gui is required
-    cli_args += ["gui_required:="+str(gui_required)]
+    term_command += " gui_required:="+str(gui_required)
 
-    print(cli_args)
+    print(term_command)
         
     # Execute command
-    roslaunch_args = cli_args[1:]
-    roslaunch_file = [(roslaunch.rlutil.resolve_launch_arguments(cli_args)[0], roslaunch_args)]
+    subprocess.Popen("xterm -e ' " + term_command + "'", shell=True)
+    time.sleep(5.0)
 
-    uuid = roslaunch.rlutil.get_or_generate_uuid(None, False)
-    roslaunch.configure_logging(uuid)
-    parent = roslaunch.parent.ROSLaunchParent(uuid, roslaunch_file)
-
-    parent.start()
     rospy.wait_for_service('/gazebo/pause_physics')
 
     return True
@@ -145,11 +138,11 @@ def Close_Gazebo() -> bool:
     """
 
     term_command = "rosnode kill /gazebo /gazebo_gui"
-    subprocess.Popen(term_command, shell=True).wait()
+    subprocess.Popen("xterm -e ' " + term_command + "'", shell=True).wait()
     time.sleep(0.5)
 
     term_command = "killall -9 gzserver gzclient"
-    subprocess.Popen(term_command, shell=True).wait()
+    subprocess.Popen("xterm -e ' " + term_command + "'", shell=True).wait()
 
     return True
 
@@ -1084,4 +1077,3 @@ def Gazebo_set_model_state(model_name, ref_frame="world", pos_x=0.0, pos_y=0.0, 
     except ServiceException:
         print("Error processing the request")
         return False
-
