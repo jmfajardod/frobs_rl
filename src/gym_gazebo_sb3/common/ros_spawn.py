@@ -9,7 +9,7 @@ from gym_gazebo_sb3.common import ros_params
 from gym_gazebo_sb3.common import ros_urdf
 from gym_gazebo_sb3.common import ros_launch
 
-def Init_robot_state_pub(namespace="/", max_pub_freq=None) -> bool:
+def Init_robot_state_pub(namespace="/", max_pub_freq=None, launch_new_term=False) -> bool:
     """
     Funtion to initialize the robot state publisher.
 
@@ -18,6 +18,9 @@ def Init_robot_state_pub(namespace="/", max_pub_freq=None) -> bool:
 
     @param max_pub_freq: Maximum frequency of the publisher.
     @type max_pub_freq: float
+
+    @param launch_new_term: Launch the process in a new terminal (Xterm).
+    @type launch_new_term: bool
 
     @return: Return true if the publisher was initialized.
     """
@@ -28,7 +31,7 @@ def Init_robot_state_pub(namespace="/", max_pub_freq=None) -> bool:
         else:
             max_pub_freq = rospy.set_param("/rob_st_pub/publish_frequency", max_pub_freq)
             
-    return ros_node.ROS_Node_from_pkg("robot_state_publisher", "robot_state_publisher", name="rob_st_pub", ns=namespace)
+    return ros_node.ROS_Node_from_pkg("robot_state_publisher", "robot_state_publisher", launch_new_term=launch_new_term, name="rob_st_pub", ns=namespace)
 
 
 def Spawn_model_in_gazebo(  pkg_name, model_urdf_file, 

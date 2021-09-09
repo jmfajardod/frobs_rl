@@ -4,10 +4,9 @@ import rospy
 import rospkg
 import os
 import subprocess
-import roslaunch
 import time
 
-def ROS_Launch_from_pkg(pkg_name, launch_file, args=None) -> bool:
+def ROS_Launch_from_pkg(pkg_name, launch_file, args=None, launch_new_term=True) -> bool:
     """
     Function to execute a roslaunch from package with args.
     @param pkg_name: Name of the package where the launch file is located.
@@ -18,6 +17,9 @@ def ROS_Launch_from_pkg(pkg_name, launch_file, args=None) -> bool:
     
     @param args: Args to pass to the launch file.
     @type args: list of str
+
+    @param launch_new_term: Launch the process in a new terminal (Xterm).
+    @type launch_new_term: bool
 
     @return: True if the launch file was executed.
     """
@@ -41,12 +43,15 @@ def ROS_Launch_from_pkg(pkg_name, launch_file, args=None) -> bool:
         for arg in args:
             term_command += " " + arg
 
-    subprocess.Popen("xterm -e ' " + term_command + "'", shell=True)
+    if launch_new_term:
+        term_command = "xterm -e ' " + term_command + "'"
+    
+    subprocess.Popen(term_command, shell=True)
     time.sleep(5.0)
 
     return True
 
-def ROS_Launch_from_path(launch_file_path, args=None) -> bool:
+def ROS_Launch_from_path(launch_file_path, args=None, launch_new_term=True) -> bool:
     """
     Function to execute a roslaunch from a path with args.
     @param launch_file_path: Path of the launch file.
@@ -54,6 +59,9 @@ def ROS_Launch_from_path(launch_file_path, args=None) -> bool:
 
     @param args: Args to pass to the launch file.
     @type args: list str
+
+    @param launch_new_term: Launch the process in a new terminal (Xterm).
+    @type launch_new_term: bool
 
     @return: True if the launch file was executed.
     """
@@ -68,7 +76,10 @@ def ROS_Launch_from_path(launch_file_path, args=None) -> bool:
         for arg in args:
             term_command += " " + arg
 
-    subprocess.Popen("xterm -e ' " + term_command + "'", shell=True)
+    if launch_new_term:
+        term_command = "xterm -e ' " + term_command + "'"
+    
+    subprocess.Popen(term_command, shell=True)
     time.sleep(5.0)
 
     return True
