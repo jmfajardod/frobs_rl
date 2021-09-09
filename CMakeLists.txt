@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.0.2)
-project(gym_gazebo_sb3)
+project(m2rl)
 
 ## Compile as C++11, supported in ROS Kinetic and newer
 # add_compile_options(-std=c++11)
@@ -108,7 +108,7 @@ catkin_python_setup()
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
 #  INCLUDE_DIRS include
-#  LIBRARIES gym_gazebo_sb3
+#  LIBRARIES m2rl
 #  CATKIN_DEPENDS gazebo_msgs gazebo_ros ros_controllers rospy sensor_msgs std_msgs geometry_msgs controller_manager_msgs
 #  DEPENDS system_lib
 )
@@ -126,7 +126,7 @@ include_directories(
 
 ## Declare a C++ library
 # add_library(${PROJECT_NAME}
-#   src/${PROJECT_NAME}/gym_gazebo_sb3.cpp
+#   src/${PROJECT_NAME}/m2rl.cpp
 # )
 
 ## Add cmake target dependencies of the library
@@ -137,7 +137,7 @@ include_directories(
 ## Declare a C++ executable
 ## With catkin_make all packages are built within a single CMake context
 ## The recommended prefix ensures that target names across packages don't collide
-# add_executable(${PROJECT_NAME}_node src/gym_gazebo_sb3_node.cpp)
+# add_executable(${PROJECT_NAME}_node src/m2rl_node.cpp)
 
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
@@ -201,7 +201,7 @@ include_directories(
 #############
 
 ## Add gtest based cpp test target and link libraries
-# catkin_add_gtest(${PROJECT_NAME}-test test/test_gym_gazebo_sb3.cpp)
+# catkin_add_gtest(${PROJECT_NAME}-test test/test_m2rl.cpp)
 # if(TARGET ${PROJECT_NAME}-test)
 #   target_link_libraries(${PROJECT_NAME}-test ${PROJECT_NAME})
 # endif()

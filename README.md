@@ -1,1 +1,1 @@
-# gym_gazebo_sb3
+# M2RL: Multipurpose Robotics Reinforcement Learning Library

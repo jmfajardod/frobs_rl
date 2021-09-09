@@ -3,14 +3,14 @@
 import gym
 from gym import spaces
 from gym.envs.registration import register
-from gym_gazebo_sb3.common import ros_gazebo
-from gym_gazebo_sb3.common import ros_controllers
-from gym_gazebo_sb3.common import ros_node
-from gym_gazebo_sb3.common import ros_launch
-from gym_gazebo_sb3.common import ros_params
-from gym_gazebo_sb3.common import ros_urdf
-from gym_gazebo_sb3.common import ros_spawn
-from gym_gazebo_sb3.envs import robot_BasicEnv
+from m2rl.common import ros_gazebo
+from m2rl.common import ros_controllers
+from m2rl.common import ros_node
+from m2rl.common import ros_launch
+from m2rl.common import ros_params
+from m2rl.common import ros_urdf
+from m2rl.common import ros_spawn
+from m2rl.envs import robot_BasicEnv
 import rospy
 
 """
@@ -19,7 +19,7 @@ robot environment.
 """
 register(
         id='CustomRobotEnv-v0',
-        entry_point='gym_gazebo_sb3.templates.CustomRobotEnv:CustomRobotEnv',
+        entry_point='m2rl.templates.CustomRobotEnv:CustomRobotEnv',
         max_episode_steps=10000,
     )
 

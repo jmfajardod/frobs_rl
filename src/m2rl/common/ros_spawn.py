@@ -2,12 +2,12 @@
 
 import rospy
 import time
-from gym_gazebo_sb3.common import ros_gazebo
-from gym_gazebo_sb3.common import ros_controllers
-from gym_gazebo_sb3.common import ros_node
-from gym_gazebo_sb3.common import ros_params
-from gym_gazebo_sb3.common import ros_urdf
-from gym_gazebo_sb3.common import ros_launch
+from m2rl.common import ros_gazebo
+from m2rl.common import ros_controllers
+from m2rl.common import ros_node
+from m2rl.common import ros_params
+from m2rl.common import ros_urdf
+from m2rl.common import ros_launch
 
 def Init_robot_state_pub(namespace="/", max_pub_freq=None, launch_new_term=False) -> bool:
     """

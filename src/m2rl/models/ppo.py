@@ -7,9 +7,9 @@ import gym
 from gym.envs.registration import register
 import torch as th
 import stable_baselines3
-from gym_gazebo_sb3.common import ros_params
-from gym_gazebo_sb3.models import basic_model
-from gym_gazebo_sb3.models.utils import get_policy_kwargs, get_action_noise
+from m2rl.common import ros_params
+from m2rl.models import basic_model
+from m2rl.models.utils import get_policy_kwargs, get_action_noise
 
 # ROS packages required
 import rospy
@@ -31,7 +31,7 @@ from stable_baselines3.common.callbacks import BaseCallback
 
 class PPO(basic_model.BasicModel):
 
-    def __init__(self, env, save_model_path, log_path, config_file_pkg="gym_gazebo_sb3", config_filename="ppo_config.yaml", ns="/") -> None:
+    def __init__(self, env, save_model_path, log_path, config_file_pkg="m2rl", config_filename="ppo_config.yaml", ns="/") -> None:
         """
         PPO constructor.
 
@@ -39,7 +39,7 @@ class PPO(basic_model.BasicModel):
         @param save_model_path: The path to save the model.
         @param log_path: The path to save the log.
 
-        @param config_file_pkg: The package where the config file is located. Default: gym_gazebo_sb3.
+        @param config_file_pkg: The package where the config file is located. Default: m2rl.
         @param config_filename: The name of the config file. Default: ppo_config.yaml.
         @param ns: The namespace of the ROS parameters. Default: "/".
         

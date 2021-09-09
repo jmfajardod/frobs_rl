@@ -1,19 +1,13 @@
 <?xml version="1.0"?>
 <package format="2">
-  <name>gym_gazebo_sb3</name>
-  <version>0.0.1</version>
-  <description>The gym_gazebo_sb3 package</description>
+  <name>m2rl</name>
+  <version>0.0.2</version>
+  <description>The m2rl package</description>
 
   <author email="jmfajardod@unal.edu.co">Jose Fajardo</author>
   <maintainer email="jmfajardod@unal.edu.co">Jose Fajardo</maintainer>
 
   <license>BSD</license>
-
-
-  <!-- Url tags are optional, but multiple are allowed, one per tag -->
-  <!-- Optional attribute type can be: website, bugtracker, or repository -->
-  <!-- Example: -->
-  <!-- <url type="website">http://wiki.ros.org/gym_gazebo_sb3</url> -->
 
   <buildtool_depend>catkin</buildtool_depend>
 
