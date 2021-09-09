@@ -7,8 +7,8 @@ import gym
 from gym.envs.registration import register
 import torch as th
 import stable_baselines3
-from gym_gazebo_sb3.common import ros_params
-from gym_gazebo_sb3.models.utils import get_policy_kwargs, get_action_noise
+from m2rl.common import ros_params
+from m2rl.models.utils import get_policy_kwargs, get_action_noise
 
 # ROS packages required
 import rospy
