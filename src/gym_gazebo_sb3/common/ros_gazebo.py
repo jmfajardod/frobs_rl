@@ -1,7 +1,6 @@
 #!/bin/python3
 
 import rospy
-import roslaunch
 import rospkg
 import os
 import subprocess
@@ -19,7 +18,7 @@ from geometry_msgs.msg import Pose, Point, Quaternion, Twist
 
 def Launch_Gazebo(  paused=False, use_sim_time=True, gui=True, recording=False, debug=False, verbose=False, output='screen',
                     custom_world_path=None, custom_world_pkg=None, custom_world_name=None, respawn_gazebo=False,
-                    pub_clock_frequency=100, server_required=False, gui_required=False) -> bool:
+                    pub_clock_frequency=100, server_required=False, gui_required=False, launch_new_term=True) -> bool:
     """
     Launch Gazebo using the ROS network.
     
@@ -64,6 +63,9 @@ def Launch_Gazebo(  paused=False, use_sim_time=True, gui=True, recording=False, 
 
     @param gui_required: if True, the launch file will wait until gzclient is running.
     @type gui_required: bool
+
+    @param launch_new_term: Launch the gazebo node in a new terminal (Xterm).
+    @type launch_new_term: bool
 
     """
 
@@ -124,7 +126,10 @@ def Launch_Gazebo(  paused=False, use_sim_time=True, gui=True, recording=False, 
     print(term_command)
         
     # Execute command
-    subprocess.Popen("xterm -e ' " + term_command + "'", shell=True)
+    if launch_new_term:
+        term_command = "xterm -e ' " + term_command + "'"
+    
+    subprocess.Popen(term_command, shell=True)
     time.sleep(5.0)
 
     rospy.wait_for_service('/gazebo/pause_physics')

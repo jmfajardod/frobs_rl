@@ -60,7 +60,7 @@ class CustomTaskEnv(CustomRobotEnv.CustomRobotEnv):
 
     def _set_episode_init_params(self):
         """
-        Function to set some parameters, like the position of the robot, at the begining of each episode.
+        Function to set some parameters, like the position of the robot, at the beginning of each episode.
         """
         raise NotImplementedError()
 
@@ -73,13 +73,13 @@ class CustomTaskEnv(CustomRobotEnv.CustomRobotEnv):
 
     def _get_observation(self):
         """
-        Function to get the observation from the enviroment.
+        Function to get the observation from the environment.
         """
         raise NotImplementedError()
 
     def _get_reward(self):
         """
-        Function to get the reward from the enviroment.
+        Function to get the reward from the environment.
         """
         raise NotImplementedError()
     

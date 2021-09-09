@@ -5,11 +5,10 @@ import rospy
 import rospkg
 import os
 import subprocess
-import roslaunch
 import time
 
 
-def ROS_Node_from_pkg(pkg_name, node_name, launch_master=False, name=None, ns="/", output="log") -> bool:
+def ROS_Node_from_pkg(pkg_name, node_name, launch_master=False, launch_master_term=True, launch_new_term=True, name=None, ns="/", output="log") -> bool:
     """
     Function to launch a ROS node from a package.
 
@@ -21,6 +20,12 @@ def ROS_Node_from_pkg(pkg_name, node_name, launch_master=False, name=None, ns="/
 
     @param launch_master: If ROSMASTER is not running launch it.
     @type launch_master: bool
+
+    @param launch_master_term: If launch ROSMASTER do it in an external terminal.
+    @type launch_master_term: bool
+
+    @param launch_new_term: Launch the process in a new terminal (Xterm).
+    @type launch_new_term: bool
 
     @param name: Name to give the node to be launched.
     @type name: str
@@ -48,7 +53,10 @@ def ROS_Node_from_pkg(pkg_name, node_name, launch_master=False, name=None, ns="/
             rospy.get_master().getPid()
         except:
             print("Master not running")
-            subprocess.Popen("xterm -e 'roscore' ", shell=True)
+            if launch_master_term:
+                subprocess.Popen("xterm -e 'roscore' ", shell=True)
+            else:
+                subprocess.Popen("roscore", shell=True)
             time.sleep(5.0)
         else:
             print("Master is running")
@@ -69,7 +77,10 @@ def ROS_Node_from_pkg(pkg_name, node_name, launch_master=False, name=None, ns="/
     term_command += " __ns:=" + str(ns)
     term_command += " __log:=" + str(output)
 
-    subprocess.Popen("xterm -e ' " + term_command + "'", shell=True)
+    if launch_new_term:
+        term_command = "xterm -e ' " + term_command + "'"
+    
+    subprocess.Popen(term_command, shell=True)
     time.sleep(5.0)
 
     return True

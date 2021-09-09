@@ -35,7 +35,7 @@ class CustomRobotEnv(robot_BasicEnv.RobotBasicEnv):
         rospy.loginfo("Starting Custom Robot Env")
 
         """
-        If launching gazebo with the env then set the corresponding environment variables.
+        If launching Gazebo with the env then set the corresponding environment variables.
         """
         launch_gazebo=False
         gazebo_init_paused=True
@@ -46,7 +46,7 @@ class CustomRobotEnv(robot_BasicEnv.RobotBasicEnv):
         gazebo_timestep=None
         
         """
-        If launching gazebo with a custom world then set the corresponding environment variables.
+        If launching Gazebo with a custom world then set the corresponding environment variables.
         """
         world_path=None
         world_pkg=None
@@ -78,7 +78,7 @@ class CustomRobotEnv(robot_BasicEnv.RobotBasicEnv):
         reset_mode=1
         
         """
-        Set the step mode of Gazebo. 1 is "using ros services", 2 is "using step function of gazebo". Default is 1.
+        Set the step mode of Gazebo. 1 is "using ROS services", 2 is "using step function of Gazebo". Default is 1.
         If using the step mode 2 then set the number of steps of Gazebo to take in each episode. Default is 1.
         """
         step_mode=1
@@ -120,7 +120,7 @@ class CustomRobotEnv(robot_BasicEnv.RobotBasicEnv):
 
     def _check_subs_and_pubs_connection(self):
         """
-        Function to check if the gazebo and ros connections are ready
+        Function to check if the Gazebo and ROS connections are ready
         """
         return True
 
