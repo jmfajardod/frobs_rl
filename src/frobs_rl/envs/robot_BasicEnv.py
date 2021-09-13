@@ -2,13 +2,13 @@
 
 import gym
 from gym import spaces
-from m2rl.common import ros_gazebo
-from m2rl.common import ros_controllers
-from m2rl.common import ros_node
-from m2rl.common import ros_launch
-from m2rl.common import ros_params
-from m2rl.common import ros_urdf
-from m2rl.common import ros_spawn
+from frobs_rl.common import ros_gazebo
+from frobs_rl.common import ros_controllers
+from frobs_rl.common import ros_node
+from frobs_rl.common import ros_launch
+from frobs_rl.common import ros_params
+from frobs_rl.common import ros_urdf
+from frobs_rl.common import ros_spawn
 import rospy
 
 class RobotBasicEnv(gym.Env):

@@ -1,1 +1,1 @@
-# M2RL: Multipurpose Robotics Reinforcement Learning Library
+# FRobs_RL: A Flexible Robotics Reinforcment Learning Library

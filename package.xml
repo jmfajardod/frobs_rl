@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
 <package format="2">
-  <name>m2rl</name>
+  <name>frobs_rl</name>
   <version>0.0.2</version>
-  <description>The m2rl package</description>
+  <description>The FRobs_RL package</description>
 
   <author email="jmfajardod@unal.edu.co">Jose Fajardo</author>
   <maintainer email="jmfajardod@unal.edu.co">Jose Fajardo</maintainer>
