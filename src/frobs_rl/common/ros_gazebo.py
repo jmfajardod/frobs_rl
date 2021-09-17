@@ -542,7 +542,7 @@ def Gazebo_spawn_urdf_path( model_path, model_name="robot1", robot_namespace="/"
         print("Error: Package used in model was not found, source the workspace in all terminals.")
         return False
 
-def Gazebo_spawn_urdf_pkg(  pkg_name, file_name, model_name="robot1", robot_namespace="/", reference_frame="world",
+def Gazebo_spawn_urdf_pkg(  pkg_name, file_name, file_folder="/urdf", model_name="robot1", robot_namespace="/", reference_frame="world",
                             pos_x=0.0, pos_y=0.0, pos_z=0.0, 
                             ori_x=0.0, ori_y=0.0, ori_z=0.0, ori_w=1.0) -> bool:
     """
@@ -553,6 +553,9 @@ def Gazebo_spawn_urdf_pkg(  pkg_name, file_name, model_name="robot1", robot_name
 
     @param file_name: Name of the URDF file to import.
     @type file_name: str
+
+    @param file_folder: Folder where the URDF file is located. Defaults to "/urdf".
+    @type file_folder: str
 
     @param model_name: Name of model to spawn
     @type model_name: str
@@ -594,7 +597,7 @@ def Gazebo_spawn_urdf_pkg(  pkg_name, file_name, model_name="robot1", robot_name
         rospy.logerr("Package NOT FOUND")
         return False
 
-    file_path = pkg_path + "/urdf/" + file_name
+    file_path = pkg_path + file_folder + "/" + file_name
 
     if os.path.exists(file_path) is False:
         print("Error: model path does not exist")
@@ -799,7 +802,7 @@ def Gazebo_spawn_sdf_path( model_path, model_name="robot1", robot_namespace="/",
         print("Error: Package used in model was not found, source the workspace in all terminals.")
         return False
 
-def Gazebo_spawn_sdf_pkg(  pkg_name, file_name, model_name="robot1", robot_namespace="/", reference_frame="world",
+def Gazebo_spawn_sdf_pkg(  pkg_name, file_name, file_folder="/sdf", model_name="robot1", robot_namespace="/", reference_frame="world",
                             pos_x=0.0, pos_y=0.0, pos_z=0.0, 
                             ori_x=0.0, ori_y=0.0, ori_z=0.0, ori_w=1.0) -> bool:
     """
@@ -810,6 +813,9 @@ def Gazebo_spawn_sdf_pkg(  pkg_name, file_name, model_name="robot1", robot_names
 
     @param file_name: Name of the SDF file to import.
     @type file_name: str
+
+    @param file_folder: Folder where the SDF file is located. Default is "/sdf".
+    @type file_folder: str
 
     @param model_name: Name of model to spawn
     @type model_name: str
@@ -851,7 +857,7 @@ def Gazebo_spawn_sdf_pkg(  pkg_name, file_name, model_name="robot1", robot_names
         rospy.logerr("Package NOT FOUND")
         return False
 
-    file_path = pkg_path + "/urdf/" + file_name
+    file_path = pkg_path + file_folder + "/" + file_name
 
     if os.path.exists(file_path) is False:
         print("Error: model path does not exist")

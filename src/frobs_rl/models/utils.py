@@ -10,6 +10,7 @@ import rospy
 
 # Noise
 from stable_baselines3.common.noise import NormalActionNoise, OrnsteinUhlenbeckActionNoise
+from stable_baselines3.common.env_checker import check_env
 
 def get_policy_kwargs(ns="/"):
     """
@@ -88,3 +89,10 @@ def get_action_noise(action_space_shape, ns="/"):
         
 
     return action_noise
+
+def test_env(env):
+    """
+    Use SB3 env checker.
+    """
+    check_env(env)
+    return True
