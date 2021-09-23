@@ -1,6 +1,6 @@
 #!/bin/python3
 
-from rosgraph.names import namespace
+# from rosgraph.names import namespace
 import rospy
 import rospkg
 import os
@@ -79,7 +79,7 @@ def ROS_Node_from_pkg(pkg_name, node_name, launch_master=False, launch_master_te
 
     if launch_new_term:
         term_command = "xterm -e ' " + term_command + "'"
-    
+
     subprocess.Popen(term_command, shell=True)
     time.sleep(5.0)
 
