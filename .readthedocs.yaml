@@ -11,9 +11,6 @@ python:
     #   path: .
   system_packages: True
 
-submodules:
-   include: all
-
 # configs del sphinx
 sphinx:
   fail_on_warning: true
