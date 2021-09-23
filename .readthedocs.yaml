@@ -1,0 +1,15 @@
+version: 1
+
+python:
+  version: "3.8"
+  # Install our python package before building the docs
+  install:
+    - method: pip
+      path: .
+
+# configs del sphinx
+sphinx:
+  fail_on_warning: true
+
+formats:
+  - pdf
