@@ -5,3 +5,4 @@ API
    :toctree: generated
 
    ros_node
+   ros_urdf
