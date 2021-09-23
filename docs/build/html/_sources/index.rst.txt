@@ -1,4 +1,4 @@
-Welcome to Lumache's documentation!
+Welcome to FROBS_RL documentation!
 ===================================
 Lumache has its documentation hosted on Read the Docs.
 
