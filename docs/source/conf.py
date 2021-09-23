@@ -4,7 +4,7 @@
 import sphinx_rtd_theme
 import sys, os
 # sys.path.insert(0, os.path.abspath('.'))
-sys.path.insert(0, os.path.abspath('../'))
+sys.path.insert(0, os.path.abspath('../..'))
 sys.path.insert(0, os.path.abspath('../../src/frobs_rl/common/'))
 
 project = 'FROBS_RL'
@@ -34,6 +34,8 @@ intersphinx_disabled_domains = ['std']
 templates_path = ['_templates']
 
 autosummary_generate = True  # Turn on sphinx.ext.autosummary
+
+master_doc = 'index'
 
 # -- Options for HTML output
 
