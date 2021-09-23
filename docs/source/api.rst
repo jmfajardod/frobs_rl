@@ -8,3 +8,4 @@ API
    ros_launch
    ros_urdf
    ros_params
+   ros_spawn
