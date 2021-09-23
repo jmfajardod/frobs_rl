@@ -38,6 +38,7 @@ templates_path = ['_templates']
 
 autosummary_generate = True  # Turn on sphinx.ext.autosummary
 autodoc_mock_imports = ['rospy','rospkg','xacro','rosparam']
+sys.modules['frobs_rl.common'] = unittest.mock.MagicMock()
 
 master_doc = 'index'
 # The suffix of source filenames.
