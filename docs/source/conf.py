@@ -7,6 +7,8 @@ import sys, os
 sys.path.insert(0, os.path.abspath('../..'))
 sys.path.insert(0, os.path.abspath('../../src/frobs_rl/common/'))
 
+autodoc_mock_imports = ['rospy']
+
 project = 'FROBS_RL'
 copyright = '2021, Fajardo'
 author = 'Fajardo'

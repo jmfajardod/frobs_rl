@@ -1,3 +1,2 @@
 rospkg
 rospy
--e .

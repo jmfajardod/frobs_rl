@@ -7,8 +7,8 @@ python:
     - method: pip
       path: .
     - requirements: requirements.txt
-    - method: setuptools
-      path: .
+    # - method: setuptools
+    #   path: .
   system_packages: True
 
 submodules:
