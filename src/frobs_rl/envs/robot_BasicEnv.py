@@ -17,7 +17,7 @@ class RobotBasicEnv(gym.Env):
                     gazebo_freq=100, world_path=None, world_pkg=None, world_filename=None,
                     gazebo_max_freq=None, gazebo_timestep=None,
                     spawn_robot=False, model_name_in_gazebo="robot", namespace="/robot", pkg_name=None, urdf_file=None, urdf_folder="/urdf",
-                    controller_file=None, controller_list=None, urdf_xacro_args=None, rob_state_publisher_max_freq= None,
+                    controller_file=None, controller_list=None, urdf_xacro_args=None, rob_state_publisher_max_freq= None, rob_st_term=False,
                     model_pos_x=0.0, model_pos_y=0.0, model_pos_z=0.0, 
                     model_ori_x=0.0, model_ori_y=0.0, model_ori_z=0.0, model_ori_w=0.0,
                     reset_controllers=False, reset_mode=1, step_mode=1, num_gazebo_steps=1):
@@ -70,6 +70,8 @@ class RobotBasicEnv(gym.Env):
 
         @param rob_state_publisher_max_freq: The maximum frequency of the ros state publisher.
         @type rob_state_publisher_max_freq: int
+        @param rob_st_term: If True, the robot state publisher is launched in a new terminal.
+        @type rob_st_term: bool
 
         @param model_pos_x: The x position of the robot in the world.
         @parma model_pos_y: The y position of the robot in the world.
@@ -115,7 +117,7 @@ class RobotBasicEnv(gym.Env):
         # If spawn robot, spawn it
         if spawn_robot:
             ros_spawn.Spawn_model_in_gazebo(pkg_name, urdf_file, controller_file, self.controllers_list, model_urdf_folder=urdf_folder,
-                            ns=self.namespace, args_xacro=urdf_xacro_args, max_pub_freq=rob_state_publisher_max_freq, 
+                            ns=self.namespace, args_xacro=urdf_xacro_args, max_pub_freq=rob_state_publisher_max_freq, rob_st_term=rob_st_term,
                             gazebo_name=model_name_in_gazebo, gaz_ref_frame="world", 
                             pos_x=model_pos_x, pos_y=model_pos_y, pos_z=model_pos_z,
                             ori_x=model_ori_x, ori_y=model_ori_y, ori_z=model_ori_z, ori_w=model_ori_w)

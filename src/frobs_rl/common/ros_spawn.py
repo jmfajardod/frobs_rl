@@ -36,7 +36,7 @@ def Init_robot_state_pub(namespace="/", max_pub_freq=None, launch_new_term=False
 
 def Spawn_model_in_gazebo(  pkg_name, model_urdf_file, 
                             controllers_file, controllers_list=[],
-                            model_urdf_folder="/urdf", ns="/", args_xacro=None, max_pub_freq=None, 
+                            model_urdf_folder="/urdf", ns="/", args_xacro=None, max_pub_freq=None, rob_st_term=False,
                             gazebo_name="robot1", gaz_ref_frame="world", 
                             pos_x=0.0, pos_y=0.0, pos_z=0.0, ori_w=0.0, ori_x=0.0, ori_y=0.0, ori_z=0.0):
 
@@ -66,6 +66,9 @@ def Spawn_model_in_gazebo(  pkg_name, model_urdf_file,
 
     @param max_pub_freq: Maximum frequency of the robot state publisher.
     @type max_pub_freq: float
+
+    @param rob_st_term: Launch the robot state publisher in a new terminal (Xterm).
+    @type rob_st_term: bool
 
     @param gazebo_name: Name of the gazebo model.
     @type gazebo_name: str
@@ -103,7 +106,7 @@ def Spawn_model_in_gazebo(  pkg_name, model_urdf_file,
     time.sleep(0.1)
 
     # Initialize the Robot State Publisher
-    if Init_robot_state_pub(namespace=ns, max_pub_freq=max_pub_freq):
+    if Init_robot_state_pub(namespace=ns, max_pub_freq=max_pub_freq, launch_new_term=rob_st_term):
         rospy.loginfo("Robot state publisher initialized")
     else:
         rospy.loginfo("Error while initializing robot state publisher")
