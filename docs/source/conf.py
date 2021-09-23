@@ -37,7 +37,7 @@ intersphinx_disabled_domains = ['std']
 templates_path = ['_templates']
 
 autosummary_generate = True  # Turn on sphinx.ext.autosummary
-autodoc_mock_imports = ['rospy','rospkg']
+autodoc_mock_imports = ['rospy','rospkg','xacro','rosparam']
 
 master_doc = 'index'
 # The suffix of source filenames.
@@ -46,4 +46,5 @@ source_suffix = '.rst'
 # -- Options for HTML output
 
 html_theme = 'sphinx_rtd_theme'
-html_logo = 'https://plantillasdememes.com/img/plantillas/mike-wazowski-con-cara-de-sullivan01578859264.jpg'
+# html_logo = 'https://plantillasdememes.com/img/plantillas/mike-wazowski-con-cara-de-sullivan01578859264.jpg'
+html_logo = "https://c.tenor.com/_HigPGKNH2AAAAAi/alienpls3-alienpls.gif"

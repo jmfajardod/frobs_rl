@@ -5,3 +5,6 @@ API
    :toctree: generated
 
    ros_node
+   ros_launch
+   ros_urdf
+   ros_params
