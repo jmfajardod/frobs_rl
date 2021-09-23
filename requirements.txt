@@ -1,2 +1,2 @@
 rospkg
-rospy
+python-rospy
