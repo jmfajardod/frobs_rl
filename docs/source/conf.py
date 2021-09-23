@@ -7,7 +7,6 @@ import sys, os
 sys.path.insert(0, os.path.abspath('../..'))
 sys.path.insert(0, os.path.abspath('../../src/frobs_rl/common/'))
 
-autodoc_mock_imports = ['rospy']
 
 project = 'FROBS_RL'
 copyright = '2021, Fajardo'
@@ -36,6 +35,7 @@ intersphinx_disabled_domains = ['std']
 templates_path = ['_templates']
 
 autosummary_generate = True  # Turn on sphinx.ext.autosummary
+autodoc_mock_imports = ['rospy']
 
 master_doc = 'index'
 
