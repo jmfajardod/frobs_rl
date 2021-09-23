@@ -3,6 +3,8 @@
 # -- Project information
 import sphinx_rtd_theme
 import sys, os
+import unittest.mock
+
 # sys.path.insert(0, os.path.abspath('.'))
 sys.path.insert(0, os.path.abspath('../..'))
 sys.path.insert(0, os.path.abspath('../../src/frobs_rl/common/'))
@@ -35,9 +37,11 @@ intersphinx_disabled_domains = ['std']
 templates_path = ['_templates']
 
 autosummary_generate = True  # Turn on sphinx.ext.autosummary
-autodoc_mock_imports = ['rospy']
+autodoc_mock_imports = ['rospy','rospkg']
 
 master_doc = 'index'
+# The suffix of source filenames.
+source_suffix = '.rst'
 
 # -- Options for HTML output
 
