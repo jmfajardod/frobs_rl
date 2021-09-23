@@ -6,6 +6,11 @@ python:
   install:
     - method: pip
       path: .
+    - requirements: requirements.txt
+  system_packages: True
+
+submodules:
+   include: all
 
 # configs del sphinx
 sphinx:
