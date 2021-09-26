@@ -7,6 +7,21 @@ that creates recipes mixing random ingredients.
 It pulls data from the `Open Food Facts database <https://world.openfoodfacts.org/>`_
 and offers a *simple* and *intuitive* API.
 
+.. code-block:: console
+
+   (.venv) $ pip install frobs_rl
+
+
+To kill a node you can use the ``ros_node.ROS_Kill_Node()`` function:
+
+.. autofunction:: ros_node.ROS_Kill_Node(node_name)
+
+.. automodule:: robot_BasicEnv
+
+.. autoclass:: RobotBasicEnv
+  :members:
+  :inherited-members:
+
 .. note::
 
    This project is under active development.

@@ -8,6 +8,7 @@ import unittest.mock
 # sys.path.insert(0, os.path.abspath('.'))
 sys.path.insert(0, os.path.abspath('../..'))
 sys.path.insert(0, os.path.abspath('../../src/frobs_rl/common/'))
+sys.path.insert(0, os.path.abspath('../../src/frobs_rl/envs/'))
 
 
 project = 'FROBS_RL'
@@ -39,6 +40,7 @@ templates_path = ['_templates']
 autosummary_generate = True  # Turn on sphinx.ext.autosummary
 autodoc_mock_imports = ['rospy','rospkg','xacro','rosparam']
 sys.modules['frobs_rl.common'] = unittest.mock.MagicMock()
+sys.modules['gym'] = unittest.mock.MagicMock()
 
 master_doc = 'index'
 # The suffix of source filenames.
