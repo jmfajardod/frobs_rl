@@ -1,33 +1,12 @@
 #!/bin/python3
 
 import os
-import numpy as np
-from datetime import datetime
-import gym
-from gym.envs.registration import register
-import torch as th
 import stable_baselines3
 from frobs_rl.common import ros_params
 from frobs_rl.models import basic_model
-from frobs_rl.models.utils import get_policy_kwargs, get_action_noise
 
 # ROS packages required
 import rospy
-import rospkg
-
-# SB3 Callbacks
-from stable_baselines3.common.callbacks import CheckpointCallback
-
-# Noise
-from stable_baselines3.common.noise import NormalActionNoise, OrnsteinUhlenbeckActionNoise
-
-# Logger
-from stable_baselines3.common.monitor import Monitor
-from stable_baselines3.common.logger import configure
-from stable_baselines3.common.logger import TensorBoardOutputFormat
-from stable_baselines3.common.callbacks import BaseCallback
-
-
 
 class DDPG(basic_model.BasicModel):
 

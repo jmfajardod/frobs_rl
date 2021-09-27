@@ -9,7 +9,7 @@ import stable_baselines3
 import rospy
 
 # Noise
-from stable_baselines3.common.noise import NormalActionNoise, OrnsteinUhlenbeckActionNoise
+from stable_baselines3.common.noise import NormalActionNoise #, OrnsteinUhlenbeckActionNoise
 from stable_baselines3.common.env_checker import check_env
 
 def get_policy_kwargs(ns="/"):

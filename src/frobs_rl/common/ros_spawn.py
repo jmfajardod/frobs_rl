@@ -7,7 +7,6 @@ from frobs_rl.common import ros_controllers
 from frobs_rl.common import ros_node
 from frobs_rl.common import ros_params
 from frobs_rl.common import ros_urdf
-from frobs_rl.common import ros_launch
 
 def Init_robot_state_pub(namespace="/", max_pub_freq=None, launch_new_term=False) -> bool:
     """
@@ -27,9 +26,9 @@ def Init_robot_state_pub(namespace="/", max_pub_freq=None, launch_new_term=False
 
     if max_pub_freq is not None:
         if namespace != "/":
-            max_pub_freq = rospy.set_param(namespace + "/rob_st_pub/publish_frequency", max_pub_freq)
+            rospy.set_param(namespace + "/rob_st_pub/publish_frequency", max_pub_freq)
         else:
-            max_pub_freq = rospy.set_param("/rob_st_pub/publish_frequency", max_pub_freq)
+            rospy.set_param("/rob_st_pub/publish_frequency", max_pub_freq)
             
     return ros_node.ROS_Node_from_pkg("robot_state_publisher", "robot_state_publisher", launch_new_term=launch_new_term, name="rob_st_pub", ns=namespace)
 

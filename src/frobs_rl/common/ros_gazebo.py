@@ -71,7 +71,7 @@ def Launch_Gazebo(  paused=False, use_sim_time=True, gui=True, recording=False, 
 
     rospack = rospkg.RosPack()
     try:
-        pkg_path = rospack.get_path('gazebo_ros')
+        rospack.get_path('gazebo_ros')
     except rospkg.common.ResourceNotFound:
         rospy.logerr("The package gazebo_ros was not found")
         return False

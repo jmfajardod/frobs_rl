@@ -2,12 +2,12 @@
 <package format="2">
   <name>frobs_rl</name>
   <version>0.0.2</version>
-  <description>The FRobs_RL package</description>
+  <description>Flexible Robotics Reinforcement learning library.</description>
 
   <author email="jmfajardod@unal.edu.co">Jose Fajardo</author>
   <maintainer email="jmfajardod@unal.edu.co">Jose Fajardo</maintainer>
 
-  <license>BSD</license>
+  <license>MIT</license>
 
   <buildtool_depend>catkin</buildtool_depend>
 

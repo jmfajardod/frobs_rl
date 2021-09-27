@@ -1,13 +1,9 @@
 #!/bin/python3
 
 import gym
-from gym import spaces
 from frobs_rl.common import ros_gazebo
 from frobs_rl.common import ros_controllers
 from frobs_rl.common import ros_node
-from frobs_rl.common import ros_launch
-from frobs_rl.common import ros_params
-from frobs_rl.common import ros_urdf
 from frobs_rl.common import ros_spawn
 import rospy
 
@@ -106,7 +102,7 @@ class RobotBasicEnv(gym.Env):
         if launch_gazebo:
             ros_gazebo.Launch_Gazebo(   paused=gazebo_init_paused, use_sim_time=True, use_gui=gazebo_use_gui,
                                         recording=gazebo_recording, pub_clock_frequency=gazebo_freq,
-                                        custom_world_path=world_path, custom_world_package=world_pkg, custom_world_name=world_filename)
+                                        custom_world_path=world_path, custom_world_pkg=world_pkg, custom_world_name=world_filename)
 
         # Set the max frequency and timestep of Gazebo
         if gazebo_max_freq is not None:
