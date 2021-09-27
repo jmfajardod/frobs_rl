@@ -1,6 +1,5 @@
 #!/bin/python3
 
-import gym
 from gym import spaces
 from gym.envs.registration import register
 from frobs_rl.common import ros_gazebo
