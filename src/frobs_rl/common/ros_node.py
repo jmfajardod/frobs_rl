@@ -3,7 +3,6 @@
 from rosgraph.names import namespace
 import rospy
 import rospkg
-import os
 import subprocess
 import time
 

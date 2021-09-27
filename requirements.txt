@@ -1,0 +1,15 @@
+## To install required packages use:
+## python3 -m pip install -r requirements.txt
+
+###### Requirements without Version Specifiers ######
+numpy
+cloudpickle
+pandas
+matplotlib
+stable_baselines3
+psutil
+
+###### Requirements with Version Specifiers ######
+torch>=1.8.1
+gym>=0.17,<0.20
+tensorboard>=2.2.0

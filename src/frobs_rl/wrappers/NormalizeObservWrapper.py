@@ -1,7 +1,6 @@
 
 import numpy as np
 import gym
-from numpy.lib.function_base import select
 
 class NormalizeObservWrapper(gym.Wrapper):
     """

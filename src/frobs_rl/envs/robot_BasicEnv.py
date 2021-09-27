@@ -1,13 +1,9 @@
 #!/bin/python3
 
 import gym
-from gym import spaces
 from frobs_rl.common import ros_gazebo
 from frobs_rl.common import ros_controllers
 from frobs_rl.common import ros_node
-from frobs_rl.common import ros_launch
-from frobs_rl.common import ros_params
-from frobs_rl.common import ros_urdf
 from frobs_rl.common import ros_spawn
 import rospy
 
@@ -16,8 +12,8 @@ class RobotBasicEnv(gym.Env):
     def __init__(   self, launch_gazebo=False, gazebo_init_paused=True, gazebo_use_gui=True, gazebo_recording=False, 
                     gazebo_freq=100, world_path=None, world_pkg=None, world_filename=None,
                     gazebo_max_freq=None, gazebo_timestep=None,
-                    spawn_robot=False, model_name_in_gazebo="robot", namespace="/robot", pkg_name=None, urdf_file=None, 
-                    controller_file=None, controller_list=None, urdf_xacro_args=None, rob_state_publisher_max_freq= None,
+                    spawn_robot=False, model_name_in_gazebo="robot", namespace="/robot", pkg_name=None, urdf_file=None, urdf_folder="/urdf",
+                    controller_file=None, controller_list=None, urdf_xacro_args=None, rob_state_publisher_max_freq= None, rob_st_term=False,
                     model_pos_x=0.0, model_pos_y=0.0, model_pos_z=0.0, 
                     model_ori_x=0.0, model_ori_y=0.0, model_ori_z=0.0, model_ori_w=0.0,
                     reset_controllers=False, reset_mode=1, step_mode=1, num_gazebo_steps=1):
@@ -58,6 +54,8 @@ class RobotBasicEnv(gym.Env):
         @type pkg_name: str
         @param urdf_file: The path to the urdf file of the robot.
         @type urdf_file: str
+        @param urdf_folder: The path to the folder where the urdf files are located. Default is "/urdf".
+        @type urdf_folder: str
         @param urdf_xacro_args: The arguments to be passed to the xacro parser.
         @type urdf_xacro_args: str
 
@@ -68,6 +66,8 @@ class RobotBasicEnv(gym.Env):
 
         @param rob_state_publisher_max_freq: The maximum frequency of the ros state publisher.
         @type rob_state_publisher_max_freq: int
+        @param rob_st_term: If True, the robot state publisher is launched in a new terminal.
+        @type rob_st_term: bool
 
         @param model_pos_x: The x position of the robot in the world.
         @parma model_pos_y: The y position of the robot in the world.
@@ -102,7 +102,7 @@ class RobotBasicEnv(gym.Env):
         if launch_gazebo:
             ros_gazebo.Launch_Gazebo(   paused=gazebo_init_paused, use_sim_time=True, use_gui=gazebo_use_gui,
                                         recording=gazebo_recording, pub_clock_frequency=gazebo_freq,
-                                        custom_world_path=world_path, custom_world_package=world_pkg, custom_world_name=world_filename)
+                                        custom_world_path=world_path, custom_world_pkg=world_pkg, custom_world_name=world_filename)
 
         # Set the max frequency and timestep of Gazebo
         if gazebo_max_freq is not None:
@@ -112,8 +112,8 @@ class RobotBasicEnv(gym.Env):
 
         # If spawn robot, spawn it
         if spawn_robot:
-            ros_spawn.Spawn_model_in_gazebo(pkg_name, urdf_file, controller_file, self.controllers_list,
-                            ns=self.namespace, args_xacro=urdf_xacro_args, max_pub_freq=rob_state_publisher_max_freq, 
+            ros_spawn.Spawn_model_in_gazebo(pkg_name, urdf_file, controller_file, self.controllers_list, model_urdf_folder=urdf_folder,
+                            ns=self.namespace, args_xacro=urdf_xacro_args, max_pub_freq=rob_state_publisher_max_freq, rob_st_term=rob_st_term,
                             gazebo_name=model_name_in_gazebo, gaz_ref_frame="world", 
                             pos_x=model_pos_x, pos_y=model_pos_y, pos_z=model_pos_z,
                             ori_x=model_ori_x, ori_y=model_ori_y, ori_z=model_ori_z, ori_w=model_ori_w)
