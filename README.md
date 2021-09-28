@@ -54,11 +54,12 @@ catkin build
 source devel/setup.bash
 ```
 
-## Python dependencies
+## Dependencies
 
-Finally, as the library is based in the [OpenAI Gym](https://github.com/openai/gym) and [stable-baselines3](https://github.com/DLR-RM/stable-baselines3) libraries, it is need to install these libraries along with PyTorch and TensorBoard. To go to the `frobs_rl` package and install these dependencies execute the following commands:
+Finally, as the library is based in the [OpenAI Gym](https://github.com/openai/gym), [stable-baselines3](https://github.com/DLR-RM/stable-baselines3) and `XTerm` libraries, it is need to install these libraries along with PyTorch and TensorBoard. To go to the `frobs_rl` package and install these dependencies execute the following commands:
 
 ```sh
+sudo apt install xterm
 roscd frobs_rl # Only works if one has sourced the setup.bash file
 python3 -m pip install -r requirements.txt
 ```
