@@ -3,6 +3,7 @@
 
 ###### Requirements without Version Specifiers ######
 numpy
+scipy
 cloudpickle
 pandas
 matplotlib

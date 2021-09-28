@@ -39,6 +39,23 @@ sudo apt-get update
 sudo apt-get install python3-catkin-tools
 ```
 
+## Dependencies
+
+As the library is based in the [OpenAI Gym](https://github.com/openai/gym), [stable-baselines3](https://github.com/DLR-RM/stable-baselines3) and `XTerm` libraries, it is need to install these libraries along with PyTorch and TensorBoard. To go to the `frobs_rl` package and install these dependencies execute the following commands:
+
+```sh
+sudo apt install xterm
+roscd frobs_rl # Only works if one has sourced the setup.bash file
+python3 -m pip install -r requirements.txt
+```
+
+If using the library with ROS Melodic or previous versions of ROS that use Python2, the following command can be used to install the dependencies:
+
+```sh
+roscd frobs_rl # Only works if one has sourced the setup.bash file
+python2 -m pip install -r requirements.txt
+```
+
 ## Workspace creation and library compilation
 
 To use the library it is necessary to download and compile the library package. To create a new ROS workspace called `rl_ws` and compile the `frobs_rl` package, one can use the following commands:
@@ -52,22 +69,6 @@ rosdep install -y --from-paths src --ignore-src --rosdistro ${ROS_DISTRO}
 catkin config --extend /opt/ros/${ROS_DISTRO}
 catkin build
 source devel/setup.bash
-```
-
-## Python dependencies
-
-Finally, as the library is based in the [OpenAI Gym](https://github.com/openai/gym) and [stable-baselines3](https://github.com/DLR-RM/stable-baselines3) libraries, it is need to install these libraries along with PyTorch and TensorBoard. To go to the `frobs_rl` package and install these dependencies execute the following commands:
-
-```sh
-roscd frobs_rl # Only works if one has sourced the setup.bash file
-python3 -m pip install -r requirements.txt
-```
-
-If using the library with ROS Melodic or previous versions of ROS, the following command can be used to install the dependencies:
-
-```sh
-roscd frobs_rl # Only works if one has sourced the setup.bash file
-python -m pip install -r requirements.txt
 ```
 
 ## Testing the library
