@@ -16,13 +16,15 @@ from stable_baselines3.common.logger import configure
 
 class BasicModel:
 
-    def __init__(self, env, save_model_path, log_path, ns="/") -> None:
+    def __init__(self, env, save_model_path, log_path, ns="/", load_trained=False) -> None:
         """
         BasicModel constructor.
 
         @param env: The environment to be used.
         @param save_model_path: The path to save the model.
         @param log_path: The path to save the log.
+        @param ns: The namespace of the parameters.
+        @param load_trained: Whether or not to load a trained model.
         
         """
 
@@ -33,17 +35,19 @@ class BasicModel:
         self.save_trained_model_path = None
         self.model = None
 
-        #--- Policy kwargs
-        self.policy_kwargs = get_policy_kwargs(ns=ns)
+        if load_trained is False:
 
-        #--- Noise kwargs
-        self.action_noise = get_action_noise(self.env.action_space.shape[-1], ns=ns)
-        
-        #--- Callback
-        save_freq   = rospy.get_param(ns + "/model_params/save_freq")
-        save_prefix = rospy.get_param(ns + "/model_params/save_prefix")
-        self.checkpoint_callback = CheckpointCallback(  save_freq=save_freq, save_path=save_model_path,
-                                                        name_prefix=save_prefix)
+            #--- Policy kwargs
+            self.policy_kwargs = get_policy_kwargs(ns=ns)
+
+            #--- Noise kwargs
+            self.action_noise = get_action_noise(self.env.action_space.shape[-1], ns=ns)
+            
+            #--- Callback
+            save_freq   = rospy.get_param(ns + "/model_params/save_freq")
+            save_prefix = rospy.get_param(ns + "/model_params/save_prefix")
+            self.checkpoint_callback = CheckpointCallback(  save_freq=save_freq, save_path=save_model_path,
+                                                            name_prefix=save_prefix)
 
 
     def train(self) -> bool:
@@ -128,3 +132,26 @@ class BasicModel:
 
         self.env.check_env()
         return True
+
+    def predict(self, observation, state=None, mask=None, deterministic=False):
+        """
+        Get the current action based on the observation, state or mask
+
+        @param observation: The enviroment observation
+        @type observation: ndarray
+
+        @param state: The previous states of the enviroment, used in recurrent policies.
+        @type state: ndarray
+
+        @param mask: The mask of the last states, used in recurrent policies.
+        @type mask: ndarray
+
+        @param deterministic: Whether or not to return deterministic actions.
+        @type deterministic: bool
+
+        @ return: The action to be taken and the next state(for recurrent policies)
+        @rtype: ndarray, ndarray
+        """
+
+        return self.model.predict(observation, state=state, mask=mask, deterministic=deterministic)
+    

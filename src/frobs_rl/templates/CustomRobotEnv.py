@@ -2,15 +2,17 @@
 
 from gym import spaces
 from gym.envs.registration import register
-from frobs_rl.common import ros_gazebo
-from frobs_rl.common import ros_controllers
-from frobs_rl.common import ros_node
-from frobs_rl.common import ros_launch
-from frobs_rl.common import ros_params
-from frobs_rl.common import ros_urdf
-from frobs_rl.common import ros_spawn
 from frobs_rl.envs import robot_BasicEnv
 import rospy
+
+#- Uncomment the library modules as neeeed
+# from frobs_rl.common import ros_gazebo
+# from frobs_rl.common import ros_controllers
+# from frobs_rl.common import ros_node
+# from frobs_rl.common import ros_launch
+# from frobs_rl.common import ros_params
+# from frobs_rl.common import ros_urdf
+# from frobs_rl.common import ros_spawn
 
 """
 Although it is best to register only the task environment, one can also register the
@@ -106,9 +108,9 @@ class CustomRobotEnv(robot_BasicEnv.RobotBasicEnv):
         """
         If using the __check_subs_and_pubs_connection method, then un-comment the lines below.
         """
-        # ros_gazebo.Gazebo_unpause_physics()
+        # ros_gazebo.gazebo_unpause_physics()
         # self._check_subs_and_pubs_connection()
-        # ros_gazebo.Gazebo_pause_physics()
+        # ros_gazebo.gazebo_pause_physics()
 
         """
         Finished __init__ method

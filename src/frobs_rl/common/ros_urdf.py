@@ -5,7 +5,7 @@ import rospkg
 import os
 import xacro
 
-def URDF_load_from_pkg(pkg_name, model_name, param_name, folder="/urdf", ns=None, args_xacro=None) -> bool:
+def urdf_load_from_pkg(pkg_name, model_name, param_name, folder="/urdf", ns=None, args_xacro=None) -> bool:
     """
     Function to load a URDF from a ROS package to the parameter server.
 
@@ -61,7 +61,7 @@ def URDF_load_from_pkg(pkg_name, model_name, param_name, folder="/urdf", ns=None
     rospy.set_param(final_param_name, model_string)
     return True
 
-def URDF_load_from_path(model_path, param_name, ns=None, args_xacro=None) -> bool:
+def urdf_load_from_path(model_path, param_name, ns=None, args_xacro=None) -> bool:
     """
     Function to load a URDF from a file to the parameter server.
 
@@ -101,7 +101,7 @@ def URDF_load_from_path(model_path, param_name, ns=None, args_xacro=None) -> boo
     rospy.set_param(final_param_name, model_string)
     return True
 
-def URDF_parse_from_pkg(pkg_name, model_name, folder="/urdf", args_xacro=None) -> str:
+def urdf_parse_from_pkg(pkg_name, model_name, folder="/urdf", args_xacro=None) -> str:
     """
     Function to parse a URDF from a ROS package and return the URDF string.
 
@@ -144,7 +144,7 @@ def URDF_parse_from_pkg(pkg_name, model_name, folder="/urdf", args_xacro=None) -
 
     return model_string
 
-def URDF_parse_from_path(model_path, args_xacro=None) -> bool:
+def urdf_parse_from_path(model_path, args_xacro=None) -> bool:
     """
     Function to parse a URDF from a file and return the URDF string.
 

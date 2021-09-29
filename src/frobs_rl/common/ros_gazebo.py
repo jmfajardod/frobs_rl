@@ -16,7 +16,7 @@ from std_msgs.msg import Header
 from geometry_msgs.msg import Pose, Point, Quaternion, Twist
 
 
-def Launch_Gazebo(  paused=False, use_sim_time=True, gui=True, recording=False, debug=False, verbose=False, output='screen',
+def launch_Gazebo(  paused=False, use_sim_time=True, gui=True, recording=False, debug=False, verbose=False, output='screen',
                     custom_world_path=None, custom_world_pkg=None, custom_world_name=None, respawn_gazebo=False,
                     pub_clock_frequency=100, server_required=False, gui_required=False, launch_new_term=True) -> bool:
     """
@@ -137,7 +137,7 @@ def Launch_Gazebo(  paused=False, use_sim_time=True, gui=True, recording=False, 
     return True
 
 
-def Close_Gazebo() -> bool:
+def close_Gazebo() -> bool:
     """
     Function to close gazebo if its running.
     """
@@ -151,7 +151,7 @@ def Close_Gazebo() -> bool:
 
     return True
 
-def Gazebo_set_max_update_rate(max_update_rate) -> bool:
+def gazebo_set_max_update_rate(max_update_rate) -> bool:
     """
     Function to set the max update rate for gazebo in real time factor: 1 is real time, 10 is 10 times real time.
 
@@ -177,7 +177,7 @@ def Gazebo_set_max_update_rate(max_update_rate) -> bool:
 
     return result_gaz_upd.success
 
-def Gazebo_get_max_update_rate() -> float:
+def gazebo_get_max_update_rate() -> float:
     """
     Function to get the current max update rate.
 
@@ -191,7 +191,7 @@ def Gazebo_get_max_update_rate() -> float:
 
     return physics.max_update_rate
 
-def Gazebo_set_time_step(new_time_step) -> bool:
+def gazebo_set_time_step(new_time_step) -> bool:
     """
     Function to set the time step for gazebo.
 
@@ -219,7 +219,7 @@ def Gazebo_set_time_step(new_time_step) -> bool:
 
     return result_gaz_upd.success
 
-def Gazebo_get_time_step() -> float:
+def gazebo_get_time_step() -> float:
     """
     Function to get the current time step for gazebo.
 
@@ -233,7 +233,7 @@ def Gazebo_get_time_step() -> float:
 
     return physics.time_step
 
-def Gazebo_set_gravity(x, y, z) -> bool:
+def gazebo_set_gravity(x, y, z) -> bool:
     """
     Function to set the gravity for gazebo.
 
@@ -270,7 +270,7 @@ def Gazebo_set_gravity(x, y, z) -> bool:
 
     return result_gaz_upd.success
 
-def Gazebo_get_gravity() -> Vector3:
+def gazebo_get_gravity() -> Vector3:
     """
     Function to get the current gravity vector for gazebo.
 
@@ -284,7 +284,7 @@ def Gazebo_get_gravity() -> Vector3:
 
     return physics.gravity
 
-def Gazebo_set_ODE_physics( auto_disable_bodies, sor_pgs_precon_iters, sor_pgs_iters, sor_pgs_w, sor_pgs_rms_error_tol,
+def gazebo_set_ODE_physics( auto_disable_bodies, sor_pgs_precon_iters, sor_pgs_iters, sor_pgs_w, sor_pgs_rms_error_tol,
                             contact_surface_layer, contact_max_correcting_vel, cfm, erp, max_contacts) -> bool:
     """
     Function to set the ODE physics for gazebo.
@@ -320,7 +320,7 @@ def Gazebo_set_ODE_physics( auto_disable_bodies, sor_pgs_precon_iters, sor_pgs_i
 
     return result_gaz_upd.success
 
-def Gazebo_get_ODE_physics() -> ODEPhysics:
+def gazebo_get_ODE_physics() -> ODEPhysics:
     """
     Function to get the current ODE physics for gazebo.
 
@@ -334,7 +334,7 @@ def Gazebo_get_ODE_physics() -> ODEPhysics:
 
     return physics.ode_config
 
-def Gazebo_set_default_properties() -> bool:
+def gazebo_set_default_properties() -> bool:
     """
     Function to set the default gazebo properties.
 
@@ -343,13 +343,13 @@ def Gazebo_set_default_properties() -> bool:
 
     counter_sucess = 0
 
-    if Gazebo_set_time_step(0.001):
+    if gazebo_set_time_step(0.001):
         counter_sucess += 1
-    if Gazebo_set_max_update_rate(1.0):
+    if gazebo_set_max_update_rate(1.0):
         counter_sucess += 1
-    if Gazebo_set_gravity(0.0, 0.0, -9.81):
+    if gazebo_set_gravity(0.0, 0.0, -9.81):
         counter_sucess += 1
-    if Gazebo_set_ODE_physics(False, 0, 50, 1.3, 0.0, 0.001, 0.0, 0.0, 0.2, 20):
+    if gazebo_set_ODE_physics(False, 0, 50, 1.3, 0.0, 0.001, 0.0, 0.0, 0.2, 20):
         counter_sucess += 1
 
     if counter_sucess == 4:
@@ -357,7 +357,7 @@ def Gazebo_set_default_properties() -> bool:
     else:
         return False
 
-def Gazebo_reset_sim(retries=5) -> bool:
+def gazebo_reset_sim(retries=5) -> bool:
     """
     Function to reset the simulation, which reset models to original poses AND reset the simulation time.
 
@@ -379,7 +379,7 @@ def Gazebo_reset_sim(retries=5) -> bool:
         
     return False
 
-def Gazebo_reset_world(retries=5) -> bool:
+def gazebo_reset_world(retries=5) -> bool:
     """
     Function to reset the world, which reset models to original poses WITHOUT resetting the simulation time.
 
@@ -401,7 +401,7 @@ def Gazebo_reset_world(retries=5) -> bool:
         
     return False
 
-def Gazebo_pause_physics(retries=5) -> bool:
+def gazebo_pause_physics(retries=5) -> bool:
     """
     Function to pause the physics in the simulation.
 
@@ -423,7 +423,7 @@ def Gazebo_pause_physics(retries=5) -> bool:
         
     return False
 
-def Gazebo_unpause_physics(retries=5) -> bool:
+def gazebo_unpause_physics(retries=5) -> bool:
     """
     Function to unpause the physics in the simulation.
 
@@ -445,7 +445,7 @@ def Gazebo_unpause_physics(retries=5) -> bool:
         
     return False
 
-def Gazebo_step_physics(steps=1) -> bool:
+def gazebo_step_physics(steps=1) -> bool:
     """
     Function to step the physics in the simulation.
 
@@ -460,7 +460,7 @@ def Gazebo_step_physics(steps=1) -> bool:
     subprocess.Popen(term_command, shell=True).wait()
     return True
 
-def Gazebo_delete_model(model_name) -> bool:
+def gazebo_delete_model(model_name) -> bool:
     """
     Function to delete a model from the simulation.
 
@@ -479,7 +479,7 @@ def Gazebo_delete_model(model_name) -> bool:
 
     return result.success
 
-def Gazebo_spawn_urdf_path( model_path, model_name="robot1", robot_namespace="/", reference_frame="world",
+def gazebo_spawn_urdf_path( model_path, model_name="robot1", robot_namespace="/", reference_frame="world",
                             pos_x=0.0, pos_y=0.0, pos_z=0.0, 
                             ori_x=0.0, ori_y=0.0, ori_z=0.0, ori_w=1.0) -> bool:
     """
@@ -542,7 +542,7 @@ def Gazebo_spawn_urdf_path( model_path, model_name="robot1", robot_namespace="/"
         print("Error: Package used in model was not found, source the workspace in all terminals.")
         return False
 
-def Gazebo_spawn_urdf_pkg(  pkg_name, file_name, file_folder="/urdf", model_name="robot1", robot_namespace="/", reference_frame="world",
+def gazebo_spawn_urdf_pkg(  pkg_name, file_name, file_folder="/urdf", model_name="robot1", robot_namespace="/", reference_frame="world",
                             pos_x=0.0, pos_y=0.0, pos_z=0.0, 
                             ori_x=0.0, ori_y=0.0, ori_z=0.0, ori_w=1.0) -> bool:
     """
@@ -621,7 +621,7 @@ def Gazebo_spawn_urdf_pkg(  pkg_name, file_name, file_folder="/urdf", model_name
         print("Error: Package used in model was not found, source the workspace in all terminals.")
         return False
 
-def Gazebo_spawn_urdf_string(   model_string, model_name="robot1", robot_namespace="/", reference_frame="world",
+def gazebo_spawn_urdf_string(   model_string, model_name="robot1", robot_namespace="/", reference_frame="world",
                                 pos_x=0.0, pos_y=0.0, pos_z=0.0, 
                                 ori_x=0.0, ori_y=0.0, ori_z=0.0, ori_w=1.0) -> bool:
     """
@@ -676,7 +676,7 @@ def Gazebo_spawn_urdf_string(   model_string, model_name="robot1", robot_namespa
         print("Error: Package used in model was not found, source the workspace in all terminals.")
         return False
 
-def Gazebo_spawn_urdf_param(    param_name, model_name="robot1", robot_namespace="/", reference_frame="world",
+def gazebo_spawn_urdf_param(    param_name, model_name="robot1", robot_namespace="/", reference_frame="world",
                                 pos_x=0.0, pos_y=0.0, pos_z=0.0, 
                                 ori_x=0.0, ori_y=0.0, ori_z=0.0, ori_w=1.0) -> bool:
     """
@@ -739,7 +739,7 @@ def Gazebo_spawn_urdf_param(    param_name, model_name="robot1", robot_namespace
         print("Error: Package used in model was not found, source the workspace in all terminals.")
         return False
 
-def Gazebo_spawn_sdf_path( model_path, model_name="robot1", robot_namespace="/", reference_frame="world",
+def gazebo_spawn_sdf_path( model_path, model_name="robot1", robot_namespace="/", reference_frame="world",
                             pos_x=0.0, pos_y=0.0, pos_z=0.0, 
                             ori_x=0.0, ori_y=0.0, ori_z=0.0, ori_w=1.0) -> bool:
     """
@@ -802,7 +802,7 @@ def Gazebo_spawn_sdf_path( model_path, model_name="robot1", robot_namespace="/",
         print("Error: Package used in model was not found, source the workspace in all terminals.")
         return False
 
-def Gazebo_spawn_sdf_pkg(  pkg_name, file_name, file_folder="/sdf", model_name="robot1", robot_namespace="/", reference_frame="world",
+def gazebo_spawn_sdf_pkg(  pkg_name, file_name, file_folder="/sdf", model_name="robot1", robot_namespace="/", reference_frame="world",
                             pos_x=0.0, pos_y=0.0, pos_z=0.0, 
                             ori_x=0.0, ori_y=0.0, ori_z=0.0, ori_w=1.0) -> bool:
     """
@@ -881,7 +881,7 @@ def Gazebo_spawn_sdf_pkg(  pkg_name, file_name, file_folder="/sdf", model_name="
         print("Error: Package used in model was not found, source the workspace in all terminals.")
         return False
 
-def Gazebo_spawn_sdf_string(   model_string, model_name="robot1", robot_namespace="/", reference_frame="world",
+def gazebo_spawn_sdf_string(   model_string, model_name="robot1", robot_namespace="/", reference_frame="world",
                                 pos_x=0.0, pos_y=0.0, pos_z=0.0, 
                                 ori_x=0.0, ori_y=0.0, ori_z=0.0, ori_w=1.0) -> bool:
     """
@@ -936,7 +936,7 @@ def Gazebo_spawn_sdf_string(   model_string, model_name="robot1", robot_namespac
         print("Error: Package used in model was not found, source the workspace in all terminals.")
         return False
 
-def Gazebo_spawn_sdf_param(    param_name, model_name="robot1", robot_namespace="/", reference_frame="world",
+def gazebo_spawn_sdf_param(    param_name, model_name="robot1", robot_namespace="/", reference_frame="world",
                                 pos_x=0.0, pos_y=0.0, pos_z=0.0, 
                                 ori_x=0.0, ori_y=0.0, ori_z=0.0, ori_w=1.0) -> bool:
     """
@@ -999,7 +999,7 @@ def Gazebo_spawn_sdf_param(    param_name, model_name="robot1", robot_namespace=
         print("Error: Package used in model was not found, source the workspace in all terminals.")
         return False
 
-def Gazebo_get_model_state(model_name, relative_entity_name="world"):
+def gazebo_get_model_state(model_name, relative_entity_name="world"):
     """
     Function to get the state of a model.
 
@@ -1024,7 +1024,7 @@ def Gazebo_get_model_state(model_name, relative_entity_name="world"):
         print("Error processing the request")
         return Header(), Pose(), Twist(), False
 
-def Gazebo_set_model_state(model_name, ref_frame="world", pos_x=0.0, pos_y=0.0, pos_z=0.0, ori_x=0.0, ori_y=0.0, ori_z=0.0, ori_w=0.0,
+def gazebo_set_model_state(model_name, ref_frame="world", pos_x=0.0, pos_y=0.0, pos_z=0.0, ori_x=0.0, ori_y=0.0, ori_z=0.0, ori_w=0.0,
                             lin_vel_x=0.0, lin_vel_y=0.0, lin_vel_z=0.0, ang_vel_x=0.0, ang_vel_y=0.0, ang_vel_z=0.0, sleep_time=0.05) -> bool:
     """
     Function to set the model name in gazebo.

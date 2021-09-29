@@ -1,7 +1,6 @@
 #!/bin/python3
 
 import numpy as np
-from gym.envs.registration import register
 import torch as th
 import stable_baselines3
 
