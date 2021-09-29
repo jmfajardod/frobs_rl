@@ -8,7 +8,7 @@ from frobs_rl.common import ros_node
 from frobs_rl.common import ros_params
 from frobs_rl.common import ros_urdf
 
-def Init_robot_state_pub(namespace="/", max_pub_freq=None, launch_new_term=False) -> bool:
+def init_robot_state_pub(namespace="/", max_pub_freq=None, launch_new_term=False) -> bool:
     """
     Funtion to initialize the robot state publisher.
 
@@ -30,10 +30,10 @@ def Init_robot_state_pub(namespace="/", max_pub_freq=None, launch_new_term=False
         else:
             rospy.set_param("/rob_st_pub/publish_frequency", max_pub_freq)
             
-    return ros_node.ROS_Node_from_pkg("robot_state_publisher", "robot_state_publisher", launch_new_term=launch_new_term, name="rob_st_pub", ns=namespace)
+    return ros_node.ros_node_from_pkg("robot_state_publisher", "robot_state_publisher", launch_new_term=launch_new_term, name="rob_st_pub", ns=namespace)
 
 
-def Spawn_model_in_gazebo(  pkg_name, model_urdf_file, 
+def spawn_model_in_gazebo(  pkg_name, model_urdf_file, 
                             controllers_file, controllers_list=[],
                             model_urdf_folder="/urdf", ns="/", args_xacro=None, max_pub_freq=None, rob_st_term=False,
                             gazebo_name="robot1", gaz_ref_frame="world", 
@@ -96,7 +96,7 @@ def Spawn_model_in_gazebo(  pkg_name, model_urdf_file,
     """
 
     # Load the model URDF in the parameter server
-    if ros_urdf.URDF_load_from_pkg(pkg_name, model_urdf_file, "robot_description", folder=model_urdf_folder, ns=ns, args_xacro=args_xacro):
+    if ros_urdf.urdf_load_from_pkg(pkg_name, model_urdf_file, "robot_description", folder=model_urdf_folder, ns=ns, args_xacro=args_xacro):
         rospy.loginfo("URDF file loaded successfully")
     else:
         rospy.loginfo("Error while loading URDF file")
@@ -105,7 +105,7 @@ def Spawn_model_in_gazebo(  pkg_name, model_urdf_file,
     time.sleep(0.1)
 
     # Initialize the Robot State Publisher
-    if Init_robot_state_pub(namespace=ns, max_pub_freq=max_pub_freq, launch_new_term=rob_st_term):
+    if init_robot_state_pub(namespace=ns, max_pub_freq=max_pub_freq, launch_new_term=rob_st_term):
         rospy.loginfo("Robot state publisher initialized")
     else:
         rospy.loginfo("Error while initializing robot state publisher")
@@ -114,7 +114,7 @@ def Spawn_model_in_gazebo(  pkg_name, model_urdf_file,
     time.sleep(0.1)
 
     # Spawn the model in gazebo
-    if ros_gazebo.Gazebo_spawn_urdf_param("robot_description", model_name=gazebo_name, robot_namespace=ns, reference_frame=gaz_ref_frame,
+    if ros_gazebo.gazebo_spawn_urdf_param("robot_description", model_name=gazebo_name, robot_namespace=ns, reference_frame=gaz_ref_frame,
                                         pos_x=pos_x, pos_y=pos_y, pos_z=pos_z, ori_w=ori_w, ori_x=ori_x, ori_y=ori_y, ori_z=ori_z,):
         rospy.loginfo("Model spawned successfully")
     else:
@@ -125,7 +125,7 @@ def Spawn_model_in_gazebo(  pkg_name, model_urdf_file,
 
     if controllers_file is not None:
         # Load the robot controllers from YAML files in the parameter server
-        if ros_params.ROS_Load_YAML_from_pkg(pkg_name, controllers_file, ns=ns):
+        if ros_params.ros_load_yaml_from_pkg(pkg_name, controllers_file, ns=ns):
             rospy.loginfo("Robot controllers loaded successfully")
         else:
             rospy.loginfo("Error while loading robot controllers")
@@ -134,7 +134,7 @@ def Spawn_model_in_gazebo(  pkg_name, model_urdf_file,
         time.sleep(0.1)
 
         # Spawn the controllers
-        if ros_controllers.Spawn_controllers_srv(controllers_list, ns=ns):
+        if ros_controllers.spawn_controllers_srv(controllers_list, ns=ns):
             rospy.loginfo("Controllers spawned successfully")
         else:
             rospy.loginfo("Error while spawning controllers")

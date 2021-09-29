@@ -36,7 +36,7 @@ class TD3(basic_model.BasicModel):
         self.save_trained_model_path = None
 
         # Load YAML Config File
-        ros_params.ROS_Load_YAML_from_pkg(config_file_pkg, config_filename, ns=ns)
+        ros_params.ros_load_yaml_from_pkg(config_file_pkg, config_filename, ns=ns)
 
         #--- Init super class
         super(TD3, self).__init__(env, save_model_path, log_path, load_trained=load_trained)

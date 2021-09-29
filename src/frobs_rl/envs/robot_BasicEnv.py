@@ -100,28 +100,28 @@ class RobotBasicEnv(gym.Env):
 
         # If Launch Gazebo, launch it
         if launch_gazebo:
-            ros_gazebo.Launch_Gazebo(   paused=gazebo_init_paused, use_sim_time=True, gui=gazebo_use_gui,
+            ros_gazebo.launch_Gazebo(   paused=gazebo_init_paused, use_sim_time=True, gui=gazebo_use_gui,
                                         recording=gazebo_recording, pub_clock_frequency=gazebo_freq,
                                         custom_world_path=world_path, custom_world_pkg=world_pkg, custom_world_name=world_filename)
 
         # Set the max frequency and timestep of Gazebo
         if gazebo_max_freq is not None:
-            ros_gazebo.Gazebo_set_max_update_rate(gazebo_max_freq)
+            ros_gazebo.gazebo_set_max_update_rate(gazebo_max_freq)
         if gazebo_timestep is not None:
-            ros_gazebo.Gazebo_set_time_step(gazebo_timestep)
+            ros_gazebo.gazebo_set_time_step(gazebo_timestep)
 
         # If spawn robot, spawn it
         if spawn_robot:
-            ros_spawn.Spawn_model_in_gazebo(pkg_name, urdf_file, controller_file, self.controllers_list, model_urdf_folder=urdf_folder,
+            ros_spawn.spawn_model_in_gazebo(pkg_name, urdf_file, controller_file, self.controllers_list, model_urdf_folder=urdf_folder,
                             ns=self.namespace, args_xacro=urdf_xacro_args, max_pub_freq=rob_state_publisher_max_freq, rob_st_term=rob_st_term,
                             gazebo_name=model_name_in_gazebo, gaz_ref_frame="world", 
                             pos_x=model_pos_x, pos_y=model_pos_y, pos_z=model_pos_z,
                             ori_x=model_ori_x, ori_y=model_ori_y, ori_z=model_ori_z, ori_w=model_ori_w)
 
         if self.reset_controllers:
-            ros_gazebo.Gazebo_unpause_physics()
-            ros_controllers.Reset_controllers_srv(controller_list, ns=self.namespace)
-            ros_gazebo.Gazebo_pause_physics()
+            ros_gazebo.gazebo_unpause_physics()
+            ros_controllers.reset_controllers_srv(controller_list, ns=self.namespace)
+            ros_gazebo.gazebo_pause_physics()
 
         rospy.loginfo("Started RobotBasicEnv")
 
@@ -138,14 +138,14 @@ class RobotBasicEnv(gym.Env):
 
         # If using pause and unpause services
         if self.step_mode == 1:
-            ros_gazebo.Gazebo_unpause_physics()
+            ros_gazebo.gazebo_unpause_physics()
             self._send_action(action)
-            ros_gazebo.Gazebo_pause_physics()
+            ros_gazebo.gazebo_pause_physics()
 
         # If using the gazebo step command
         elif self.step_mode == 2:
             self._send_action(action)
-            ros_gazebo.Gazebo_step_physics(steps=self.num_gazebo_steps)
+            ros_gazebo.gazebo_step_physics(steps=self.num_gazebo_steps)
 
         self.observation = self._get_observation()
         self.reward = self._get_reward()
@@ -159,7 +159,7 @@ class RobotBasicEnv(gym.Env):
         """
         
         rospy.loginfo("Resetting Env")
-        ros_gazebo.Gazebo_pause_physics()
+        ros_gazebo.gazebo_pause_physics()
         self._reset_gazebo()
         self.observation = self._get_observation()
 
@@ -172,10 +172,10 @@ class RobotBasicEnv(gym.Env):
         
         rospy.loginfo("Closing Env")
         rospy.signal_shutdown("Closing RobotGazeboEnvironment")
-        ros_gazebo.Close_Gazebo()
-        ros_node.ROS_Kill_All_Nodes()
-        ros_node.ROS_Kill_Master()
-        ros_node.ROS_Kill_All_processes()
+        ros_gazebo.close_Gazebo()
+        ros_node.ros_kill_all_nodes()
+        ros_node.ros_kill_master()
+        ros_node.ros_kill_all_processes()
 
         print("Closed ROS and Env")
 
@@ -220,21 +220,21 @@ class RobotBasicEnv(gym.Env):
         
         # If resetting world (Does not reset time)
         if self.reset_mode == 1:
-            ros_gazebo.Gazebo_reset_world()
+            ros_gazebo.gazebo_reset_world()
         
         # If resetting simulation (Resets time)
         elif self.reset_mode == 2:
-            ros_gazebo.Gazebo_reset_sim()
+            ros_gazebo.gazebo_reset_sim()
 
         if self.reset_controllers:
-            ros_gazebo.Gazebo_unpause_physics()
-            ros_controllers.Reset_controllers_srv(self.controllers_list, ns=self.namespace)
-            ros_gazebo.Gazebo_pause_physics()
+            ros_gazebo.gazebo_unpause_physics()
+            ros_controllers.reset_controllers_srv(self.controllers_list, ns=self.namespace)
+            ros_gazebo.gazebo_pause_physics()
 
-        ros_gazebo.Gazebo_unpause_physics()
+        ros_gazebo.gazebo_unpause_physics()
         self._check_subs_and_pubs_connection()
         self._set_episode_init_params()
-        ros_gazebo.Gazebo_pause_physics()
+        ros_gazebo.gazebo_pause_physics()
 
     #------------------------------------------#
     #   Custom methods for the RobotBasicEnv   #

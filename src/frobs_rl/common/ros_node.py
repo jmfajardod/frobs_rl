@@ -6,7 +6,7 @@ import subprocess
 import time
 
 
-def ROS_Node_from_pkg(pkg_name, node_name, launch_master=False, launch_master_term=True, launch_new_term=True, name=None, ns="/", output="log") -> bool:
+def ros_node_from_pkg(pkg_name, node_name, launch_master=False, launch_master_term=True, launch_new_term=True, name=None, ns="/", output="log") -> bool:
     """
     Function to launch a ROS node from a package.
 
@@ -83,7 +83,7 @@ def ROS_Node_from_pkg(pkg_name, node_name, launch_master=False, launch_master_te
 
     return True
 
-def ROS_Kill_Node(node_name) -> bool:
+def ros_kill_node(node_name) -> bool:
     """
     Function to kill a ROS node.
 
@@ -97,7 +97,7 @@ def ROS_Kill_Node(node_name) -> bool:
     subprocess.Popen("xterm -e ' " + term_command + "'", shell=True).wait()
     return True
 
-def ROS_Kill_All_Nodes() -> bool:
+def ros_kill_all_nodes() -> bool:
     """
     Function to kill all running ROS nodes.
 
@@ -108,7 +108,7 @@ def ROS_Kill_All_Nodes() -> bool:
     subprocess.Popen("xterm -e ' " + term_command + "'", shell=True).wait()
     return True
 
-def ROS_Kill_Master() -> bool:
+def ros_kill_master() -> bool:
     """
     Function to kill the ROS master.
 
@@ -130,7 +130,7 @@ def ROS_Kill_Master() -> bool:
 
         return True
 
-def ROS_Kill_All_processes() -> bool:
+def ros_kill_all_processes() -> bool:
     """
     Function to kill all running ROS related processes.
 
