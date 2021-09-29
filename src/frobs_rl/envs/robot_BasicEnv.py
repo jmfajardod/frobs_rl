@@ -100,7 +100,7 @@ class RobotBasicEnv(gym.Env):
 
         # If Launch Gazebo, launch it
         if launch_gazebo:
-            ros_gazebo.Launch_Gazebo(   paused=gazebo_init_paused, use_sim_time=True, use_gui=gazebo_use_gui,
+            ros_gazebo.Launch_Gazebo(   paused=gazebo_init_paused, use_sim_time=True, gui=gazebo_use_gui,
                                         recording=gazebo_recording, pub_clock_frequency=gazebo_freq,
                                         custom_world_path=world_path, custom_world_pkg=world_pkg, custom_world_name=world_filename)
 

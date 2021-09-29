@@ -1,0 +1,45 @@
+model_params:
+
+  # Training 
+  training_steps: 5000      # The number of training steps to perform
+
+  # Save params
+  save_freq: 1000
+  save_prefix: a2c_model
+  trained_model_name: trained_model
+  save_replay_buffer: False
+
+  # Load model params
+  load_model: False
+  model_name: a2c_model_5000_steps
+
+  # Logging parameters
+  log_folder: A2C_1
+  log_interval: 4 # The number of episodes between logs
+  reset_num_timesteps: False # If true, will reset the number of timesteps to 0 every training 
+
+  # Use custom policy - Only MlpPolicy is supported (Only used when new model is created)
+  use_custom_policy: False
+  policy_params:
+    net_arch: [400, 300] # List of hidden layer sizes
+    activation_fn: relu  # relu, tanh, elu or selu
+    features_extractor_class: FlattenExtractor # FlattenExtractor, BaseFeaturesExtractor or CombinedExtractor
+    optimizer_class: Adam # Adam, Adadelta, Adagrad, RMSprop or SGD
+
+  # Use SDE
+  use_sde: False
+  sde_params:
+    sde_sample_freq: -1
+
+  # A2C parameters
+  a2c_params:
+    learning_rate: 0.0007
+    n_steps: 5
+    gamma: 0.99
+    gae_lambda: 1.0
+    ent_coef: 0.0
+    vf_coef: 0.5
+    max_grad_norm: 0.5
+    use_rms_prop: True
+    rms_prop_eps: 0.00001
+    normalize_advantage: False

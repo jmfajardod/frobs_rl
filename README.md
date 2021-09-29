@@ -1,10 +1,20 @@
-# FRobs_RL: A Flexible Robotics Reinforcment Learning Library
+# FRobs_RL: A Flexible Robotics Reinforcement Learning Library
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Language grade: Python](https://img.shields.io/lgtm/grade/python/g/jmfajardod/frobs_rl.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/jmfajardod/frobs_rl/context:python)
 [![Documentation Status](https://readthedocs.org/projects/frobs-rl/badge/?version=latest)](https://frobs-rl.readthedocs.io/en/latest/?badge=latest)
 
 ## Description
+
+FRobs_RL is a flexible robotics reinforcement learning (RL) library. It is primarly designed to be used in robotics applications using the [ROS](https://www.ros.org) framework. It is written in Python and uses libraries based on the [PyTorch](https://pytorch.org) framework to handle the machine learning. The library uses [OpenAI Gym](https://gym.openai.com/docs/) to create and handle the RL environments, [stable-baselines3](https://stable-baselines3.readthedocs.io/en/master/) to provide state-of-the-art RL algorithms, [Gazebo](http://gazebosim.org) to simulate the physical environments, and [XTerm](https://invisible-island.net/xterm/) to display and launch many of the ROS nodes and processes in a lightweight terminal.
+
+FRobs_RL has the following goals:
+
+<ol>
+<li>Provide a framework to easily train and deploy RL algorithms in robotics applications using the ROS middleware.</li>
+<li>Provide a framework to easily create RL enviroments for any type of task.</li>
+<li>Provide a framework to easily use, test or create state-of-the-art RL algorithms in robotics applications.</li>
+</ol>
 
 # Installation Instructions
 
@@ -41,20 +51,24 @@ sudo apt-get install python3-catkin-tools
 
 ## Dependencies
 
-As the library is based in the [OpenAI Gym](https://github.com/openai/gym), [stable-baselines3](https://github.com/DLR-RM/stable-baselines3) and `XTerm` libraries, it is need to install these libraries along with PyTorch and TensorBoard. To go to the `frobs_rl` package and install these dependencies execute the following commands:
+As the library is based in the [OpenAI Gym](https://github.com/openai/gym), [stable-baselines3](https://github.com/DLR-RM/stable-baselines3) and `XTerm` libraries, it is need to install these libraries along with PyTorch and TensorBoard. To go to the `frobs_rl` package and install these dependencies execute the following commands. 
+
+Note that the following commands will try to install a PyTorch version without GPU support, as it is written in the dependencies of stable-baselines3, if your computer supports GPUs, you can install the GPU version of PyTorch by following the instructions on the [PyTorch website](https://pytorch.org).
 
 ```sh
 sudo apt install xterm
-roscd frobs_rl # Only works if one has sourced the setup.bash file
+roscd frobs_rl # Only works the setup.bash has been sourced
 python3 -m pip install -r requirements.txt
 ```
 
 If using the library with ROS Melodic or previous versions of ROS that use Python2, the following command can be used to install the dependencies:
 
 ```sh
-roscd frobs_rl # Only works if one has sourced the setup.bash file
+sudo apt install xterm
+roscd frobs_rl # Only works the setup.bash has been sourced
 python2 -m pip install -r requirements.txt
 ```
+ 
 
 ## Workspace creation and library compilation
 

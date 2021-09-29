@@ -2,15 +2,17 @@
 
 from gym import spaces
 from gym.envs.registration import register
-from frobs_rl.common import ros_gazebo
-from frobs_rl.common import ros_controllers
-from frobs_rl.common import ros_node
-from frobs_rl.common import ros_launch
-from frobs_rl.common import ros_params
-from frobs_rl.common import ros_urdf
-from frobs_rl.common import ros_spawn
 from frobs_rl.envs import robot_BasicEnv
 import rospy
+
+#- Uncomment the library modules as neeeed
+# from frobs_rl.common import ros_gazebo
+# from frobs_rl.common import ros_controllers
+# from frobs_rl.common import ros_node
+# from frobs_rl.common import ros_launch
+# from frobs_rl.common import ros_params
+# from frobs_rl.common import ros_urdf
+# from frobs_rl.common import ros_spawn
 
 """
 Although it is best to register only the task environment, one can also register the

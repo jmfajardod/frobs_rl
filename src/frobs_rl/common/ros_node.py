@@ -1,6 +1,5 @@
 #!/bin/python3
 
-from rosgraph.names import namespace
 import rospy
 import rospkg
 import subprocess
