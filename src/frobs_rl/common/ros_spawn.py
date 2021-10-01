@@ -30,14 +30,14 @@ def Init_robot_state_pub(namespace="/", max_pub_freq=None, launch_new_term=False
             max_pub_freq = rospy.set_param(namespace + "/rob_st_pub/publish_frequency", max_pub_freq)
         else:
             max_pub_freq = rospy.set_param("/rob_st_pub/publish_frequency", max_pub_freq)
-            
+
     return ros_node.ROS_Node_from_pkg("robot_state_publisher", "robot_state_publisher", launch_new_term=launch_new_term, name="rob_st_pub", ns=namespace)
 
 
-def Spawn_model_in_gazebo(  pkg_name, model_urdf_file, 
+def Spawn_model_in_gazebo(  pkg_name, model_urdf_file,
                             controllers_file, controllers_list,
-                            ns="/", args_xacro=None, max_pub_freq=None, 
-                            gazebo_name="robot1", gaz_ref_frame="world", 
+                            ns="/", args_xacro=None, max_pub_freq=None,
+                            gazebo_name="robot1", gaz_ref_frame="world",
                             pos_x=0.0, pos_y=0.0, pos_z=0.0, ori_w=0.0, ori_x=0.0, ori_y=0.0, ori_z=0.0):
 
     # Load the model URDF in the parameter server
@@ -46,7 +46,7 @@ def Spawn_model_in_gazebo(  pkg_name, model_urdf_file,
     else:
         rospy.loginfo("Error while loading URDF file")
         return False
-    
+
     time.sleep(0.1)
 
     # Initialize the Robot State Publisher
@@ -83,7 +83,7 @@ def Spawn_model_in_gazebo(  pkg_name, model_urdf_file,
     else:
         rospy.loginfo("Error while spawning controllers")
         return False
-    
+
     return True
 
 #Spawn_model_in_gazebo( "abb_irb120", "irb120.urdf.xacro", "irb120_pos_controller.yaml", ["joint_state_controller", "arm120_controller"],

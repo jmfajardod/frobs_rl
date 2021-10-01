@@ -13,12 +13,12 @@ import rospy
 
 class RobotBasicEnv(gym.Env):
 
-    def __init__(   self, launch_gazebo=False, gazebo_init_paused=True, gazebo_use_gui=True, gazebo_recording=False, 
+    def __init__(   self, launch_gazebo=False, gazebo_init_paused=True, gazebo_use_gui=True, gazebo_recording=False,
                     gazebo_freq=100, world_path=None, world_pkg=None, world_filename=None,
                     gazebo_max_freq=None, gazebo_timestep=None,
-                    spawn_robot=False, model_name_in_gazebo="robot", namespace="/robot", pkg_name=None, urdf_file=None, 
+                    spawn_robot=False, model_name_in_gazebo="robot", namespace="/robot", pkg_name=None, urdf_file=None,
                     controller_file=None, controller_list=None, urdf_xacro_args=None, rob_state_publisher_max_freq= None,
-                    model_pos_x=0.0, model_pos_y=0.0, model_pos_z=0.0, 
+                    model_pos_x=0.0, model_pos_y=0.0, model_pos_z=0.0,
                     model_ori_x=0.0, model_ori_y=0.0, model_ori_z=0.0, model_ori_w=0.0,
                     reset_controllers=False, reset_mode=1, step_mode=1, num_gazebo_steps=1):
         """
@@ -37,7 +37,7 @@ class RobotBasicEnv(gym.Env):
 
         To use a custom world, one can use two options: 1) set the path directly to the world file or set the pkg name and world filename.
         @param world_path: If using a custom world then the path to the world.
-        @type world_path: str        
+        @type world_path: str
         @param world_pkg: If using a custom world then the package name of the world.
         @type world_pkg: str
         @param world_filename: If using a custom world then the filename of the world.
@@ -113,8 +113,8 @@ class RobotBasicEnv(gym.Env):
         # If spawn robot, spawn it
         if spawn_robot:
             ros_spawn.Spawn_model_in_gazebo(pkg_name, urdf_file, controller_file, self.controllers_list,
-                            ns=self.namespace, args_xacro=urdf_xacro_args, max_pub_freq=rob_state_publisher_max_freq, 
-                            gazebo_name=model_name_in_gazebo, gaz_ref_frame="world", 
+                            ns=self.namespace, args_xacro=urdf_xacro_args, max_pub_freq=rob_state_publisher_max_freq,
+                            gazebo_name=model_name_in_gazebo, gaz_ref_frame="world",
                             pos_x=model_pos_x, pos_y=model_pos_y, pos_z=model_pos_z,
                             ori_x=model_ori_x, ori_y=model_ori_y, ori_z=model_ori_z, ori_w=model_ori_w)
 
@@ -129,7 +129,7 @@ class RobotBasicEnv(gym.Env):
         """
         Function to send an action to the robot and get the observation and reward.
         """
-        
+
         rospy.loginfo("Step Env")
 
         self.info = {}
@@ -157,19 +157,19 @@ class RobotBasicEnv(gym.Env):
         """
         Function to reset the enviroment after an episode is done.
         """
-        
+
         rospy.loginfo("Resetting Env")
         ros_gazebo.Gazebo_pause_physics()
         self._reset_gazebo()
         self.observation = self._get_observation()
 
-        return self.observation  
+        return self.observation
 
     def close (self):
         """
         Function to close the environment when training is done.
         """
-        
+
         rospy.loginfo("Closing Env")
         rospy.signal_shutdown("Closing RobotGazeboEnvironment")
         ros_gazebo.Close_Gazebo()
@@ -187,7 +187,7 @@ class RobotBasicEnv(gym.Env):
         Function to send an action to the robot
         """
         raise NotImplementedError()
-        
+
 
     def _get_observation(self):
         """
@@ -200,16 +200,16 @@ class RobotBasicEnv(gym.Env):
         Function to get the reward from the enviroment.
         """
         raise NotImplementedError()
-    
+
     def _check_if_done(self):
         """
         Function to check if the episode is done.
-        
+
         If the episode has a success condition then set done as:
             self.info['is_success'] = 1.0
         """
         raise NotImplementedError()
-        
+
     #------------------------------------------#
     #   Custom methods for the RobotBasicEnv   #
 
@@ -217,11 +217,11 @@ class RobotBasicEnv(gym.Env):
         """
         Function to reset the gazebo simulation.
         """
-        
+
         # If resetting world (Does not reset time)
         if self.reset_mode == 1:
             ros_gazebo.Gazebo_reset_world()
-        
+
         # If resetting simulation (Resets time)
         elif self.reset_mode == 2:
             ros_gazebo.Gazebo_reset_sim()
@@ -239,7 +239,7 @@ class RobotBasicEnv(gym.Env):
     #------------------------------------------#
     #   Custom methods for the RobotBasicEnv   #
 
-    
+
     def _check_subs_and_pubs_connection(self):
         """
         Function to check if the gazebo and ros connections are ready
