@@ -2,25 +2,11 @@ Welcome to FROBS_RL documentation!
 ===================================
 Lumache has its documentation hosted on Read the Docs.
 
-**Lumache** (/lu'make/) is a Python library for cooks and food lovers
-that creates recipes mixing random ingredients.
-It pulls data from the `Open Food Facts database <https://world.openfoodfacts.org/>`_
-and offers a *simple* and *intuitive* API.
-
-.. code-block:: console
-
-   (.venv) $ pip install frobs_rl
-
+**FROBS_RL** (Flexible Robotics Reinforcement Learning Library) is a Python library for machine learning lovers, it offers a *simple* and *intuitive* API.
 
 To kill a node you can use the ``ros_node.ROS_Kill_Node()`` function:
 
 .. autofunction:: ros_node.ROS_Kill_Node(node_name)
-
-.. automodule:: robot_BasicEnv
-
-.. autoclass:: RobotBasicEnv
-  :members:
-  :inherited-members:
 
 .. note::
 
@@ -34,4 +20,7 @@ Contents
 
 .. toctree::
 
-   api
+  self
+  installation
+  example
+  api/index
