@@ -38,7 +38,7 @@ sudo rosdep init
 rosdep update
 ```
 
-## Catkin tools
+## Catkin tools and XTerm
 
 We recommend [catkin-tools](https://catkin-tools.readthedocs.io/en/latest/installing.html) to build your ROS workspace:
 
@@ -49,26 +49,11 @@ sudo apt-get update
 sudo apt-get install python3-catkin-tools
 ```
 
-## Dependencies
-
-As the library is based in the [OpenAI Gym](https://github.com/openai/gym), [stable-baselines3](https://github.com/DLR-RM/stable-baselines3) and `XTerm` libraries, it is need to install these libraries along with PyTorch and TensorBoard. To go to the `frobs_rl` package and install these dependencies execute the following commands. 
-
-Note that the following commands will try to install a PyTorch version without GPU support, as it is written in the dependencies of stable-baselines3, if your computer supports GPUs, you can install the GPU version of PyTorch by following the instructions on the [PyTorch website](https://pytorch.org).
+As `XTerm` is widely used in the library to execute some processes in a lightweith terminal, if the user does not already has XTerm it can be installed with the command:
 
 ```sh
 sudo apt install xterm
-roscd frobs_rl # Only works the setup.bash has been sourced
-python3 -m pip install -r requirements.txt
 ```
-
-If using the library with ROS Melodic or previous versions of ROS that use Python2, the following command can be used to install the dependencies:
-
-```sh
-sudo apt install xterm
-roscd frobs_rl # Only works the setup.bash has been sourced
-python2 -m pip install -r requirements.txt
-```
- 
 
 ## Workspace creation and library compilation
 
@@ -84,6 +69,25 @@ catkin config --extend /opt/ros/${ROS_DISTRO}
 catkin build
 source devel/setup.bash
 ```
+
+## Python dependencies
+
+As the library is based in the [OpenAI Gym](https://github.com/openai/gym) and [stable-baselines3](https://github.com/DLR-RM/stable-baselines3) libraries, one must install these libraries along with PyTorch and TensorBoard. To go to the `frobs_rl` package and install these dependencies execute the following commands. 
+
+Note that the following commands will try to install a PyTorch version without GPU support, as it is written in the dependencies of stable-baselines3, if your computer supports GPUs, you can install the GPU version of PyTorch by following the instructions on the [PyTorch website](https://pytorch.org).
+
+```sh
+roscd frobs_rl # Only works the setup.bash has been sourced
+python3 -m pip install -r requirements.txt
+```
+
+If using the library with ROS Melodic or previous versions of ROS that use Python2, the following command can be used to install the dependencies, but note that PyTorch must be installed separately using the instructions found in [PyTorch previous versions](https://pytorch.org/get-started/previous-versions/):
+
+```sh
+roscd frobs_rl # Only works the setup.bash has been sourced
+python2 -m pip install -r requirements.txt
+```
+ 
 
 ## Testing the library
 
