@@ -1,0 +1,20 @@
+version: 1
+
+python:
+  # version: "3.8"
+  # Install our python package before building the docs
+  install:
+    - method: pip
+      path: .
+    - requirements: requirements.txt
+    # - method: setuptools
+    #   path: .
+  system_packages: True
+
+# configs del sphinx
+sphinx:
+  fail_on_warning: true
+  configuration: docs/source/conf.py
+
+formats:
+  - pdf

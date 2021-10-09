@@ -8,8 +8,12 @@ import time
 import xacro
 from rospy.service import ServiceException
 
-from gazebo_msgs.srv import *
-from gazebo_msgs.msg import *
+from gazebo_msgs.srv import GetPhysicsProperties, SetPhysicsProperties, SetPhysicsPropertiesRequest
+from gazebo_msgs.srv import DeleteModel, SpawnModel
+from gazebo_msgs.srv import DeleteModelRequest, SpawnModelRequest
+from gazebo_msgs.srv import GetModelState, SetModelState
+from gazebo_msgs.srv import GetModelStateRequest, SetModelStateRequest
+from gazebo_msgs.msg import ODEPhysics, ModelState
 from geometry_msgs.msg import Vector3
 from std_srvs.srv import Empty
 from std_msgs.msg import Header
@@ -636,8 +640,7 @@ def gazebo_spawn_urdf_string(   model_string, model_name="robot1", robot_namespa
     @param robot_namespace: change ROS namespace of gazebo-plugins.
     @type robot_namespace: str
 
-    @param reference_frame: Name of the model/body where initial pose is defined. 
-                            If left empty or specified as "world", gazebo world frame is used.
+    @param reference_frame: Name of the model/body where initial pose is defined. If left empty or specified as "world", gazebo world frame is used.
     @type reference_frame: str
 
     @param pos_x: x position of model in model's reference frame
@@ -691,8 +694,7 @@ def gazebo_spawn_urdf_param(    param_name, model_name="robot1", robot_namespace
     @param robot_namespace: change ROS namespace of gazebo-plugins.
     @type robot_namespace: str
 
-    @param reference_frame: Name of the model/body where initial pose is defined. 
-                            If left empty or specified as "world", gazebo world frame is used.
+    @param reference_frame: Name of the model/body where initial pose is defined. If left empty or specified as "world", gazebo world frame is used.
     @type reference_frame: str
 
     @param pos_x: x position of model in model's reference frame
@@ -896,8 +898,7 @@ def gazebo_spawn_sdf_string(   model_string, model_name="robot1", robot_namespac
     @param robot_namespace: change ROS namespace of gazebo-plugins.
     @type robot_namespace: str
 
-    @param reference_frame: Name of the model/body where initial pose is defined. 
-                            If left empty or specified as "world", gazebo world frame is used.
+    @param reference_frame: Name of the model/body where initial pose is defined. If left empty or specified as "world", gazebo world frame is used.
     @type reference_frame: str
 
     @param pos_x: x position of model in model's reference frame
@@ -951,8 +952,7 @@ def gazebo_spawn_sdf_param(    param_name, model_name="robot1", robot_namespace=
     @param robot_namespace: change ROS namespace of gazebo-plugins.
     @type robot_namespace: str
 
-    @param reference_frame: Name of the model/body where initial pose is defined. 
-                            If left empty or specified as "world", gazebo world frame is used.
+    @param reference_frame: Name of the model/body where initial pose is defined. If left empty or specified as "world", gazebo world frame is used.
     @type reference_frame: str
 
     @param pos_x: x position of model in model's reference frame

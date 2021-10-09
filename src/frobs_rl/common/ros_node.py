@@ -5,6 +5,10 @@ import rospkg
 import subprocess
 import time 
 
+"""
+Functions related to the handling of ROS nodes.
+"""
+
 def ros_node_from_pkg(pkg_name, node_name, launch_master=False, launch_master_term=True, launch_new_term=True, name=None, ns="/", output="log") -> bool:
     """
     Function to launch a ROS node from a package.

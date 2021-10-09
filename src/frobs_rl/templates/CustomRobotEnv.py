@@ -18,11 +18,11 @@ import rospy
 Although it is best to register only the task environment, one can also register the
 robot environment.
 """
-register(
-        id='CustomRobotEnv-v0',
-        entry_point='frobs_rl.templates.CustomRobotEnv:CustomRobotEnv',
-        max_episode_steps=10000,
-    )
+# register(
+#         id='CustomRobotEnv-v0',
+#         entry_point='frobs_rl.templates.CustomRobotEnv:CustomRobotEnv',
+#         max_episode_steps=10000,
+#     )
 
 class CustomRobotEnv(robot_BasicEnv.RobotBasicEnv):
     """
