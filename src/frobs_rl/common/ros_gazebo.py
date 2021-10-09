@@ -26,50 +26,53 @@ def launch_Gazebo(  paused=False, use_sim_time=True, gui=True, recording=False, 
     """
     Launch Gazebo using the ROS network.
     
-    @param paused: if True, init gzserver paused.
-    @type paused: bool
+    :param paused: if True, init gzserver paused.
+    :type paused: bool
 
-    @param use_sim_time: if True, use the simulation time.
-    @type use_sim_time: bool
+    :param use_sim_time: if True, use the simulation time.
+    :type use_sim_time: bool
 
-    @param gui: if True, launch Gazebo with the GUI (gzclient).
-    @type gui: bool
+    :param gui: if True, launch Gazebo with the GUI (gzclient).
+    :type gui: bool
 
-    @param recording: if True, record the data from gazebo.
-    @type recording: bool
+    :param recording: if True, record the data from gazebo.
+    :type recording: bool
 
-    @param debug: if True, use the debug configuration.
-    @type debug: bool
+    :param debug: if True, use the debug configuration.
+    :type debug: bool
 
-    @param verbose: if True, print debug information.
-    @type verbose: bool
+    :param verbose: if True, print debug information.
+    :type verbose: bool
 
-    @param output: choose the output method for gazebo (screen, log).
-    @type output: str [screen, log]
+    :param output: choose the output method for gazebo (screen, log).
+    :type output: str [screen, log]
 
-    @param custom_world_path: if not None, use this world path.
-    @type custom_world_path: str
+    :param custom_world_path: if not None, use this world path.
+    :type custom_world_path: str
 
-    @param custom_world_pkg: if the custom_world_path is None, use a world file from this package, specified in custom_world_name.
-    @type custom_world_pkg: str
+    :param custom_world_pkg: if the custom_world_path is None, use a world file from this package, specified in custom_world_name.
+    :type custom_world_pkg: str
 
-    @param custom_world_name: if the custom_world_path is None, use the world file with this name from the custom_world_pkg.
-    @type custom_world_name: str
+    :param custom_world_name: if the custom_world_path is None, use the world file with this name from the custom_world_pkg.
+    :type custom_world_name: str
 
-    @param respawn_gazebo: if True, gazebo will be respawned if it is killed, default is False.
-    @type respawn_gazebo: bool
+    :param respawn_gazebo: if True, gazebo will be respawned if it is killed, default is False.
+    :type respawn_gazebo: bool
 
-    @param pub_clock_frequency: the frequency of the clock publisher (in Hz)
-    @type pub_clock_frequency: int
+    :param pub_clock_frequency: the frequency of the clock publisher (in Hz)
+    :type pub_clock_frequency: int
 
-    @param server_required: if True, the launch file will wait until gzserver is running.
-    @type server_required: bool
+    :param server_required: if True, the launch file will wait until gzserver is running.
+    :type server_required: bool
 
-    @param gui_required: if True, the launch file will wait until gzclient is running.
-    @type gui_required: bool
+    :param gui_required: if True, the launch file will wait until gzclient is running.
+    :type gui_required: bool
 
-    @param launch_new_term: Launch the gazebo node in a new terminal (Xterm).
-    @type launch_new_term: bool
+    :param launch_new_term: Launch the gazebo node in a new terminal (Xterm).
+    :type launch_new_term: bool
+
+    :return: True if the launch was successful, False otherwise.
+    :rtype: bool
 
     """
 
@@ -144,6 +147,9 @@ def launch_Gazebo(  paused=False, use_sim_time=True, gui=True, recording=False, 
 def close_Gazebo() -> bool:
     """
     Function to close gazebo if its running.
+
+    :return: True if gazebo was closed, False otherwise.
+    :rtype: bool
     """
 
     term_command = "rosnode kill /gazebo /gazebo_gui"
@@ -159,10 +165,11 @@ def gazebo_set_max_update_rate(max_update_rate) -> bool:
     """
     Function to set the max update rate for gazebo in real time factor: 1 is real time, 10 is 10 times real time.
 
-    @param max_update_rate: the max update rate for gazebo in real time factor.
-    @type max_update_rate: float
+    :param max_update_rate: the max update rate for gazebo in real time factor.
+    :type max_update_rate: float
 
-    returns: True if the command was sent and False otherwise.
+    :return: True if the command was sent and False otherwise.
+    :rtype: bool
     """
 
     rospy.wait_for_service("/gazebo/get_physics_properties")
@@ -185,8 +192,8 @@ def gazebo_get_max_update_rate() -> float:
     """
     Function to get the current max update rate.
 
-    @return: the max update rate.
-    @rtype: float
+    :return: the max update rate.
+    :rtype: float
     """
 
     rospy.wait_for_service("/gazebo/get_physics_properties")
@@ -199,10 +206,11 @@ def gazebo_set_time_step(new_time_step) -> bool:
     """
     Function to set the time step for gazebo.
 
-    @param new_time_step: the new time step.
-    @type new_time_step: float
+    :param new_time_step: the new time step.
+    :type new_time_step: float
 
-    @return: True if the command was sent and False otherwise.
+    :return: True if the command was sent and False otherwise.
+    :rtype: bool
     """
     
     rospy.wait_for_service("/gazebo/get_physics_properties")
@@ -227,8 +235,8 @@ def gazebo_get_time_step() -> float:
     """
     Function to get the current time step for gazebo.
 
-    @return: the time step.
-    @rtype: float
+    :return: the time step.
+    :rtype: float
     """
 
     rospy.wait_for_service("/gazebo/get_physics_properties")
@@ -241,16 +249,17 @@ def gazebo_set_gravity(x, y, z) -> bool:
     """
     Function to set the gravity for gazebo.
 
-    @param x: the x component of the gravity vector.
-    @type x: float
+    :param x: the x component of the gravity vector.
+    :type x: float
 
-    @param y: the y component of the gravity vector.
-    @type y: float
+    :param y: the y component of the gravity vector.
+    :type y: float
 
-    @param z: the z component of the gravity vector.
-    @type z: float
+    :param z: the z component of the gravity vector.
+    :type z: float
 
-    @return: True if the command was sent and False otherwise.
+    :return: True if the command was sent and False otherwise.
+    :rtype: bool
     """
 
     rospy.wait_for_service("/gazebo/get_physics_properties")
@@ -278,8 +287,8 @@ def gazebo_get_gravity() -> Vector3:
     """
     Function to get the current gravity vector for gazebo.
 
-    @return: the gravity vector.
-    @rtype: Vector3
+    :return: the gravity vector.
+    :rtype: Vector3
     """
 
     rospy.wait_for_service("/gazebo/get_physics_properties")
@@ -293,7 +302,7 @@ def gazebo_set_ODE_physics( auto_disable_bodies, sor_pgs_precon_iters, sor_pgs_i
     """
     Function to set the ODE physics for gazebo.
 
-    @return: True if the command was sent and False otherwise.
+    :return: True if the command was sent and False otherwise.
     """
 
     rospy.wait_for_service("/gazebo/get_physics_properties")
@@ -328,8 +337,8 @@ def gazebo_get_ODE_physics() -> ODEPhysics:
     """
     Function to get the current ODE physics for gazebo.
 
-    @return: the ODE physics.
-    @rtype: ODEPhysics
+    :return: the ODE physics.
+    :rtype: ODEPhysics
     """
 
     rospy.wait_for_service("/gazebo/get_physics_properties")
@@ -342,7 +351,7 @@ def gazebo_set_default_properties() -> bool:
     """
     Function to set the default gazebo properties.
 
-    @return: True if the command was sent and False otherwise.
+    :return: True if the command was sent and False otherwise.
     """
 
     counter_sucess = 0
@@ -365,10 +374,11 @@ def gazebo_reset_sim(retries=5) -> bool:
     """
     Function to reset the simulation, which reset models to original poses AND reset the simulation time.
 
-    @param retries: The number of times to retry the service call.
-    @type retries: int
+    :param retries: The number of times to retry the service call.
+    :type retries: int
 
-    @return: True if the command was sent and False otherwise.
+    :return: True if the command was sent and False otherwise.
+    :rtype: bool
     """
 
     rospy.wait_for_service("/gazebo/reset_simulation")
@@ -387,10 +397,11 @@ def gazebo_reset_world(retries=5) -> bool:
     """
     Function to reset the world, which reset models to original poses WITHOUT resetting the simulation time.
 
-    @param retries: The number of times to retry the service call.
-    @type retries: int
+    :param retries: The number of times to retry the service call.
+    :type retries: int
 
-    @return: True if the command was sent and False otherwise.
+    :return: True if the command was sent and False otherwise.
+    :rtype: bool
     """
 
     rospy.wait_for_service("/gazebo/reset_world")
@@ -409,10 +420,11 @@ def gazebo_pause_physics(retries=5) -> bool:
     """
     Function to pause the physics in the simulation.
 
-    @param retries: The number of times to retry the service call.
-    @type retries: int
+    :param retries: The number of times to retry the service call.
+    :type retries: int
 
-    @return: True if the command was sent and False otherwise.
+    :return: True if the command was sent and False otherwise.
+    :rtype: bool
     """
 
     rospy.wait_for_service("/gazebo/pause_physics")
@@ -431,10 +443,11 @@ def gazebo_unpause_physics(retries=5) -> bool:
     """
     Function to unpause the physics in the simulation.
 
-    @param retries: The number of times to retry the service call.
-    @type retries: int
+    :param retries: The number of times to retry the service call.
+    :type retries: int
 
-    @return: True if the command was sent and False otherwise.
+    :return: True if the command was sent and False otherwise.
+    :rtype: bool
     """
 
     rospy.wait_for_service("/gazebo/unpause_physics")
@@ -453,10 +466,11 @@ def gazebo_step_physics(steps=1) -> bool:
     """
     Function to step the physics in the simulation.
 
-    @param steps: The number of times to step the simulation.
-    @type steps: int
+    :param steps: The number of times to step the simulation.
+    :type steps: int
 
-    @return: True if the command was sent and False otherwise.
+    :return: True if the command was sent and False otherwise.
+    :rtype: bool
     """
     rospy.wait_for_service("/gazebo/pause_physics")
 
@@ -468,10 +482,11 @@ def gazebo_delete_model(model_name) -> bool:
     """
     Function to delete a model from the simulation.
 
-    @param model_name: The name of the model to delete.
-    @type model_name: str
+    :param model_name: The name of the model to delete.
+    :type model_name: str
 
-    @return: True if the command was sent and False otherwise.
+    :return: True if the command was sent and False otherwise.
+    :rtype: bool
     """
 
     rospy.wait_for_service("/gazebo/delete_model")
@@ -489,36 +504,36 @@ def gazebo_spawn_urdf_path( model_path, model_name="robot1", robot_namespace="/"
     """
     Function to spawn a model from a URDF file.
 
-    @param model_path: The path to the URDF file.
-    @type model_path: str
+    :param model_path: The path to the URDF file.
+    :type model_path: str
 
-    @param model_name: Name of model to spawn
-    @type model_name: str
+    :param model_name: Name of model to spawn
+    :type model_name: str
 
-    @param robot_namespace: change ROS namespace of gazebo-plugins.
-    @type robot_namespace: str
+    :param robot_namespace: change ROS namespace of gazebo-plugins.
+    :type robot_namespace: str
 
-    @param reference_frame: Name of the model/body where initial pose is defined. 
-    If left empty or specified as "world", gazebo world frame is used
-    @type reference_frame: str
+    :param reference_frame: Name of the model/body where initial pose is defined. If left empty or specified as "world", gazebo world frame is used
+    :type reference_frame: str
 
-    @param pos_x: x position of model in model's reference frame
-    @type pos_x: float
-    @param pos_y: y position of model in model's reference frame
-    @type pos_y: float
-    @param pos_z: z position of model in model's reference frame
-    @type pos_z: float
+    :param pos_x: x position of model in model's reference frame
+    :type pos_x: float
+    :param pos_y: y position of model in model's reference frame
+    :type pos_y: float
+    :param pos_z: z position of model in model's reference frame
+    :type pos_z: float
 
-    @param ori_x: X part of Quaternion of model orientation in model's reference frame.
-    @type ori_x: float
-    @param ori_y: Y part of Quaternion of model orientation in model's reference frame.
-    @type ori_y: float
-    @param ori_z: Z part of Quaternion of model orientation in model's reference frame.
-    @type ori_z: float
-    @param ori_w: W part of Quaternion of model orientation in model's reference frame.
-    @type ori_w: float
+    :param ori_x: X part of Quaternion of model orientation in model's reference frame.
+    :type ori_x: float
+    :param ori_y: Y part of Quaternion of model orientation in model's reference frame.
+    :type ori_y: float
+    :param ori_z: Z part of Quaternion of model orientation in model's reference frame.
+    :type ori_z: float
+    :param ori_w: W part of Quaternion of model orientation in model's reference frame.
+    :type ori_w: float
 
-    @return: True if the command was sent and False otherwise.
+    :return: True if the command was sent and False otherwise.
+    :rtype: bool
     """
     
     rospy.wait_for_service("/gazebo/spawn_urdf_model")
@@ -552,42 +567,42 @@ def gazebo_spawn_urdf_pkg(  pkg_name, file_name, file_folder="/urdf", model_name
     """
     Function to spawn a model from a URDF file.
 
-    @param pkg_name: Name of the package to import the URDF file from.
-    @type pkg_name: str
+    :param pkg_name: Name of the package to import the URDF file from.
+    :type pkg_name: str
 
-    @param file_name: Name of the URDF file to import.
-    @type file_name: str
+    :param file_name: Name of the URDF file to import.
+    :type file_name: str
 
-    @param file_folder: Folder where the URDF file is located. Defaults to "/urdf".
-    @type file_folder: str
+    :param file_folder: Folder where the URDF file is located. Defaults to "/urdf".
+    :type file_folder: str
 
-    @param model_name: Name of model to spawn
-    @type model_name: str
+    :param model_name: Name of model to spawn
+    :type model_name: str
 
-    @param robot_namespace: change ROS namespace of gazebo-plugins.
-    @type robot_namespace: str
+    :param robot_namespace: change ROS namespace of gazebo-plugins.
+    :type robot_namespace: str
 
-    @param reference_frame: Name of the model/body where initial pose is defined. 
-    If left empty or specified as "world", gazebo world frame is used
-    @type reference_frame: str
+    :param reference_frame: Name of the model/body where initial pose is defined. If left empty or specified as "world", gazebo world frame is used
+    :type reference_frame: str
 
-    @param pos_x: x position of model in model's reference frame
-    @type pos_x: float
-    @param pos_y: y position of model in model's reference frame
-    @type pos_y: float
-    @param pos_z: z position of model in model's reference frame
-    @type pos_z: float
+    :param pos_x: x position of model in model's reference frame
+    :type pos_x: float
+    :param pos_y: y position of model in model's reference frame
+    :type pos_y: float
+    :param pos_z: z position of model in model's reference frame
+    :type pos_z: float
 
-    @param ori_x: X part of Quaternion of model orientation in model's reference frame.
-    @type ori_x: float
-    @param ori_y: Y part of Quaternion of model orientation in model's reference frame.
-    @type ori_y: float
-    @param ori_z: Z part of Quaternion of model orientation in model's reference frame.
-    @type ori_z: float
-    @param ori_w: W part of Quaternion of model orientation in model's reference frame.
-    @type ori_w: float
+    :param ori_x: X part of Quaternion of model orientation in model's reference frame.
+    :type ori_x: float
+    :param ori_y: Y part of Quaternion of model orientation in model's reference frame.
+    :type ori_y: float
+    :param ori_z: Z part of Quaternion of model orientation in model's reference frame.
+    :type ori_z: float
+    :param ori_w: W part of Quaternion of model orientation in model's reference frame.
+    :type ori_w: float
 
-    @return: True if the command was sent and False otherwise.
+    :return: True if the command was sent and False otherwise.
+    :rtype: bool
     """
     
     rospy.wait_for_service("/gazebo/spawn_urdf_model")
@@ -631,35 +646,36 @@ def gazebo_spawn_urdf_string(   model_string, model_name="robot1", robot_namespa
     """
     Function to spawn a model from a URDF file.
 
-    @param model_string: URDF string to import.
-    @type model_string: str
+    :param model_string: URDF string to import.
+    :type model_string: str
 
-    @param model_name: Name of model to spawn
-    @type model_name: str
+    :param model_name: Name of model to spawn
+    :type model_name: str
 
-    @param robot_namespace: change ROS namespace of gazebo-plugins.
-    @type robot_namespace: str
+    :param robot_namespace: change ROS namespace of gazebo-plugins.
+    :type robot_namespace: str
 
-    @param reference_frame: Name of the model/body where initial pose is defined. If left empty or specified as "world", gazebo world frame is used.
-    @type reference_frame: str
+    :param reference_frame: Name of the model/body where initial pose is defined. If left empty or specified as "world", gazebo world frame is used.
+    :type reference_frame: str
 
-    @param pos_x: x position of model in model's reference frame
-    @type pos_x: float
-    @param pos_y: y position of model in model's reference frame
-    @type pos_y: float
-    @param pos_z: z position of model in model's reference frame
-    @type pos_z: float
+    :param pos_x: x position of model in model's reference frame
+    :type pos_x: float
+    :param pos_y: y position of model in model's reference frame
+    :type pos_y: float
+    :param pos_z: z position of model in model's reference frame
+    :type pos_z: float
 
-    @param ori_x: X part of Quaternion of model orientation in model's reference frame.
-    @type ori_x: float
-    @param ori_y: Y part of Quaternion of model orientation in model's reference frame.
-    @type ori_y: float
-    @param ori_z: Z part of Quaternion of model orientation in model's reference frame.
-    @type ori_z: float
-    @param ori_w: W part of Quaternion of model orientation in model's reference frame.
-    @type ori_w: float
+    :param ori_x: X part of Quaternion of model orientation in model's reference frame.
+    :type ori_x: float
+    :param ori_y: Y part of Quaternion of model orientation in model's reference frame.
+    :type ori_y: float
+    :param ori_z: Z part of Quaternion of model orientation in model's reference frame.
+    :type ori_z: float
+    :param ori_w: W part of Quaternion of model orientation in model's reference frame.
+    :type ori_w: float
 
-    @return: True if the command was sent and False otherwise.
+    :return: True if the command was sent and False otherwise.
+    :rtype: bool
     """
     
     rospy.wait_for_service("/gazebo/spawn_urdf_model")
@@ -685,35 +701,36 @@ def gazebo_spawn_urdf_param(    param_name, model_name="robot1", robot_namespace
     """
     Function to spawn a model from a URDF in the param server.
 
-    @param param_name: Name of model to spawn
-    @type param_name: str
+    :param param_name: Name of model to spawn
+    :type param_name: str
 
-    @param model_name: Name of model to spawn
-    @type model_name: str
+    :param model_name: Name of model to spawn
+    :type model_name: str
 
-    @param robot_namespace: change ROS namespace of gazebo-plugins.
-    @type robot_namespace: str
+    :param robot_namespace: change ROS namespace of gazebo-plugins.
+    :type robot_namespace: str
 
-    @param reference_frame: Name of the model/body where initial pose is defined. If left empty or specified as "world", gazebo world frame is used.
-    @type reference_frame: str
+    :param reference_frame: Name of the model/body where initial pose is defined. If left empty or specified as "world", gazebo world frame is used.
+    :type reference_frame: str
 
-    @param pos_x: x position of model in model's reference frame
-    @type pos_x: float
-    @param pos_y: y position of model in model's reference frame
-    @type pos_y: float
-    @param pos_z: z position of model in model's reference frame
-    @type pos_z: float
+    :param pos_x: x position of model in model's reference frame
+    :type pos_x: float
+    :param pos_y: y position of model in model's reference frame
+    :type pos_y: float
+    :param pos_z: z position of model in model's reference frame
+    :type pos_z: float
 
-    @param ori_x: X part of Quaternion of model orientation in model's reference frame.
-    @type ori_x: float
-    @param ori_y: Y part of Quaternion of model orientation in model's reference frame.
-    @type ori_y: float
-    @param ori_z: Z part of Quaternion of model orientation in model's reference frame.
-    @type ori_z: float
-    @param ori_w: W part of Quaternion of model orientation in model's reference frame.
-    @type ori_w: float
+    :param ori_x: X part of Quaternion of model orientation in model's reference frame.
+    :type ori_x: float
+    :param ori_y: Y part of Quaternion of model orientation in model's reference frame.
+    :type ori_y: float
+    :param ori_z: Z part of Quaternion of model orientation in model's reference frame.
+    :type ori_z: float
+    :param ori_w: W part of Quaternion of model orientation in model's reference frame.
+    :type ori_w: float
 
-    @return: True if the command was sent and False otherwise.
+    :return: True if the command was sent and False otherwise.
+    :rtype: bool
     """
 
     rospy.wait_for_service("/gazebo/spawn_urdf_model")
@@ -747,36 +764,36 @@ def gazebo_spawn_sdf_path( model_path, model_name="robot1", robot_namespace="/",
     """
     Function to spawn a model from a SDF file.
 
-    @param model_path: The path to the SDF file.
-    @type model_path: str
+    :param model_path: The path to the SDF file.
+    :type model_path: str
 
-    @param model_name: Name of model to spawn
-    @type model_name: str
+    :param model_name: Name of model to spawn
+    :type model_name: str
 
-    @param robot_namespace: change ROS namespace of gazebo-plugins.
-    @type robot_namespace: str
+    :param robot_namespace: change ROS namespace of gazebo-plugins.
+    :type robot_namespace: str
 
-    @param reference_frame: Name of the model/body where initial pose is defined. 
-    If left empty or specified as "world", gazebo world frame is used
-    @type reference_frame: str
+    :param reference_frame: Name of the model/body where initial pose is defined. If left empty or specified as "world", gazebo world frame is used
+    :type reference_frame: str
 
-    @param pos_x: x position of model in model's reference frame
-    @type pos_x: float
-    @param pos_y: y position of model in model's reference frame
-    @type pos_y: float
-    @param pos_z: z position of model in model's reference frame
-    @type pos_z: float
+    :param pos_x: x position of model in model's reference frame
+    :type pos_x: float
+    :param pos_y: y position of model in model's reference frame
+    :type pos_y: float
+    :param pos_z: z position of model in model's reference frame
+    :type pos_z: float
 
-    @param ori_x: X part of Quaternion of model orientation in model's reference frame.
-    @type ori_x: float
-    @param ori_y: Y part of Quaternion of model orientation in model's reference frame.
-    @type ori_y: float
-    @param ori_z: Z part of Quaternion of model orientation in model's reference frame.
-    @type ori_z: float
-    @param ori_w: W part of Quaternion of model orientation in model's reference frame.
-    @type ori_w: float
+    :param ori_x: X part of Quaternion of model orientation in model's reference frame.
+    :type ori_x: float
+    :param ori_y: Y part of Quaternion of model orientation in model's reference frame.
+    :type ori_y: float
+    :param ori_z: Z part of Quaternion of model orientation in model's reference frame.
+    :type ori_z: float
+    :param ori_w: W part of Quaternion of model orientation in model's reference frame.
+    :type ori_w: float
 
-    @return: True if the command was sent and False otherwise.
+    :return: True if the command was sent and False otherwise.
+    :rtype: bool
     """
     
     rospy.wait_for_service("/gazebo/spawn_sdf_model")
@@ -810,42 +827,42 @@ def gazebo_spawn_sdf_pkg(  pkg_name, file_name, file_folder="/sdf", model_name="
     """
     Function to spawn a model from a SDF file.
 
-    @param pkg_name: Name of the package to import the SDF file from.
-    @type pkg_name: str
+    :param pkg_name: Name of the package to import the SDF file from.
+    :type pkg_name: str
 
-    @param file_name: Name of the SDF file to import.
-    @type file_name: str
+    :param file_name: Name of the SDF file to import.
+    :type file_name: str
 
-    @param file_folder: Folder where the SDF file is located. Default is "/sdf".
-    @type file_folder: str
+    :param file_folder: Folder where the SDF file is located. Default is "/sdf".
+    :type file_folder: str
 
-    @param model_name: Name of model to spawn
-    @type model_name: str
+    :param model_name: Name of model to spawn
+    :type model_name: str
 
-    @param robot_namespace: change ROS namespace of gazebo-plugins.
-    @type robot_namespace: str
+    :param robot_namespace: change ROS namespace of gazebo-plugins.
+    :type robot_namespace: str
 
-    @param reference_frame: Name of the model/body where initial pose is defined. 
-    If left empty or specified as "world", gazebo world frame is used
-    @type reference_frame: str
+    :param reference_frame: Name of the model/body where initial pose is defined. If left empty or specified as "world", gazebo world frame is used
+    :type reference_frame: str
 
-    @param pos_x: x position of model in model's reference frame
-    @type pos_x: float
-    @param pos_y: y position of model in model's reference frame
-    @type pos_y: float
-    @param pos_z: z position of model in model's reference frame
-    @type pos_z: float
+    :param pos_x: x position of model in model's reference frame
+    :type pos_x: float
+    :param pos_y: y position of model in model's reference frame
+    :type pos_y: float
+    :param pos_z: z position of model in model's reference frame
+    :type pos_z: float
 
-    @param ori_x: X part of Quaternion of model orientation in model's reference frame.
-    @type ori_x: float
-    @param ori_y: Y part of Quaternion of model orientation in model's reference frame.
-    @type ori_y: float
-    @param ori_z: Z part of Quaternion of model orientation in model's reference frame.
-    @type ori_z: float
-    @param ori_w: W part of Quaternion of model orientation in model's reference frame.
-    @type ori_w: float
+    :param ori_x: X part of Quaternion of model orientation in model's reference frame.
+    :type ori_x: float
+    :param ori_y: Y part of Quaternion of model orientation in model's reference frame.
+    :type ori_y: float
+    :param ori_z: Z part of Quaternion of model orientation in model's reference frame.
+    :type ori_z: float
+    :param ori_w: W part of Quaternion of model orientation in model's reference frame.
+    :type ori_w: float
 
-    @return: True if the command was sent and False otherwise.
+    :return: True if the command was sent and False otherwise.
+    :rtype: bool
     """
     
     rospy.wait_for_service("/gazebo/spawn_sdf_model")
@@ -889,35 +906,36 @@ def gazebo_spawn_sdf_string(   model_string, model_name="robot1", robot_namespac
     """
     Function to spawn a model from a SDF file.
 
-    @param model_string: SDF string to import.
-    @type model_string: str
+    :param model_string: SDF string to import.
+    :type model_string: str
 
-    @param model_name: Name of model to spawn
-    @type model_name: str
+    :param model_name: Name of model to spawn
+    :type model_name: str
 
-    @param robot_namespace: change ROS namespace of gazebo-plugins.
-    @type robot_namespace: str
+    :param robot_namespace: change ROS namespace of gazebo-plugins.
+    :type robot_namespace: str
 
-    @param reference_frame: Name of the model/body where initial pose is defined. If left empty or specified as "world", gazebo world frame is used.
-    @type reference_frame: str
+    :param reference_frame: Name of the model/body where initial pose is defined. If left empty or specified as "world", gazebo world frame is used.
+    :type reference_frame: str
 
-    @param pos_x: x position of model in model's reference frame
-    @type pos_x: float
-    @param pos_y: y position of model in model's reference frame
-    @type pos_y: float
-    @param pos_z: z position of model in model's reference frame
-    @type pos_z: float
+    :param pos_x: x position of model in model's reference frame
+    :type pos_x: float
+    :param pos_y: y position of model in model's reference frame
+    :type pos_y: float
+    :param pos_z: z position of model in model's reference frame
+    :type pos_z: float
 
-    @param ori_x: X part of Quaternion of model orientation in model's reference frame.
-    @type ori_x: float
-    @param ori_y: Y part of Quaternion of model orientation in model's reference frame.
-    @type ori_y: float
-    @param ori_z: Z part of Quaternion of model orientation in model's reference frame.
-    @type ori_z: float
-    @param ori_w: W part of Quaternion of model orientation in model's reference frame.
-    @type ori_w: float
+    :param ori_x: X part of Quaternion of model orientation in model's reference frame.
+    :type ori_x: float
+    :param ori_y: Y part of Quaternion of model orientation in model's reference frame.
+    :type ori_y: float
+    :param ori_z: Z part of Quaternion of model orientation in model's reference frame.
+    :type ori_z: float
+    :param ori_w: W part of Quaternion of model orientation in model's reference frame.
+    :type ori_w: float
 
-    @return: True if the command was sent and False otherwise.
+    :return: True if the command was sent and False otherwise.
+    :rtype: bool
     """
     
     rospy.wait_for_service("/gazebo/spawn_sdf_model")
@@ -943,35 +961,36 @@ def gazebo_spawn_sdf_param(    param_name, model_name="robot1", robot_namespace=
     """
     Function to spawn a model from a SDF in the param server.
 
-    @param param_name: Name of model to spawn
-    @type param_name: str
+    :param param_name: Name of model to spawn
+    :type param_name: str
 
-    @param model_name: Name of model to spawn
-    @type model_name: str
+    :param model_name: Name of model to spawn
+    :type model_name: str
 
-    @param robot_namespace: change ROS namespace of gazebo-plugins.
-    @type robot_namespace: str
+    :param robot_namespace: change ROS namespace of gazebo-plugins.
+    :type robot_namespace: str
 
-    @param reference_frame: Name of the model/body where initial pose is defined. If left empty or specified as "world", gazebo world frame is used.
-    @type reference_frame: str
+    :param reference_frame: Name of the model/body where initial pose is defined. If left empty or specified as "world", gazebo world frame is used.
+    :type reference_frame: str
 
-    @param pos_x: x position of model in model's reference frame
-    @type pos_x: float
-    @param pos_y: y position of model in model's reference frame
-    @type pos_y: float
-    @param pos_z: z position of model in model's reference frame
-    @type pos_z: float
+    :param pos_x: x position of model in model's reference frame
+    :type pos_x: float
+    :param pos_y: y position of model in model's reference frame
+    :type pos_y: float
+    :param pos_z: z position of model in model's reference frame
+    :type pos_z: float
 
-    @param ori_x: X part of Quaternion of model orientation in model's reference frame.
-    @type ori_x: float
-    @param ori_y: Y part of Quaternion of model orientation in model's reference frame.
-    @type ori_y: float
-    @param ori_z: Z part of Quaternion of model orientation in model's reference frame.
-    @type ori_z: float
-    @param ori_w: W part of Quaternion of model orientation in model's reference frame.
-    @type ori_w: float
+    :param ori_x: X part of Quaternion of model orientation in model's reference frame.
+    :type ori_x: float
+    :param ori_y: Y part of Quaternion of model orientation in model's reference frame.
+    :type ori_y: float
+    :param ori_z: Z part of Quaternion of model orientation in model's reference frame.
+    :type ori_z: float
+    :param ori_w: W part of Quaternion of model orientation in model's reference frame.
+    :type ori_w: float
 
-    @return: True if the command was sent and False otherwise.
+    :return: True if the command was sent and False otherwise.
+    :rtype: bool
     """
 
     rospy.wait_for_service("/gazebo/spawn_sdf_model")
@@ -1003,13 +1022,13 @@ def gazebo_get_model_state(model_name, relative_entity_name="world"):
     """
     Function to get the state of a model.
 
-    @param model_name: Name of model to get the state of.
-    @type model_name: str
+    :param model_name: Name of model to get the state of.
+    :type model_name: str
 
-    @param relative_entity_name: Return pose and twist relative to this entity (an entity can be a model, body, or geom).
-    @type relative_entity_name: str
+    :param relative_entity_name: Return pose and twist relative to this entity (an entity can be a model, body, or geom).
+    :type relative_entity_name: str
 
-    @return: The header of the message, the pose of the model, the twist of the model, and success.
+    :return: The header of the message, the pose of the model, the twist of the model, and success.
     """
 
     rospy.wait_for_service("/gazebo/get_model_state")
@@ -1029,46 +1048,47 @@ def gazebo_set_model_state(model_name, ref_frame="world", pos_x=0.0, pos_y=0.0, 
     """
     Function to set the model name in gazebo.
 
-    @param model_name: Name of model to set.
-    @type model_name: str
+    :param model_name: Name of model to set.
+    :type model_name: str
 
-    @param ref_frame: Reference frame of model.
-    @type ref_frame: str
+    :param ref_frame: Reference frame of model.
+    :type ref_frame: str
 
-    @param pos_x: x position of model in model's reference frame
-    @type pos_x: float
-    @param pos_y: y position of model in model's reference frame
-    @type pos_y: float
-    @param pos_z: z position of model in model's reference frame
-    @type pos_z: float
+    :param pos_x: x position of model in model's reference frame
+    :type pos_x: float
+    :param pos_y: y position of model in model's reference frame
+    :type pos_y: float
+    :param pos_z: z position of model in model's reference frame
+    :type pos_z: float
 
-    @param ori_x: X part of Quaternion of model orientation in model's reference frame.
-    @type ori_x: float
-    @param ori_y: Y part of Quaternion of model orientation in model's reference frame.
-    @type ori_y: float
-    @param ori_z: Z part of Quaternion of model orientation in model's reference frame.
-    @type ori_z: float
-    @param ori_w: W part of Quaternion of model orientation in model's reference frame.
-    @type ori_w: float
+    :param ori_x: X part of Quaternion of model orientation in model's reference frame.
+    :type ori_x: float
+    :param ori_y: Y part of Quaternion of model orientation in model's reference frame.
+    :type ori_y: float
+    :param ori_z: Z part of Quaternion of model orientation in model's reference frame.
+    :type ori_z: float
+    :param ori_w: W part of Quaternion of model orientation in model's reference frame.
+    :type ori_w: float
 
-    @param lin_vel_x: X part of linear velocity of model in model's reference frame.
-    @type lin_vel_x: float
-    @param lin_vel_y: Y part of linear velocity of model in model's reference frame.
-    @type lin_vel_y: float
-    @param lin_vel_z: Z part of linear velocity of model in model's reference frame.
-    @type lin_vel_z: float
+    :param lin_vel_x: X part of linear velocity of model in model's reference frame.
+    :type lin_vel_x: float
+    :param lin_vel_y: Y part of linear velocity of model in model's reference frame.
+    :type lin_vel_y: float
+    :param lin_vel_z: Z part of linear velocity of model in model's reference frame.
+    :type lin_vel_z: float
 
-    @param ang_vel_x: X part of angular velocity of model in model's reference frame.
-    @type ang_vel_x: float
-    @param ang_vel_y: Y part of angular velocity of model in model's reference frame.
-    @type ang_vel_y: float
-    @param ang_vel_z: Z part of angular velocity of model in model's reference frame.
-    @type ang_vel_z: float
+    :param ang_vel_x: X part of angular velocity of model in model's reference frame.
+    :type ang_vel_x: float
+    :param ang_vel_y: Y part of angular velocity of model in model's reference frame.
+    :type ang_vel_y: float
+    :param ang_vel_z: Z part of angular velocity of model in model's reference frame.
+    :type ang_vel_z: float
 
-    @param sleep_time: Time to sleep bewteen sending request and getting response.
-    @type sleep_time: float
+    :param sleep_time: Time to sleep bewteen sending request and getting response.
+    :type sleep_time: float
 
-    @return: True if the command was sent and False otherwise.
+    :return: True if the command was sent and False otherwise.
+    :rtype: bool
     """
 
     rospy.wait_for_service("/gazebo/set_model_state")

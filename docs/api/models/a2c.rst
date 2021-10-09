@@ -17,5 +17,7 @@ Class docs
 
 .. autoclass:: a2c.A2C
    :members:
+   :member-order: bysource
    :private-members:
    :inherited-members:
+   

@@ -2,6 +2,8 @@ import gym
 
 class TimeLimitWrapper(gym.Wrapper):
   """
+  Wrapper to limit the number of steps per episode.
+
   :param env: (gym.Env) Gym environment that will be wrapped
   :param max_steps: (int) Max number of steps per episode
   """
@@ -22,8 +24,11 @@ class TimeLimitWrapper(gym.Wrapper):
 
   def step(self, action):
     """
-    :param action: ([float] or int) Action taken by the agent
-    :return: (np.ndarray, float, bool, dict) observation, reward, is the episode over?, additional informations
+    :param action: Action taken by the agent
+    :type action: [float] or int
+
+    :return: observation, reward, is the episode over, additional informations
+    :rtype: (np.ndarray, float, bool, dict)
     """
     self.current_step += 1
     obs, reward, done, info = self.env.step(action)

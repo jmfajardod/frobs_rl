@@ -5,4 +5,5 @@ Functions related to the handling of the start, stop, reset, load, unload, etc, 
 
 .. automodule:: ros_controllers
    :members:
+   :member-order: bysource
    

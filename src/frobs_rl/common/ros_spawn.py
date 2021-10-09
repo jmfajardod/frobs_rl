@@ -12,16 +12,17 @@ def init_robot_state_pub(namespace="/", max_pub_freq=None, launch_new_term=False
     """
     Funtion to initialize the robot state publisher.
 
-    @param namespace: Namespace of the robot.
-    @type namespace: str
+    :param namespace: Namespace of the robot.
+    :type namespace: str
 
-    @param max_pub_freq: Maximum frequency of the publisher.
-    @type max_pub_freq: float
+    :param max_pub_freq: Maximum frequency of the publisher.
+    :type max_pub_freq: float
 
-    @param launch_new_term: Launch the process in a new terminal (Xterm).
-    @type launch_new_term: bool
+    :param launch_new_term: Launch the process in a new terminal (Xterm).
+    :type launch_new_term: bool
 
-    @return: Return true if the publisher was initialized.
+    :return: Return true if the publisher was initialized.
+    :rtype: bool
     """
 
     if max_pub_freq is not None:
@@ -42,56 +43,57 @@ def spawn_model_in_gazebo(  pkg_name, model_urdf_file,
     """
     Function to spawn a model in gazebo.
 
-    @param pkg_name: Package name of the model.
-    @type pkg_name: str
+    :param pkg_name: Package name of the model.
+    :type pkg_name: str
 
-    @param model_urdf_file: Name of the model urdf file.
-    @type model_urdf_file: str
+    :param model_urdf_file: Name of the model urdf file.
+    :type model_urdf_file: str
 
-    @param controllers_file: Name of the controllers file. If None then no controllers will be loaded.
-    @type controllers_file: str
+    :param controllers_file: Name of the controllers file. If None then no controllers will be loaded.
+    :type controllers_file: str
 
-    @param controllers_list: List of the controllers to be loaded.
-    @type controllers_list: list
+    :param controllers_list: List of the controllers to be loaded.
+    :type controllers_list: list
 
-    @param model_urdf_folder: Folder where the model urdf file is located. Default is "/urdf".
-    @type model_urdf_folder: str
+    :param model_urdf_folder: Folder where the model urdf file is located. Default is "/urdf".
+    :type model_urdf_folder: str
 
-    @param ns: Namespace of the model. Default is "/".
-    @type ns: str
+    :param ns: Namespace of the model. Default is "/".
+    :type ns: str
 
-    @param args_xacro: Arguments to be passed to xacro.
-    @type args_xacro: list
+    :param args_xacro: Arguments to be passed to xacro.
+    :type args_xacro: list
 
-    @param max_pub_freq: Maximum frequency of the robot state publisher.
-    @type max_pub_freq: float
+    :param max_pub_freq: Maximum frequency of the robot state publisher.
+    :type max_pub_freq: float
 
-    @param rob_st_term: Launch the robot state publisher in a new terminal (Xterm).
-    @type rob_st_term: bool
+    :param rob_st_term: Launch the robot state publisher in a new terminal (Xterm).
+    :type rob_st_term: bool
 
-    @param gazebo_name: Name of the gazebo model.
-    @type gazebo_name: str
+    :param gazebo_name: Name of the gazebo model.
+    :type gazebo_name: str
 
-    @param gaz_ref_frame: Reference frame of the gazebo model.
-    @type gaz_ref_frame: str
+    :param gaz_ref_frame: Reference frame of the gazebo model.
+    :type gaz_ref_frame: str
 
-    @param pos_x: X position of the gazebo model.
-    @param pos_y: Y position of the gazebo model.
-    @param pos_z: Z position of the gazebo model.
-    @type pos_x: float
-    @type pos_y: float
-    @type pos_z: float
+    :param pos_x: X position of the gazebo model.
+    :param pos_y: Y position of the gazebo model.
+    :param pos_z: Z position of the gazebo model.
+    :type pos_x: float
+    :type pos_y: float
+    :type pos_z: float
 
-    @param ori_w: W orientation of the gazebo model.
-    @param ori_x: X orientation of the gazebo model.
-    @param ori_y: Y orientation of the gazebo model.
-    @param ori_z: Z orientation of the gazebo model.
-    @type ori_w: float
-    @type ori_x: float
-    @type ori_y: float
-    @type ori_z: float
+    :param ori_w: W orientation of the gazebo model.
+    :param ori_x: X orientation of the gazebo model.
+    :param ori_y: Y orientation of the gazebo model.
+    :param ori_z: Z orientation of the gazebo model.
+    :type ori_w: float
+    :type ori_x: float
+    :type ori_y: float
+    :type ori_z: float
 
-    @return: Return true if the model was spawned.
+    :return: Return true if the model was spawned.
+    :rtype: bool
 
     """
 

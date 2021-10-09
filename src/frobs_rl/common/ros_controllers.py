@@ -7,16 +7,17 @@ def load_controller_srv(controller_name, ns=None, max_retries=5) -> bool:
     """
     Function to load a controller on the namespace.
 
-    @param controller_name: name of the controller to load
-    @type controller_name: string
+    :param controller_name: name of the controller to load
+    :type controller_name: string
 
-    @param ns: namespace
-    @type ns: string
+    :param ns: namespace
+    :type ns: string
 
-    @param max_retries: number of retries to load the controller.
-    @type max_retries: int
+    :param max_retries: number of retries to load the controller.
+    :type max_retries: int
 
-    @return: true if the controller is loaded.
+    :return: true if the controller is loaded.
+    :rtype: bool
     """
 
     if ns is not None:
@@ -47,14 +48,14 @@ def load_controller_list_srv(controller_list,ns=None, max_retries=5) -> None:
     """
     Function to load a list of controllers on the namespace.
 
-    @param controller_list: list of controllers to load
-    @type controller_list: list of strings
+    :param controller_list: list of controllers to load
+    :type controller_list: list of strings
 
-    @param ns: namespace
-    @type ns: string
+    :param ns: namespace
+    :type ns: string
 
-    @param max_retries: number of retries to load the controller.
-    @type max_retries: int
+    :param max_retries: number of retries to load the controller.
+    :type max_retries: int
     """
 
     for controller in controller_list:
@@ -64,16 +65,17 @@ def unload_controller_srv(controller_name,ns=None, max_retries=5) -> bool:
     """
     Function to unload a controller on the namespace.
 
-    @param controller_name: name of the controller to unload
-    @type controller_name: string
+    :param controller_name: name of the controller to unload
+    :type controller_name: string
 
-    @param ns: namespace
-    @type ns: string
+    :param ns: namespace
+    :type ns: string
 
-    @param max_retries: number of retries to unload the controller.
-    @type max_retries: int
+    :param max_retries: number of retries to unload the controller.
+    :type max_retries: int
 
-    @return: true if the controller is unloaded.
+    :return: true if the controller is unloaded.
+    :rtype: bool
     """
 
     if ns is not None:
@@ -104,14 +106,14 @@ def unload_controller_list_srv(controller_list,ns=None, max_retries=5) -> None:
     """
     Function to unload a list of controllers on the namespace.
 
-    @param controller_list: list of controllers to unload
-    @type controller_list: list of strings
+    :param controller_list: list of controllers to unload
+    :type controller_list: list of strings
 
-    @param ns: namespace
-    @type ns: string
+    :param ns: namespace
+    :type ns: string
 
-    @param max_retries: number of retries to unload the controller.
-    @type max_retries: int
+    :param max_retries: number of retries to unload the controller.
+    :type max_retries: int
     """
     for controller in controller_list:
         unload_controller_srv(controller, ns=ns, max_retries=max_retries)
@@ -121,28 +123,29 @@ def switch_controllers_srv( start_controllers, stop_controllers, ns=None,
     """
     Function to switch controllers on the namespace.
 
-    @param start_controllers: list of controllers to start
-    @type start_controllers: list of strings
+    :param start_controllers: list of controllers to start
+    :type start_controllers: list of strings
 
-    @param stop_controllers: list of controllers to stop
-    @type stop_controllers: list of strings
+    :param stop_controllers: list of controllers to stop
+    :type stop_controllers: list of strings
 
-    @param ns: namespace
-    @type ns: string
+    :param ns: namespace
+    :type ns: string
 
-    @param strictness: strictness of the controller manager: BEST_EFFORT or STRICT (1 and 2, respectively).
-    @type strictness: int
+    :param strictness: strictness of the controller manager: BEST_EFFORT or STRICT (1 and 2, respectively).
+    :type strictness: int
 
-    @param start_asap:  start the controllers as soon as their hardware dependencies are ready, will wait for all interfaces to be ready otherwise.
-    @type start_asap: bool
+    :param start_asap:  start the controllers as soon as their hardware dependencies are ready, will wait for all interfaces to be ready otherwise.
+    :type start_asap: bool
 
-    @param timeout: the timeout in seconds before aborting pending controllers. Zero for infinite.
-    @type timeout: float
+    :param timeout: the timeout in seconds before aborting pending controllers. Zero for infinite.
+    :type timeout: float
 
-    @param max_retries: number of retries to switch the controller.
-    @type max_retries: int
+    :param max_retries: number of retries to switch the controller.
+    :type max_retries: int
 
-    @return: true if the operation is successful.
+    :return: true if the operation is successful.
+    :rtype: bool
     """
 
     if ns is not None:
@@ -173,22 +176,23 @@ def start_controllers_srv(start_controllers, ns=None, strictness=1, start_asap=F
     """
     Function to start controllers on the namespace.
 
-    @param start_controllers: list of controllers to start
-    @type start_controllers: list of strings
+    :param start_controllers: list of controllers to start
+    :type start_controllers: list of strings
 
-    @param ns: namespace
-    @type ns: string
+    :param ns: namespace
+    :type ns: string
 
-    @param strictness: strictness of the controller manager: BEST_EFFORT or STRICT (1 and 2, respectively).
-    @type strictness: int
+    :param strictness: strictness of the controller manager: BEST_EFFORT or STRICT (1 and 2, respectively).
+    :type strictness: int
 
-    @param start_asap:  start the controllers as soon as their hardware dependencies are ready, will wait for all interfaces to be ready otherwise.
-    @type start_asap: bool
+    :param start_asap:  start the controllers as soon as their hardware dependencies are ready, will wait for all interfaces to be ready otherwise.
+    :type start_asap: bool
 
-    @param timeout: the timeout in seconds before aborting pending controllers. Zero for infinite.
-    @type timeout: float
+    :param timeout: the timeout in seconds before aborting pending controllers. Zero for infinite.
+    :type timeout: float
 
-    @return: true if the operation is successful.
+    :return: true if the operation is successful.
+    :rtype: bool
     """
 
     return switch_controllers_srv(start_controllers, [], ns=ns, strictness=strictness, start_asap=start_asap, timeout=timeout)
@@ -197,22 +201,23 @@ def stop_controllers_srv(stop_controllers, ns=None, strictness=1, start_asap=Fal
     """
     Function to start controllers on the namespace.
 
-    @param stop_controllers: list of controllers to stop
-    @type stop_controllers: list of strings
+    :param stop_controllers: list of controllers to stop
+    :type stop_controllers: list of strings
 
-    @param ns: namespace
-    @type ns: string
+    :param ns: namespace
+    :type ns: string
 
-    @param strictness: strictness of the controller manager: BEST_EFFORT or STRICT (1 and 2, respectively).
-    @type strictness: int
+    :param strictness: strictness of the controller manager: BEST_EFFORT or STRICT (1 and 2, respectively).
+    :type strictness: int
 
-    @param start_asap:  start the controllers as soon as their hardware dependencies are ready, will wait for all interfaces to be ready otherwise.
-    @type start_asap: bool
+    :param start_asap:  start the controllers as soon as their hardware dependencies are ready, will wait for all interfaces to be ready otherwise.
+    :type start_asap: bool
 
-    @param timeout: the timeout in seconds before aborting pending controllers. Zero for infinite.
-    @type timeout: float
+    :param timeout: the timeout in seconds before aborting pending controllers. Zero for infinite.
+    :type timeout: float
 
-    @return: true if the operation is successful.
+    :return: true if the operation is successful.
+    :rtype: bool
     """
 
     return switch_controllers_srv([], stop_controllers, ns=ns, strictness=strictness, start_asap=start_asap, timeout=timeout)
@@ -221,25 +226,26 @@ def reset_controllers_srv(reset_controllers, max_retries=10, ns=None, strictness
     """
     Function to reset controllers on the namespace.
 
-    @param reset_controllers: list of controllers to reset
-    @type reset_controllers: list of strings
+    :param reset_controllers: list of controllers to reset
+    :type reset_controllers: list of strings
 
-    @param max_retries: number of times to retry resetting a controller before giving up.
-    @type max_retries: int
+    :param max_retries: number of times to retry resetting a controller before giving up.
+    :type max_retries: int
 
-    @param ns: namespace
-    @type ns: string
+    :param ns: namespace
+    :type ns: string
 
-    @param strictness: strictness of the controller manager: BEST_EFFORT or STRICT (1 and 2, respectively).
-    @type strictness: int
+    :param strictness: strictness of the controller manager: BEST_EFFORT or STRICT (1 and 2, respectively).
+    :type strictness: int
 
-    @param start_asap:  start the controllers as soon as their hardware dependencies are ready, will wait for all interfaces to be ready otherwise.
-    @type start_asap: bool
+    :param start_asap:  start the controllers as soon as their hardware dependencies are ready, will wait for all interfaces to be ready otherwise.
+    :type start_asap: bool
 
-    @param timeout: the timeout in seconds before aborting pending controllers. Zero for infinite.
-    @type timeout: float
+    :param timeout: the timeout in seconds before aborting pending controllers. Zero for infinite.
+    :type timeout: float
 
-    @return: true if the operation is successful.
+    :return: true if the operation is successful.
+    :rtype: bool
     """
 
     done_switch_off = False
@@ -266,22 +272,23 @@ def spawn_controllers_srv(spawn_controllers, ns=None, strictness=1, start_asap=F
     """
     Function to spawn controllers on the namespace.
 
-    @param spawn_controllers: list of controllers to spawn
-    @type spawn_controllers: list of strings
+    :param spawn_controllers: list of controllers to spawn
+    :type spawn_controllers: list of strings
 
-    @param ns: namespace
-    @type ns: string
+    :param ns: namespace
+    :type ns: string
 
-    @param strictness: strictness of the controller manager: BEST_EFFORT or STRICT (1 and 2, respectively).
-    @type strictness: int
+    :param strictness: strictness of the controller manager: BEST_EFFORT or STRICT (1 and 2, respectively).
+    :type strictness: int
 
-    @param start_asap:  start the controllers as soon as their hardware dependencies are ready, will wait for all interfaces to be ready otherwise.
-    @type start_asap: bool
+    :param start_asap:  start the controllers as soon as their hardware dependencies are ready, will wait for all interfaces to be ready otherwise.
+    :type start_asap: bool
 
-    @param timeout: the timeout in seconds before aborting pending controllers. Zero for infinite.
-    @type timeout: float
+    :param timeout: the timeout in seconds before aborting pending controllers. Zero for infinite.
+    :type timeout: float
 
-    @return: true if the operation is successful.
+    :return: true if the operation is successful.
+    :rtype: bool
     """
 
     load_controller_list_srv(spawn_controllers, ns=ns)
@@ -292,22 +299,23 @@ def kill_controllers_srv(kill_controllers, ns=None, strictness=1, start_asap=Fal
     """
     Function to kill controllers on the namespace.
 
-    @param kill_controllers: list of controllers to kill
-    @type kill_controllers: list of strings
+    :param kill_controllers: list of controllers to kill
+    :type kill_controllers: list of strings
 
-    @param ns: namespace
-    @type ns: string
+    :param ns: namespace
+    :type ns: string
 
-    @param strictness: strictness of the controller manager: BEST_EFFORT or STRICT (1 and 2, respectively).
-    @type strictness: int
+    :param strictness: strictness of the controller manager: BEST_EFFORT or STRICT (1 and 2, respectively).
+    :type strictness: int
 
-    @param start_asap:  start the controllers as soon as their hardware dependencies are ready, will wait for all interfaces to be ready otherwise.
-    @type start_asap: bool
+    :param start_asap:  start the controllers as soon as their hardware dependencies are ready, will wait for all interfaces to be ready otherwise.
+    :type start_asap: bool
 
-    @param timeout: the timeout in seconds before aborting pending controllers. Zero for infinite.
-    @type timeout: float
+    :param timeout: the timeout in seconds before aborting pending controllers. Zero for infinite.
+    :type timeout: float
 
-    @return: true if the operation is successful.
+    :return: true if the operation is successful.
+    :rtype: bool
     """
 
     res = stop_controllers_srv(kill_controllers, ns=ns, strictness=strictness, start_asap=start_asap, timeout=timeout)

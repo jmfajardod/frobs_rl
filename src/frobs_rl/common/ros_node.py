@@ -13,31 +13,32 @@ def ros_node_from_pkg(pkg_name, node_name, launch_master=False, launch_master_te
     """
     Function to launch a ROS node from a package.
 
-    @param pkg_name: Name of the package to launch the node from.
-    @type pkg_name: str
+    :param pkg_name: Name of the package to launch the node from.
+    :type pkg_name: str
 
-    @param node_name: Name of the node to launch.
-    @type node_name: str
+    :param node_name: Name of the node to launch.
+    :type node_name: str
 
-    @param launch_master: If ROSMASTER is not running launch it.
-    @type launch_master: bool
+    :param launch_master: If ROSMASTER is not running launch it.
+    :type launch_master: bool
 
-    @param launch_master_term: If launch ROSMASTER do it in an external terminal.
-    @type launch_master_term: bool
+    :param launch_master_term: If launch ROSMASTER do it in an external terminal.
+    :type launch_master_term: bool
 
-    @param launch_new_term: Launch the process in a new terminal (Xterm).
-    @type launch_new_term: bool
+    :param launch_new_term: Launch the process in a new terminal (Xterm).
+    :type launch_new_term: bool
 
-    @param name: Name to give the node to be launched.
-    @type name: str
+    :param name: Name to give the node to be launched.
+    :type name: str
 
-    @param ns: Namespace to give the node to be launched.
-    @type ns: str
+    :param ns: Namespace to give the node to be launched.
+    :type ns: str
 
-    @param output:  log, screen, or None.
-    @type output: str
+    :param output:  log, screen, or None.
+    :type output: str
 
-    @return: True if the node was launched, False otherwise.
+    :return: True if the node was launched, False otherwise.
+    :rtype: bool
     """
 
     rospack = rospkg.RosPack()
@@ -90,10 +91,11 @@ def ros_kill_node(node_name) -> bool:
     """
     Function to kill a ROS node.
 
-    @param node_name: Name of the node to kill.
-    @type node_name: str
+    :param node_name: Name of the node to kill.
+    :type node_name: str
 
-    @return: True if the node was killed, False otherwise.
+    :return: True if the node was killed, False otherwise.
+    :rtype: bool
     """
 
     term_command = "rosnode kill " + node_name
@@ -104,7 +106,8 @@ def ros_kill_all_nodes() -> bool:
     """
     Function to kill all running ROS nodes.
 
-    @return: True if all nodes were killed, False otherwise.
+    :return: True if all nodes were killed, False otherwise.
+    :rtype: bool
     """
 
     term_command = "rosnode kill -a"
@@ -115,7 +118,8 @@ def ros_kill_master() -> bool:
     """
     Function to kill the ROS master.
 
-    @return: True if the master was killed, False otherwise.
+    :return: True if the master was killed, False otherwise.
+    :rtype: bool
     """
 
     try:
@@ -137,7 +141,8 @@ def ros_kill_all_processes() -> bool:
     """
     Function to kill all running ROS related processes.
 
-    @return: True if all processes were killed, False otherwise.
+    :return: True if all processes were killed, False otherwise.
+    :rtype: bool
     """
 
     term_command = "killall -9 rosout roslaunch rosmaster gzserver nodelet robot_state_publisher gzclient"

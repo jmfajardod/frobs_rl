@@ -17,5 +17,6 @@ Class docs
 
 .. autoclass:: ddpg.DDPG
    :members:
+   :member-order: bysource
    :private-members:
    :inherited-members:

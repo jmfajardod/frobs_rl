@@ -17,5 +17,6 @@ Class docs
 
 .. autoclass:: dqn.DQN
    :members:
+   :member-order: bysource
    :private-members:
    :inherited-members:

@@ -17,5 +17,6 @@ Class docs
 
 .. autoclass:: ppo.PPO
    :members:
+   :member-order: bysource
    :private-members:
    :inherited-members:

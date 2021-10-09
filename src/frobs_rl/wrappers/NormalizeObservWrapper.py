@@ -4,6 +4,8 @@ import gym
 
 class NormalizeObservWrapper(gym.Wrapper):
     """
+    Wrapper to normalize the observation space.
+
     :param env: (gym.Env) Gym environment that will be wrapped
     """
     def __init__(self, env):
@@ -21,10 +23,13 @@ class NormalizeObservWrapper(gym.Wrapper):
     
     def scale_observation(self, observation):
         """
-        Scale the observation from [low, high] to [-1, 1]
-        (no need for symmetric observation space)
-        :param observation: (np.ndarray)
-        :return: (np.ndarray)
+        Scale the observation from [low, high] to [-1, 1].
+        
+        :param observation: Observation to scale
+        :type observation: np.ndarray
+
+        :return: scaled observation
+        :rtype: np.ndarray
         """
         return ((observation - self.low) * (1.0/(0.5*(self.high-self.low)))) - 1.0
 
@@ -39,8 +44,11 @@ class NormalizeObservWrapper(gym.Wrapper):
 
     def step(self, action):
         """
-        :param action: ([float] or int) Action taken by the agent
-        :return: (np.ndarray, float, bool, dict) observation, reward, is the episode over?, additional informations
+        :param action: Action taken by the agent
+        :type action: float or int
+
+        :return: observation, reward, is the episode over, additional informations
+        :rtype: (np.ndarray, float, bool, dict)
         """
         observation, reward, done, info = self.env.step(action)
         # Rescale observation from [low, high] to [-1, 1] interval

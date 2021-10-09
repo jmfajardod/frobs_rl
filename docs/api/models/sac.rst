@@ -17,5 +17,6 @@ Class docs
 
 .. autoclass:: sac.SAC
    :members:
+   :member-order: bysource
    :private-members:
    :inherited-members:

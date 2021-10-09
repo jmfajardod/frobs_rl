@@ -12,20 +12,25 @@ import rospy
 
 class A2C(basic_model.BasicModel):
 
+    """
+    Advantage Actor-Critic (A2C) algorithm.
+
+    Paper: https://arxiv.org/abs/1602.01783
+    
+    :param env: The environment to be used.
+    :param save_model_path: The path to save the model.
+    :param log_path: The path to save the log.
+    :param load_trained: If True, load a trained model.
+
+    :param config_file_pkg: The package where the config file is located. Default: frobs_rl.
+    :param config_filename: The name of the config file. Default: a2c_config.yaml.
+    :param ns: The namespace of the ROS parameters. Default: "/".
+    """
+
     def __init__(self, env, save_model_path, log_path, load_trained=False,
                 config_file_pkg="frobs_rl", config_filename="a2c_config.yaml", ns="/") -> None:
         """
         A2C constructor.
-
-        @param env: The environment to be used.
-        @param save_model_path: The path to save the model.
-        @param log_path: The path to save the log.
-        @param load_trained: If True, load a trained model.
-
-        @param config_file_pkg: The package where the config file is located. Default: frobs_rl.
-        @param config_filename: The name of the config file. Default: a2c_config.yaml.
-        @param ns: The namespace of the ROS parameters. Default: "/".
-        
         """
         
         rospy.loginfo("Init A2C Policy")
@@ -99,10 +104,13 @@ class A2C(basic_model.BasicModel):
         """
         Load a trained model. Use only with predict function, as the logs will not be saved.
 
-        @param model_path: The path to the trained model.
-        @type model_path: str
-        @param env: The environment to be used.
-        @type env: gym.Env
+        :param model_path: The path to the trained model.
+        :type model_path: str
+        :param env: The environment to be used.
+        :type env: gym.Env
+
+        :return: The loaded model.
+        :rtype: frobs_rl.A2C
         """
 
         model = A2C(env=env, save_model_path=model_path, log_path=model_path, load_trained=True)

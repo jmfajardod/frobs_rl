@@ -9,19 +9,20 @@ import time
 def ros_launch_from_pkg(pkg_name, launch_file, args=None, launch_new_term=True) -> bool:
     """
     Function to execute a roslaunch from package with args.
-    @param pkg_name: Name of the package where the launch file is located.
-    @type pkg_name: str
+    :param pkg_name: Name of the package where the launch file is located.
+    :type pkg_name: str
     
-    @param launch_file: Name of the launch file.
-    @type launch_file: str
+    :param launch_file: Name of the launch file.
+    :type launch_file: str
     
-    @param args: Args to pass to the launch file.
-    @type args: list of str
+    :param args: Args to pass to the launch file.
+    :type args: list of str
 
-    @param launch_new_term: Launch the process in a new terminal (Xterm).
-    @type launch_new_term: bool
+    :param launch_new_term: Launch the process in a new terminal (Xterm).
+    :type launch_new_term: bool
 
-    @return: True if the launch file was executed.
+    :return: True if the launch file was executed.
+    :rtype: bool
     """
 
     rospack = rospkg.RosPack()
@@ -54,16 +55,17 @@ def ros_launch_from_pkg(pkg_name, launch_file, args=None, launch_new_term=True) 
 def ros_launch_from_path(launch_file_path, args=None, launch_new_term=True) -> bool:
     """
     Function to execute a roslaunch from a path with args.
-    @param launch_file_path: Path of the launch file.
-    @type launch_file_path: str
+    :param launch_file_path: Path of the launch file.
+    :type launch_file_path: str
 
-    @param args: Args to pass to the launch file.
-    @type args: list str
+    :param args: Args to pass to the launch file.
+    :type args: list str
 
-    @param launch_new_term: Launch the process in a new terminal (Xterm).
-    @type launch_new_term: bool
+    :param launch_new_term: Launch the process in a new terminal (Xterm).
+    :type launch_new_term: bool
 
-    @return: True if the launch file was executed.
+    :return: True if the launch file was executed.
+    :rtype: bool
     """
 
     if os.path.exists(launch_file_path) is False:
@@ -88,7 +90,8 @@ def ros_kill_launch_process() -> bool:
     """
     Function to kill all roslaunch processes.
 
-    @return: True if the roslaunch processes were killed.
+    :return: True if the roslaunch processes were killed.
+    :rtype: bool
     """
     term_command = "killall -9 roslaunch"
     subprocess.Popen("xterm -e ' " + term_command + "'", shell=True).wait()

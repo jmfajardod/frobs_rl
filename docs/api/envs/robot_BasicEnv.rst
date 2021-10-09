@@ -7,3 +7,4 @@ Basic robot enviroment, inheriting the Gym basic env. This class is inherited by
    :members:
    :private-members:
    :noindex:
+   :member-order: bysource

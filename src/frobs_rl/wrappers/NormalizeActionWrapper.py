@@ -4,6 +4,8 @@ import gym
 
 class NormalizeActionWrapper(gym.Wrapper):
     """
+    Wrapper to normalize the action space.
+
     :param env: (gym.Env) Gym environment that will be wrapped
     """
     def __init__(self, env):
@@ -22,9 +24,12 @@ class NormalizeActionWrapper(gym.Wrapper):
     def rescale_action(self, scaled_action):
         """
         Rescale the action from [-1, 1] to [low, high]
-        (no need for symmetric action space)
-        :param scaled_action: (np.ndarray)
-        :return: (np.ndarray)
+
+        :param scaled_action: The action to rescale.
+        :type scaled_action: np.ndarray
+
+        :return: The rescaled action.
+        :rtype: np.ndarray
         """
         return self.low + (0.5 * (scaled_action + 1.0) * (self.high -  self.low))
 
@@ -37,8 +42,11 @@ class NormalizeActionWrapper(gym.Wrapper):
 
     def step(self, action):
         """
-        :param action: ([float] or int) Action taken by the agent
-        :return: (np.ndarray, float, bool, dict) observation, reward, is the episode over?, additional informations
+        :param action: Action taken by the agent
+        :type action: floar or int
+
+        :return: observation, reward, is the episode over, additional informations
+        :rtype: (np.ndarray, float, bool, dict)
         """
         # Rescale action from [-1, 1] to original [low, high] interval
         rescaled_action = self.rescale_action(action)

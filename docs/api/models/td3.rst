@@ -17,5 +17,6 @@ Class docs
 
 .. autoclass:: td3.TD3
    :members:
+   :member-order: bysource
    :private-members:
    :inherited-members:

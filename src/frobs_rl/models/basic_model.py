@@ -16,16 +16,21 @@ from stable_baselines3.common.logger import configure
 
 class BasicModel:
 
+    """
+    
+    Base class for all the algorithms supported by the frobs_rl library.
+
+    :param env: The environment to be used.
+    :param save_model_path: The path to save the model.
+    :param log_path: The path to save the log.
+    :param ns: The namespace of the parameters.
+    :param load_trained: Whether or not to load a trained model.
+    
+    """
+
     def __init__(self, env, save_model_path, log_path, ns="/", load_trained=False) -> None:
         """
         BasicModel constructor.
-
-        @param env: The environment to be used.
-        @param save_model_path: The path to save the model.
-        @param log_path: The path to save the log.
-        @param ns: The namespace of the parameters.
-        @param load_trained: Whether or not to load a trained model.
-        
         """
 
         self.env = env
@@ -54,6 +59,9 @@ class BasicModel:
         """
         Function to train the model the number of steps specified in the ROS parameter server.
         The function will automatically save the model after training.
+
+        :return: True if the training was successful, False otherwise.
+        :rtype: bool
         """
 
         training_steps = rospy.get_param(self.ns + "/model_params/training_steps")
@@ -74,6 +82,9 @@ class BasicModel:
     def save_model(self) -> bool:
         """
         Function to save the model.
+
+        :return: True if the model was saved, False otherwise.
+        :rtype: bool
         """
 
         #--- Model name
@@ -95,6 +106,9 @@ class BasicModel:
     def save_replay_buffer(self) -> bool:
         """
         Funtion to save the replay buffer, to be used the training must be finished or an error will be raised.
+
+        :return: True if the replay buffer was saved, False otherwise.
+        :rtype: bool
         """
 
         if self.save_trained_model_path is None:
@@ -107,6 +121,9 @@ class BasicModel:
     def set_model_logger(self) -> bool:
         """
         Function to set the logger of the model.
+
+        :return: True if the logger was set, False otherwise.
+        :rtype: bool
         """
 
         log_folder = rospy.get_param(self.ns + "/model_params/log_folder")
@@ -120,6 +137,9 @@ class BasicModel:
     def close_env(self) -> bool:
         """
         Use the env close method to close the environment.
+
+        :return: True if the environment was closed, False otherwise.
+        :rtype: bool
         """
 
         self.env.close()
@@ -128,6 +148,9 @@ class BasicModel:
     def check_env(self) -> bool:
         """
         Use the stable-baselines check_env method to check the environment.
+
+        :return: True if the environment is correct, False otherwise.
+        :rtype: bool
         """
 
         self.env.check_env()
@@ -137,20 +160,20 @@ class BasicModel:
         """
         Get the current action based on the observation, state or mask
 
-        @param observation: The enviroment observation
-        @type observation: ndarray
+        :param observation: The enviroment observation
+        :type observation: ndarray
 
-        @param state: The previous states of the enviroment, used in recurrent policies.
-        @type state: ndarray
+        :param state: The previous states of the enviroment, used in recurrent policies.
+        :type state: ndarray
 
-        @param mask: The mask of the last states, used in recurrent policies.
-        @type mask: ndarray
+        :param mask: The mask of the last states, used in recurrent policies.
+        :type mask: ndarray
 
-        @param deterministic: Whether or not to return deterministic actions.
-        @type deterministic: bool
+        :param deterministic: Whether or not to return deterministic actions.
+        :type deterministic: bool
 
-        @ return: The action to be taken and the next state(for recurrent policies)
-        @rtype: ndarray, ndarray
+        :return: The action to be taken and the next state(for recurrent policies)
+        :rtype: ndarray, ndarray
         """
 
         return self.model.predict(observation, state=state, mask=mask, deterministic=deterministic)

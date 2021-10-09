@@ -9,6 +9,78 @@ import rospy
 
 class RobotBasicEnv(gym.Env):
 
+    """
+    Basic enviroment for all the robot environments in the frobs_rl library.
+    To use a custom world, one can use two options: 1) set the path directly to the world file (``world_path``) or set the pkg name and world filename (``world_pkg`` and ``world_filename``).
+    
+    :param launch_gazebo: If True, launch Gazebo at the start of the env.
+    :type launch_gazebo: bool
+    :param gazebo_init_paused: If True, Gazebo is initialized in a paused state.
+    :type gazebo_init_paused: bool
+    :param gazebo_use_gui: If True, Gazebo is launched with a GUI (through gzclient).
+    :type gazebo_use_gui: bool
+    :param gazebo_recording: If True, Gazebo is launched with a recording of the GUI (through gzclient).
+    :type gazebo_recording: bool
+    :param gazebo_freq: The publish rate of gazebo in Hz.
+    :type gazebo_freq: int
+
+    :param world_path: If using a custom world then the path to the world.
+    :type world_path: str        
+    :param world_pkg: If using a custom world then the package name of the world.
+    :type world_pkg: str
+    :param world_filename: If using a custom world then the filename of the world.
+    :type world_filename: str
+
+    :param gazebo_max_freq: max update rate for gazebo in real time factor: 1 is real time, 10 is 10 times real time.
+    :type gazebo_max_freq: float
+    :param gazebo_timestep: The timestep of gazebo in seconds.
+    :type gazebo_timestep: float
+
+    :param spawn_robot: If True, the robot is spawned in the environment.
+    :type spawn_robot: bool
+    :param model_name_in_gazebo: The name of the model in gazebo.
+    :type model_name_in_gazebo: str
+    :param namespace: The namespace of the robot.
+    :type namespace: str
+    :param pkg_name: The package name where the robot model is located.
+    :type pkg_name: str
+    :param urdf_file: The path to the urdf file of the robot.
+    :type urdf_file: str
+    :param urdf_folder: The path to the folder where the urdf files are located. Default is "/urdf".
+    :type urdf_folder: str
+    :param urdf_xacro_args: The arguments to be passed to the xacro parser.
+    :type urdf_xacro_args: str
+
+    :param controller_file: The path to the controllers YAML file of the robot.
+    :type controller_file: str
+    :param controller_list: The list of controllers to be launched.
+    :type controller_list: list of str
+
+    :param rob_state_publisher_max_freq: The maximum frequency of the ros state publisher.
+    :type rob_state_publisher_max_freq: int
+    :param rob_st_term: If True, the robot state publisher is launched in a new terminal.
+    :type rob_st_term: bool
+
+    :param model_pos_x: The x position of the robot in the world.
+    :param model_pos_y: The y position of the robot in the world.
+    :param model_pos_z: The z position of the robot in the world.
+    :param model_ori_x: The x orientation of the robot in the world.
+    :param model_ori_y: The y orientation of the robot in the world.
+    :param model_ori_z: The z orientation of the robot in the world.
+    :param model_ori_w: The w orientation of the robot in the world.
+
+    :param reset_controllers: If True, the controllers are reset at the start of each episode.
+    :type reset_controllers: bool
+
+    :param reset_mode:  If 1, reset Gazebo with a "reset_world" (Does not reset time)
+                        If 2, reset Gazebo with a "reset_simulation" (Resets time)
+
+    :param step_mode:   If 1, step Gazebo using the "pause_physics" and "unpause_physics" services.
+                        If 2, step Gazebo using the "step_simulation" command.
+
+    :param num_gazebo_steps: If using step_mode 2, the number of steps to be taken.
+    """
+
     def __init__(   self, launch_gazebo=False, gazebo_init_paused=True, gazebo_use_gui=True, gazebo_recording=False, 
                     gazebo_freq=100, world_path=None, world_pkg=None, world_filename=None,
                     gazebo_max_freq=None, gazebo_timestep=None,
@@ -19,75 +91,8 @@ class RobotBasicEnv(gym.Env):
                     reset_controllers=False, reset_mode=1, step_mode=1, num_gazebo_steps=1):
         """
         Function to initialize the environment.
-
-        @param launch_gazebo: If True, launch Gazebo at the start of the env.
-        @type launch_gazebo: bool
-        @param gazebo_init_paused: If True, Gazebo is initialized in a paused state.
-        @type gazebo_init_paused: bool
-        @param gazebo_use_gui: If True, Gazebo is launched with a GUI (through gzclient).
-        @type gazebo_use_gui: bool
-        @param gazebo_recording: If True, Gazebo is launched with a recording of the GUI (through gzclient).
-        @type gazebo_recording: bool
-        @param gazebo_freq: The publish rate of gazebo in Hz.
-        @type gazebo_freq: int
-
-        To use a custom world, one can use two options: 1) set the path directly to the world file or set the pkg name and world filename.
-        @param world_path: If using a custom world then the path to the world.
-        @type world_path: str        
-        @param world_pkg: If using a custom world then the package name of the world.
-        @type world_pkg: str
-        @param world_filename: If using a custom world then the filename of the world.
-        @type world_filename: str
-
-        @param gazebo_max_freq: max update rate for gazebo in real time factor: 1 is real time, 10 is 10 times real time.
-        @type gazebo_max_freq: float
-        @param gazebo_timestep: The timestep of gazebo in seconds.
-        @type gazebo_timestep: float
-
-        @param spawn_robot: If True, the robot is spawned in the environment.
-        @type spawn_robot: bool
-        @param model_name_in_gazebo: The name of the model in gazebo.
-        @type model_name_in_gazebo: str
-        @param namespace: The namespace of the robot.
-        @type namespace: str
-        @param pkg_name: The package name where the robot model is located.
-        @type pkg_name: str
-        @param urdf_file: The path to the urdf file of the robot.
-        @type urdf_file: str
-        @param urdf_folder: The path to the folder where the urdf files are located. Default is "/urdf".
-        @type urdf_folder: str
-        @param urdf_xacro_args: The arguments to be passed to the xacro parser.
-        @type urdf_xacro_args: str
-
-        @param controller_file: The path to the controllers YAML file of the robot.
-        @type controller_file: str
-        @param controller_list: The list of controllers to be launched.
-        @type controller_list: list of str
-
-        @param rob_state_publisher_max_freq: The maximum frequency of the ros state publisher.
-        @type rob_state_publisher_max_freq: int
-        @param rob_st_term: If True, the robot state publisher is launched in a new terminal.
-        @type rob_st_term: bool
-
-        @param model_pos_x: The x position of the robot in the world.
-        @parma model_pos_y: The y position of the robot in the world.
-        @param model_pos_z: The z position of the robot in the world.
-        @param model_ori_x: The x orientation of the robot in the world.
-        @param model_ori_y: The y orientation of the robot in the world.
-        @param model_ori_z: The z orientation of the robot in the world.
-        @param model_ori_w: The w orientation of the robot in the world.
-
-        @param reset_controllers: If True, the controllers are reset at the start of each episode.
-        @type reset_controllers: bool
-
-        @param reset_mode:  If 1, reset Gazebo with a "reset_world" (Does not reset time)
-                            If 2, reset Gazebo with a "reset_simulation" (Resets time)
-
-        @param step_mode:   If 1, step Gazebo using the "pause_physics" and "unpause_physics" services.
-                            If 2, step Gazebo using the "step_simulation" command.
-
-        @param num_gazebo_steps: If using step_mode 2, the number of steps to be taken.
         """
+        
 
         super(RobotBasicEnv, self).__init__()
 

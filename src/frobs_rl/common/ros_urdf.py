@@ -9,25 +9,26 @@ def urdf_load_from_pkg(pkg_name, model_name, param_name, folder="/urdf", ns=None
     """
     Function to load a URDF from a ROS package to the parameter server.
 
-    @param pkg_name: The ROS package name.
-    @type pkg_name: str
+    :param pkg_name: The ROS package name.
+    :type pkg_name: str
 
-    @param model_name: The model file name.
-    @type model_name: str
+    :param model_name: The model file name.
+    :type model_name: str
 
-    @param param_name: The parameter name.
-    @type param_name: str
+    :param param_name: The parameter name.
+    :type param_name: str
 
-    @param folder: The folder where the model is located. Default: "/urdf"
-    @type folder: str
+    :param folder: The folder where the model is located. Default: "/urdf"
+    :type folder: str
 
-    @param ns: The namespace of the parameter.
-    @type ns: str
+    :param ns: The namespace of the parameter.
+    :type ns: str
 
-    @param args_xacro: The xacro arguments in a list. Eg: ['arg1:=True','arg2:=10.0']
-    @type args_xacro: list of str.
+    :param args_xacro: The xacro arguments in a list. Eg: ['arg1:=True','arg2:=10.0']
+    :type args_xacro: list of str.
 
-    @return: True if the URDF was loaded, False otherwise.
+    :return: True if the URDF was loaded, False otherwise.
+    :rtype: bool
     """
 
     rospack = rospkg.RosPack()
@@ -65,19 +66,20 @@ def urdf_load_from_path(model_path, param_name, ns=None, args_xacro=None) -> boo
     """
     Function to load a URDF from a file to the parameter server.
 
-    @param model_path: The model file path.
-    @type model_path: str
+    :param model_path: The model file path.
+    :type model_path: str
 
-    @param param_name: The parameter name.
-    @type param_name: str
+    :param param_name: The parameter name.
+    :type param_name: str
 
-    @param ns: The namespace of the parameter.
-    @type ns: str
+    :param ns: The namespace of the parameter.
+    :type ns: str
 
-    @param args_xacro: The xacro arguments in a list. Eg: ['arg1:=True','arg2:=10.0']
-    @type args_xacro: list of str.
+    :param args_xacro: The xacro arguments in a list. Eg: ['arg1:=True','arg2:=10.0']
+    :type args_xacro: list of str.
 
-    @return: True if the URDF was loaded, False otherwise.
+    :return: True if the URDF was loaded, False otherwise.
+    :rtype: bool
     """
 
     if os.path.exists(model_path) is False:
@@ -105,19 +107,20 @@ def urdf_parse_from_pkg(pkg_name, model_name, folder="/urdf", args_xacro=None) -
     """
     Function to parse a URDF from a ROS package and return the URDF string.
 
-    @param pkg_name: The ROS package name.
-    @type pkg_name: str
+    :param pkg_name: The ROS package name.
+    :type pkg_name: str
 
-    @param model_name: The model file name.
-    @type model_name: str
+    :param model_name: The model file name.
+    :type model_name: str
 
-    @param folder: The folder where the model is located. Default: "/urdf"
-    @type folder: str
+    :param folder: The folder where the model is located. Default: "/urdf"
+    :type folder: str
 
-    @param args_xacro: The xacro arguments in a list. Eg: ['arg1:=True','arg2:=10.0']
-    @type args_xacro: list of str.
+    :param args_xacro: The xacro arguments in a list. Eg: ['arg1:=True','arg2:=10.0']
+    :type args_xacro: list of str.
 
-    @return: The URDF string or None if the pkg or file was not found.
+    :return: The URDF string or None if the pkg or file was not found.
+    :rtype: str
     """
     rospack = rospkg.RosPack()
     try:
@@ -148,13 +151,14 @@ def urdf_parse_from_path(model_path, args_xacro=None) -> bool:
     """
     Function to parse a URDF from a file and return the URDF string.
 
-    @param model_path: The model file path.
-    @type model_path: str
+    :param model_path: The model file path.
+    :type model_path: str
 
-    @param args_xacro: The xacro arguments in a list. Eg: ['arg1:=True','arg2:=10.0']
-    @type args_xacro: list of str.
+    :param args_xacro: The xacro arguments in a list. Eg: ['arg1:=True','arg2:=10.0']
+    :type args_xacro: list of str.
 
-    @return: The URDF string or None if the file was not found.
+    :return: The URDF string or None if the file was not found.
+    :rtype: str
     """
 
     if os.path.exists(model_path) is False:

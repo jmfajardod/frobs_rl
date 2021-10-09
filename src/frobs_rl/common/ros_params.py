@@ -8,16 +8,18 @@ import rosparam
 def ros_load_yaml_from_pkg(pkg_name, file_name, ns='/') -> bool:
     """
     Fetch a YAML file from a package and load it into the ROS Parameter Server.
-    @param pkg_name: name of package.
-    @type  pkg_name: str
 
-    @param file_name: name of file.
-    @type  file_name: str
+    :param pkg_name: name of package.
+    :type  pkg_name: str
 
-    @param ns: namespace to load parameters into.
-    @type  ns: str
+    :param file_name: name of file.
+    :type  file_name: str
 
-    @return: True if file was loaded, false otherwise.
+    :param ns: namespace to load parameters into.
+    :type  ns: str
+
+    :return: True if file was loaded, false otherwise.
+    :rtype: bool
     """
 
     rospack = rospkg.RosPack()
@@ -44,13 +46,14 @@ def ros_load_yaml_from_path(file_path, ns='/') -> bool:
     """
     Fetch a YAML file from a path and load it into the ROS Parameter Server.
 
-    @param file_path: path to file.
-    @type  file_path: str
+    :param file_path: path to file.
+    :type  file_path: str
 
-    @param ns: namespace to load parameters into.
-    @type  ns: str
+    :param ns: namespace to load parameters into.
+    :type  ns: str
 
-    @return: True if file was loaded, false otherwise.
+    :return: True if file was loaded, false otherwise.
+    :rtype: bool
     """
 
     if os.path.exists(file_path) is False:
