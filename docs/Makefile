@@ -3,7 +3,7 @@
 
 # You can set these variables from the command line, and also
 # from the environment for the first two.
-SPHINXOPTS    = -q  # Do not output anything on standard output, only write warnings and errors to standard error.
+SPHINXOPTS    = -a  # Do not output anything on standard output, only write warnings and errors to standard error.
 SPHINXBUILD   = sphinx-build
 SPHINXPROJ    = FRobs_RL
 SOURCEDIR     = .
