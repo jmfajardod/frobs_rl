@@ -18,11 +18,11 @@ FRobs_RL has the following goals:
 
 # Installation Instructions
 
-FRobs_RL has been tested in the two currentyly supported ROS distributions: [Melodic](https://wiki.ros.org/melodic) and [Noetic](https://wiki.ros.org/noetic), although it should work in previous versions of ROS like [Kinetic](https://wiki.ros.org/Kinetic). Although it is recommended that the user has previous knowledge of the ROS ecosystem, and has a working ROS distribution environment, in the following instructions an example of the installation of ROS will be provided, especially for the Noetic distribution.
+FRobs_RL has been tested in ROS [Noetic](https://wiki.ros.org/noetic), although it should work in previous versions of ROS like [Melodic](https://wiki.ros.org/melodic) or [Kinetic](https://wiki.ros.org/Kinetic) with minimal changes. Although it is recommended that the user has previous knowledge of the ROS ecosystem, and has a working ROS distribution environment, in the following instructions an example of the installation of ROS will be provided, especially for the Noetic distribution.
 
 ## ROS Installation
 
-To install ROS Melodic, the user can go to the official website [ROS Melodic ](http://wiki.ros.org/melodic/Installation) installation and follow the instructions. The same process can be followed for the [ROS Noetic](http://wiki.ros.org/noetic/Installation) distribution. Below are the suggested commands to install ROS Noetic on a Ubuntu 20.04 Focal machine.
+To install ROS Noetic, the user can go to the official website [ROS Melodic ](http://wiki.ros.org/noetic/Installation) installation and follow the instructions. Below are the suggested commands to install ROS Noetic on a Ubuntu 20.04 Focal machine.
 
 ```sh
 sudo sh -c 'echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list'
@@ -80,14 +80,6 @@ Note that the following commands will try to install a PyTorch version without G
 roscd frobs_rl # Only works the setup.bash has been sourced
 python3 -m pip install -r requirements.txt
 ```
-
-If using the library with ROS Melodic or previous versions of ROS that use Python2, the following command can be used to install the dependencies, but note that PyTorch must be installed separately using the instructions found in [PyTorch previous versions](https://pytorch.org/get-started/previous-versions/):
-
-```sh
-roscd frobs_rl # Only works the setup.bash has been sourced
-python2 -m pip install -r requirements.txt
-```
- 
 
 ## Testing the library
 
