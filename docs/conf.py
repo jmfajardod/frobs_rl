@@ -27,6 +27,7 @@ except ImportError:
 
 # source code directory, relative to this file, for sphinx-autobuild
 sys.path.insert(0, os.path.abspath('../'))
+sys.path.insert(0, os.path.abspath('../src/'))
 sys.path.insert(0, os.path.abspath('../src/frobs_rl/common/'))
 sys.path.insert(0, os.path.abspath('../src/frobs_rl/envs/'))
 sys.path.insert(0, os.path.abspath('../src/frobs_rl/models/'))
@@ -47,7 +48,7 @@ class Mock(MagicMock):
 # MOCK_MODULES = ['rospy','controller_manager_msgs', 'rospkg', 'gazebo_msgs', 'geometry_msgs', 'std_srvs', 'std_msgs', 'xacro']
 # sys.modules.update((mod_name, Mock()) for mod_name in MOCK_MODULES)
 
-autodoc_mock_imports = ["rospy","controller_manager_msgs", "rospkg","gazebo_msgs","geometry_msgs","std_srvs","std_msgs","xacro", "subprocess"]
+autodoc_mock_imports = ["rospy","controller_manager_msgs", "rospkg","gazebo_msgs","geometry_msgs","std_srvs","std_msgs","xacro", "subprocess", "rosparam"]
 
 # autodoc_mock_imports = ['rospy','rospkg','xacro','rosparam']
 # sys.modules['frobs_rl.common'] = unittest.mock.MagicMock()
