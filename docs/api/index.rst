@@ -7,8 +7,10 @@ API Docs
    :maxdepth: 2
    :caption: Common
 
-   common/ros_node
+   common/ros_controllers
+   common/ros_gazebo
    common/ros_launch
+   common/ros_node
    common/ros_params
    common/ros_spawn
    common/ros_urdf

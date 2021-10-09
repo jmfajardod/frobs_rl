@@ -47,7 +47,7 @@ class Mock(MagicMock):
 # MOCK_MODULES = ['rospy','controller_manager_msgs', 'rospkg', 'gazebo_msgs', 'geometry_msgs', 'std_srvs', 'std_msgs', 'xacro']
 # sys.modules.update((mod_name, Mock()) for mod_name in MOCK_MODULES)
 
-autodoc_mock_imports = ["rospy","controller_manager_msgs", "rospkg","gazebo_msgs","geometry_msgs","std_srvs","std_msgs","xacro"]
+autodoc_mock_imports = ["rospy","controller_manager_msgs", "rospkg","gazebo_msgs","geometry_msgs","std_srvs","std_msgs","xacro", "subprocess"]
 
 # autodoc_mock_imports = ['rospy','rospkg','xacro','rosparam']
 # sys.modules['frobs_rl.common'] = unittest.mock.MagicMock()

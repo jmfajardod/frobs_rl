@@ -133,8 +133,7 @@ def switch_controllers_srv( start_controllers, stop_controllers, ns=None,
     @param strictness: strictness of the controller manager: BEST_EFFORT or STRICT (1 and 2, respectively).
     @type strictness: int
 
-    @param start_asap:  start the controllers as soon as their hardware dependencies are ready, will
-                        wait for all interfaces to be ready otherwise.
+    @param start_asap:  start the controllers as soon as their hardware dependencies are ready, will wait for all interfaces to be ready otherwise.
     @type start_asap: bool
 
     @param timeout: the timeout in seconds before aborting pending controllers. Zero for infinite.
@@ -183,8 +182,7 @@ def start_controllers_srv(start_controllers, ns=None, strictness=1, start_asap=F
     @param strictness: strictness of the controller manager: BEST_EFFORT or STRICT (1 and 2, respectively).
     @type strictness: int
 
-    @param start_asap:  start the controllers as soon as their hardware dependencies are ready, will
-                        wait for all interfaces to be ready otherwise.
+    @param start_asap:  start the controllers as soon as their hardware dependencies are ready, will wait for all interfaces to be ready otherwise.
     @type start_asap: bool
 
     @param timeout: the timeout in seconds before aborting pending controllers. Zero for infinite.
@@ -208,8 +206,7 @@ def stop_controllers_srv(stop_controllers, ns=None, strictness=1, start_asap=Fal
     @param strictness: strictness of the controller manager: BEST_EFFORT or STRICT (1 and 2, respectively).
     @type strictness: int
 
-    @param start_asap:  start the controllers as soon as their hardware dependencies are ready, will
-                        wait for all interfaces to be ready otherwise.
+    @param start_asap:  start the controllers as soon as their hardware dependencies are ready, will wait for all interfaces to be ready otherwise.
     @type start_asap: bool
 
     @param timeout: the timeout in seconds before aborting pending controllers. Zero for infinite.
@@ -236,8 +233,7 @@ def reset_controllers_srv(reset_controllers, max_retries=10, ns=None, strictness
     @param strictness: strictness of the controller manager: BEST_EFFORT or STRICT (1 and 2, respectively).
     @type strictness: int
 
-    @param start_asap:  start the controllers as soon as their hardware dependencies are ready, will
-                        wait for all interfaces to be ready otherwise.
+    @param start_asap:  start the controllers as soon as their hardware dependencies are ready, will wait for all interfaces to be ready otherwise.
     @type start_asap: bool
 
     @param timeout: the timeout in seconds before aborting pending controllers. Zero for infinite.
@@ -279,8 +275,7 @@ def spawn_controllers_srv(spawn_controllers, ns=None, strictness=1, start_asap=F
     @param strictness: strictness of the controller manager: BEST_EFFORT or STRICT (1 and 2, respectively).
     @type strictness: int
 
-    @param start_asap:  start the controllers as soon as their hardware dependencies are ready, will
-                        wait for all interfaces to be ready otherwise.
+    @param start_asap:  start the controllers as soon as their hardware dependencies are ready, will wait for all interfaces to be ready otherwise.
     @type start_asap: bool
 
     @param timeout: the timeout in seconds before aborting pending controllers. Zero for infinite.
@@ -306,8 +301,7 @@ def kill_controllers_srv(kill_controllers, ns=None, strictness=1, start_asap=Fal
     @param strictness: strictness of the controller manager: BEST_EFFORT or STRICT (1 and 2, respectively).
     @type strictness: int
 
-    @param start_asap:  start the controllers as soon as their hardware dependencies are ready, will
-                        wait for all interfaces to be ready otherwise.
+    @param start_asap:  start the controllers as soon as their hardware dependencies are ready, will wait for all interfaces to be ready otherwise.
     @type start_asap: bool
 
     @param timeout: the timeout in seconds before aborting pending controllers. Zero for infinite.
