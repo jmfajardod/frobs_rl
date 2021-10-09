@@ -186,7 +186,7 @@ latex_documents = [
 
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
-man_pages = [(master_doc, "frobs_rl", "FRobs_RL Documentation", [author], 1)]
+man_pages = [(master_doc, "frobs_rl", "FRobs\_ RL Documentation", [author], 1)]
 
 # -- Options for Texinfo output ----------------------------------------------
 
@@ -197,7 +197,7 @@ texinfo_documents = [
     (
         master_doc,
         "FRobs_RL",
-        "FRobs_RL Documentation",
+        "FRobs\_ RL Documentation",
         author,
         "FRobs_RL",
         "One line description of project.",
