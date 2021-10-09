@@ -179,7 +179,7 @@ latex_elements = {
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-    (master_doc, "FRobs_RL.tex", "FRobs_RL Documentation", "Fajardo", "manual"),
+    (master_doc, "FRobs_RL.tex", "FRobs\_RL Documentation", "Fajardo", "manual"),
 ]
 
 # -- Options for manual page output ------------------------------------------
@@ -196,10 +196,10 @@ man_pages = [(master_doc, "frobs_rl", "FRobs\_ RL Documentation", [author], 1)]
 texinfo_documents = [
     (
         master_doc,
-        "FRobs_RL",
+        "FRobs\_ RL",
         "FRobs\_ RL Documentation",
         author,
-        "FRobs_RL",
+        "FRobs\_ RL",
         "One line description of project.",
         "Miscellaneous",
     ),
