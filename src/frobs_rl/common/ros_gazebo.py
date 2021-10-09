@@ -105,7 +105,7 @@ def launch_Gazebo(  paused=False, use_sim_time=True, gui=True, recording=False, 
     elif custom_world_pkg is not None and custom_world_name is not None:
         try:
             world_pkg_path = rospack.get_path(custom_world_pkg)
-        except:
+        except rospkg.common.ResourceNotFound:
             rospy.logwarn("Package where world file is located was NOT FOUND")
 
         world_file_path = world_pkg_path + "/worlds/" + custom_world_name

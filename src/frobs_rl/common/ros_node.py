@@ -3,8 +3,7 @@
 import rospy
 import rospkg
 import subprocess
-import time
-
+import time 
 
 def ros_node_from_pkg(pkg_name, node_name, launch_master=False, launch_master_term=True, launch_new_term=True, name=None, ns="/", output="log") -> bool:
     """
@@ -49,7 +48,7 @@ def ros_node_from_pkg(pkg_name, node_name, launch_master=False, launch_master_te
         print("Launching Master")
         try:
             rospy.get_master().getPid()
-        except:
+        except ConnectionRefusedError:
             print("Master not running")
             if launch_master_term:
                 subprocess.Popen("xterm -e 'roscore' ", shell=True)
@@ -61,7 +60,7 @@ def ros_node_from_pkg(pkg_name, node_name, launch_master=False, launch_master_te
 
     try:
         rospy.get_master().getPid()
-    except:
+    except ConnectionRefusedError:
         print("Master not running")
         return False
     else:
@@ -117,7 +116,7 @@ def ros_kill_master() -> bool:
 
     try:
         rospy.get_master().getPid()
-    except:
+    except ConnectionRefusedError:
         print("Master not running")
         return True
     else:
