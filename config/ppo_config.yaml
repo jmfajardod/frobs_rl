@@ -7,7 +7,7 @@ model_params:
   save_freq: 1000
   save_prefix: ppo_model
   trained_model_name: trained_model
-  save_replay_buffer: False
+  save_replay_buffer: False # PPO does not support saving replay buffer
 
   # Load model params
   load_model: False
