@@ -1,24 +1,20 @@
 #!/bin/python3
 
 import gym
-from gym import spaces
 from frobs_rl.common import ros_gazebo
 from frobs_rl.common import ros_controllers
 from frobs_rl.common import ros_node
-from frobs_rl.common import ros_launch
-from frobs_rl.common import ros_params
-from frobs_rl.common import ros_urdf
 from frobs_rl.common import ros_spawn
 import rospy
 
 class RobotBasicEnv(gym.Env):
 
-    def __init__(   self, launch_gazebo=False, gazebo_init_paused=True, gazebo_use_gui=True, gazebo_recording=False,
+    def __init__(   self, launch_gazebo=False, gazebo_init_paused=True, gazebo_use_gui=True, gazebo_recording=False, 
                     gazebo_freq=100, world_path=None, world_pkg=None, world_filename=None,
                     gazebo_max_freq=None, gazebo_timestep=None,
-                    spawn_robot=False, model_name_in_gazebo="robot", namespace="/robot", pkg_name=None, urdf_file=None,
-                    controller_file=None, controller_list=None, urdf_xacro_args=None, rob_state_publisher_max_freq= None,
-                    model_pos_x=0.0, model_pos_y=0.0, model_pos_z=0.0,
+                    spawn_robot=False, model_name_in_gazebo="robot", namespace="/robot", pkg_name=None, urdf_file=None, urdf_folder="/urdf",
+                    controller_file=None, controller_list=None, urdf_xacro_args=None, rob_state_publisher_max_freq= None, rob_st_term=False,
+                    model_pos_x=0.0, model_pos_y=0.0, model_pos_z=0.0, 
                     model_ori_x=0.0, model_ori_y=0.0, model_ori_z=0.0, model_ori_w=0.0,
                     reset_controllers=False, reset_mode=1, step_mode=1, num_gazebo_steps=1):
         """
@@ -37,7 +33,7 @@ class RobotBasicEnv(gym.Env):
 
         To use a custom world, one can use two options: 1) set the path directly to the world file or set the pkg name and world filename.
         @param world_path: If using a custom world then the path to the world.
-        @type world_path: str
+        @type world_path: str        
         @param world_pkg: If using a custom world then the package name of the world.
         @type world_pkg: str
         @param world_filename: If using a custom world then the filename of the world.
@@ -58,6 +54,8 @@ class RobotBasicEnv(gym.Env):
         @type pkg_name: str
         @param urdf_file: The path to the urdf file of the robot.
         @type urdf_file: str
+        @param urdf_folder: The path to the folder where the urdf files are located. Default is "/urdf".
+        @type urdf_folder: str
         @param urdf_xacro_args: The arguments to be passed to the xacro parser.
         @type urdf_xacro_args: str
 
@@ -68,6 +66,8 @@ class RobotBasicEnv(gym.Env):
 
         @param rob_state_publisher_max_freq: The maximum frequency of the ros state publisher.
         @type rob_state_publisher_max_freq: int
+        @param rob_st_term: If True, the robot state publisher is launched in a new terminal.
+        @type rob_st_term: bool
 
         @param model_pos_x: The x position of the robot in the world.
         @parma model_pos_y: The y position of the robot in the world.
@@ -100,28 +100,28 @@ class RobotBasicEnv(gym.Env):
 
         # If Launch Gazebo, launch it
         if launch_gazebo:
-            ros_gazebo.Launch_Gazebo(   paused=gazebo_init_paused, use_sim_time=True, use_gui=gazebo_use_gui,
+            ros_gazebo.launch_Gazebo(   paused=gazebo_init_paused, use_sim_time=True, gui=gazebo_use_gui,
                                         recording=gazebo_recording, pub_clock_frequency=gazebo_freq,
-                                        custom_world_path=world_path, custom_world_package=world_pkg, custom_world_name=world_filename)
+                                        custom_world_path=world_path, custom_world_pkg=world_pkg, custom_world_name=world_filename)
 
         # Set the max frequency and timestep of Gazebo
         if gazebo_max_freq is not None:
-            ros_gazebo.Gazebo_set_max_update_rate(gazebo_max_freq)
+            ros_gazebo.gazebo_set_max_update_rate(gazebo_max_freq)
         if gazebo_timestep is not None:
-            ros_gazebo.Gazebo_set_time_step(gazebo_timestep)
+            ros_gazebo.gazebo_set_time_step(gazebo_timestep)
 
         # If spawn robot, spawn it
         if spawn_robot:
-            ros_spawn.Spawn_model_in_gazebo(pkg_name, urdf_file, controller_file, self.controllers_list,
-                            ns=self.namespace, args_xacro=urdf_xacro_args, max_pub_freq=rob_state_publisher_max_freq,
-                            gazebo_name=model_name_in_gazebo, gaz_ref_frame="world",
+            ros_spawn.spawn_model_in_gazebo(pkg_name, urdf_file, controller_file, self.controllers_list, model_urdf_folder=urdf_folder,
+                            ns=self.namespace, args_xacro=urdf_xacro_args, max_pub_freq=rob_state_publisher_max_freq, rob_st_term=rob_st_term,
+                            gazebo_name=model_name_in_gazebo, gaz_ref_frame="world", 
                             pos_x=model_pos_x, pos_y=model_pos_y, pos_z=model_pos_z,
                             ori_x=model_ori_x, ori_y=model_ori_y, ori_z=model_ori_z, ori_w=model_ori_w)
 
         if self.reset_controllers:
-            ros_gazebo.Gazebo_unpause_physics()
-            ros_controllers.Reset_controllers_srv(controller_list, ns=self.namespace)
-            ros_gazebo.Gazebo_pause_physics()
+            ros_gazebo.gazebo_unpause_physics()
+            ros_controllers.reset_controllers_srv(controller_list, ns=self.namespace)
+            ros_gazebo.gazebo_pause_physics()
 
         rospy.loginfo("Started RobotBasicEnv")
 
@@ -129,7 +129,7 @@ class RobotBasicEnv(gym.Env):
         """
         Function to send an action to the robot and get the observation and reward.
         """
-
+        
         rospy.loginfo("Step Env")
 
         self.info = {}
@@ -138,14 +138,14 @@ class RobotBasicEnv(gym.Env):
 
         # If using pause and unpause services
         if self.step_mode == 1:
-            ros_gazebo.Gazebo_unpause_physics()
+            ros_gazebo.gazebo_unpause_physics()
             self._send_action(action)
-            ros_gazebo.Gazebo_pause_physics()
+            ros_gazebo.gazebo_pause_physics()
 
         # If using the gazebo step command
         elif self.step_mode == 2:
             self._send_action(action)
-            ros_gazebo.Gazebo_step_physics(steps=self.num_gazebo_steps)
+            ros_gazebo.gazebo_step_physics(steps=self.num_gazebo_steps)
 
         self.observation = self._get_observation()
         self.reward = self._get_reward()
@@ -157,25 +157,25 @@ class RobotBasicEnv(gym.Env):
         """
         Function to reset the enviroment after an episode is done.
         """
-
+        
         rospy.loginfo("Resetting Env")
-        ros_gazebo.Gazebo_pause_physics()
+        ros_gazebo.gazebo_pause_physics()
         self._reset_gazebo()
         self.observation = self._get_observation()
 
-        return self.observation
+        return self.observation  
 
     def close (self):
         """
         Function to close the environment when training is done.
         """
-
+        
         rospy.loginfo("Closing Env")
         rospy.signal_shutdown("Closing RobotGazeboEnvironment")
-        ros_gazebo.Close_Gazebo()
-        ros_node.ROS_Kill_All_Nodes()
-        ros_node.ROS_Kill_Master()
-        ros_node.ROS_Kill_All_processes()
+        ros_gazebo.close_Gazebo()
+        ros_node.ros_kill_all_nodes()
+        ros_node.ros_kill_master()
+        ros_node.ros_kill_all_processes()
 
         print("Closed ROS and Env")
 
@@ -187,7 +187,7 @@ class RobotBasicEnv(gym.Env):
         Function to send an action to the robot
         """
         raise NotImplementedError()
-
+        
 
     def _get_observation(self):
         """
@@ -200,16 +200,16 @@ class RobotBasicEnv(gym.Env):
         Function to get the reward from the enviroment.
         """
         raise NotImplementedError()
-
+    
     def _check_if_done(self):
         """
         Function to check if the episode is done.
-
+        
         If the episode has a success condition then set done as:
             self.info['is_success'] = 1.0
         """
         raise NotImplementedError()
-
+        
     #------------------------------------------#
     #   Custom methods for the RobotBasicEnv   #
 
@@ -217,29 +217,29 @@ class RobotBasicEnv(gym.Env):
         """
         Function to reset the gazebo simulation.
         """
-
+        
         # If resetting world (Does not reset time)
         if self.reset_mode == 1:
-            ros_gazebo.Gazebo_reset_world()
-
+            ros_gazebo.gazebo_reset_world()
+        
         # If resetting simulation (Resets time)
         elif self.reset_mode == 2:
-            ros_gazebo.Gazebo_reset_sim()
+            ros_gazebo.gazebo_reset_sim()
 
         if self.reset_controllers:
-            ros_gazebo.Gazebo_unpause_physics()
-            ros_controllers.Reset_controllers_srv(self.controllers_list, ns=self.namespace)
-            ros_gazebo.Gazebo_pause_physics()
+            ros_gazebo.gazebo_unpause_physics()
+            ros_controllers.reset_controllers_srv(self.controllers_list, ns=self.namespace)
+            ros_gazebo.gazebo_pause_physics()
 
-        ros_gazebo.Gazebo_unpause_physics()
+        ros_gazebo.gazebo_unpause_physics()
         self._check_subs_and_pubs_connection()
         self._set_episode_init_params()
-        ros_gazebo.Gazebo_pause_physics()
+        ros_gazebo.gazebo_pause_physics()
 
     #------------------------------------------#
     #   Custom methods for the RobotBasicEnv   #
 
-
+    
     def _check_subs_and_pubs_connection(self):
         """
         Function to check if the gazebo and ros connections are ready
