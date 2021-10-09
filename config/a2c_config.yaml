@@ -5,16 +5,16 @@ model_params:
 
   # Save params
   save_freq: 1000
-  save_prefix: ppo_model
+  save_prefix: a2c_model
   trained_model_name: trained_model
-  save_replay_buffer: False # PPO does not support saving replay buffer
+  save_replay_buffer: False
 
   # Load model params
   load_model: False
-  model_name: ppo_model_5000_steps
+  model_name: a2c_model_5000_steps
 
   # Logging parameters
-  log_folder: PPO_1
+  log_folder: A2C_1
   log_interval: 4 # The number of episodes between logs
   reset_num_timesteps: False # If true, will reset the number of timesteps to 0 every training 
 
@@ -31,15 +31,15 @@ model_params:
   sde_params:
     sde_sample_freq: -1
 
-  # PPO parameters
-  ppo_params:
-    learning_rate: 0.0003
-    n_steps: 100    # The number of steps to run for each environment per update (i.e. rollout buffer size is n_steps * n_envs where n_envs is number of environment copies running in parallel)
-    batch_size: 100 # Minibatch size
-    n_epochs: 5     # Number of epoch when optimizing the surrogate loss
+  # A2C parameters
+  a2c_params:
+    learning_rate: 0.0007
+    n_steps: 5
     gamma: 0.99
-    gae_lambda: 0.95
-    clip_range: 0.2
+    gae_lambda: 1.0
     ent_coef: 0.0
     vf_coef: 0.5
     max_grad_norm: 0.5
+    use_rms_prop: True
+    rms_prop_eps: 0.00001
+    normalize_advantage: False

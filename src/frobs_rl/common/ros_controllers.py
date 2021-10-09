@@ -3,7 +3,7 @@
 import rospy
 from controller_manager_msgs.srv import *
 
-def Load_controller_srv(controller_name, ns=None, max_retries=5) -> bool:
+def load_controller_srv(controller_name, ns=None, max_retries=5) -> bool:
     """
     Function to load a controller on the namespace.
 
@@ -43,7 +43,7 @@ def Load_controller_srv(controller_name, ns=None, max_retries=5) -> bool:
         print("Service did not process request: " + str(exc))
         return False
 
-def Load_controller_list_srv(controller_list,ns=None, max_retries=5) -> None:
+def load_controller_list_srv(controller_list,ns=None, max_retries=5) -> None:
     """
     Function to load a list of controllers on the namespace.
 
@@ -58,9 +58,9 @@ def Load_controller_list_srv(controller_list,ns=None, max_retries=5) -> None:
     """
 
     for controller in controller_list:
-        Load_controller_srv(controller, ns=ns, max_retries=max_retries)
+        load_controller_srv(controller, ns=ns, max_retries=max_retries)
 
-def Unload_controller_srv(controller_name,ns=None, max_retries=5) -> bool:
+def unload_controller_srv(controller_name,ns=None, max_retries=5) -> bool:
     """
     Function to unload a controller on the namespace.
 
@@ -100,7 +100,7 @@ def Unload_controller_srv(controller_name,ns=None, max_retries=5) -> bool:
         print("Service did not process request: " + str(exc))
         return False
 
-def Unload_controller_list_srv(controller_list,ns=None, max_retries=5) -> None:
+def unload_controller_list_srv(controller_list,ns=None, max_retries=5) -> None:
     """
     Function to unload a list of controllers on the namespace.
 
@@ -114,9 +114,9 @@ def Unload_controller_list_srv(controller_list,ns=None, max_retries=5) -> None:
     @type max_retries: int
     """
     for controller in controller_list:
-        Unload_controller_srv(controller, ns=ns, max_retries=max_retries)
+        unload_controller_srv(controller, ns=ns, max_retries=max_retries)
 
-def Switch_controllers_srv( start_controllers, stop_controllers, ns=None, 
+def switch_controllers_srv( start_controllers, stop_controllers, ns=None, 
                             strictness=1, start_asap=False, timeout=3.0, max_retries=5) -> bool:
     """
     Function to switch controllers on the namespace.
@@ -170,7 +170,7 @@ def Switch_controllers_srv( start_controllers, stop_controllers, ns=None,
         print("Service did not process request: " + str(exc))
         return False
 
-def Start_controllers_srv(start_controllers, ns=None, strictness=1, start_asap=False, timeout=3.0) -> bool:
+def start_controllers_srv(start_controllers, ns=None, strictness=1, start_asap=False, timeout=3.0) -> bool:
     """
     Function to start controllers on the namespace.
 
@@ -193,9 +193,9 @@ def Start_controllers_srv(start_controllers, ns=None, strictness=1, start_asap=F
     @return: true if the operation is successful.
     """
 
-    return Switch_controllers_srv(start_controllers, [], ns=ns, strictness=strictness, start_asap=start_asap, timeout=timeout)
+    return switch_controllers_srv(start_controllers, [], ns=ns, strictness=strictness, start_asap=start_asap, timeout=timeout)
 
-def Stop_controllers_srv(stop_controllers, ns=None, strictness=1, start_asap=False, timeout=3.0) -> bool:
+def stop_controllers_srv(stop_controllers, ns=None, strictness=1, start_asap=False, timeout=3.0) -> bool:
     """
     Function to start controllers on the namespace.
 
@@ -218,9 +218,9 @@ def Stop_controllers_srv(stop_controllers, ns=None, strictness=1, start_asap=Fal
     @return: true if the operation is successful.
     """
 
-    return Switch_controllers_srv([], stop_controllers, ns=ns, strictness=strictness, start_asap=start_asap, timeout=timeout)
+    return switch_controllers_srv([], stop_controllers, ns=ns, strictness=strictness, start_asap=start_asap, timeout=timeout)
 
-def Reset_controllers_srv(reset_controllers, max_retries=10, ns=None, strictness=1, start_asap=False, timeout=3.0) -> bool:
+def reset_controllers_srv(reset_controllers, max_retries=10, ns=None, strictness=1, start_asap=False, timeout=3.0) -> bool:
     """
     Function to reset controllers on the namespace.
 
@@ -248,7 +248,7 @@ def Reset_controllers_srv(reset_controllers, max_retries=10, ns=None, strictness
 
     done_switch_off = False
     for ii in range(max_retries):
-        done_switch_off = Stop_controllers_srv(reset_controllers, ns=ns, strictness=strictness, start_asap=start_asap, timeout=timeout)
+        done_switch_off = stop_controllers_srv(reset_controllers, ns=ns, strictness=strictness, start_asap=start_asap, timeout=timeout)
         if done_switch_off:
             break
     
@@ -257,7 +257,7 @@ def Reset_controllers_srv(reset_controllers, max_retries=10, ns=None, strictness
 
     done_switch_on = False
     for ii in range(max_retries):
-        done_switch_on = Start_controllers_srv(reset_controllers, ns=ns, strictness=strictness, start_asap=start_asap, timeout=timeout)
+        done_switch_on = start_controllers_srv(reset_controllers, ns=ns, strictness=strictness, start_asap=start_asap, timeout=timeout)
         if done_switch_on:
             break
 
@@ -266,7 +266,7 @@ def Reset_controllers_srv(reset_controllers, max_retries=10, ns=None, strictness
     
     return True
 
-def Spawn_controllers_srv(spawn_controllers, ns=None, strictness=1, start_asap=False, timeout=3.0) -> bool:
+def spawn_controllers_srv(spawn_controllers, ns=None, strictness=1, start_asap=False, timeout=3.0) -> bool:
     """
     Function to spawn controllers on the namespace.
 
@@ -289,11 +289,11 @@ def Spawn_controllers_srv(spawn_controllers, ns=None, strictness=1, start_asap=F
     @return: true if the operation is successful.
     """
 
-    Load_controller_list_srv(spawn_controllers, ns=ns)
+    load_controller_list_srv(spawn_controllers, ns=ns)
 
-    return Start_controllers_srv(spawn_controllers, ns=ns, strictness=strictness, start_asap=start_asap, timeout=timeout)
+    return start_controllers_srv(spawn_controllers, ns=ns, strictness=strictness, start_asap=start_asap, timeout=timeout)
 
-def Kill_controllers_srv(kill_controllers, ns=None, strictness=1, start_asap=False, timeout=3.0) -> bool:
+def kill_controllers_srv(kill_controllers, ns=None, strictness=1, start_asap=False, timeout=3.0) -> bool:
     """
     Function to kill controllers on the namespace.
 
@@ -316,10 +316,10 @@ def Kill_controllers_srv(kill_controllers, ns=None, strictness=1, start_asap=Fal
     @return: true if the operation is successful.
     """
 
-    res = Stop_controllers_srv(kill_controllers, ns=ns, strictness=strictness, start_asap=start_asap, timeout=timeout)
+    res = stop_controllers_srv(kill_controllers, ns=ns, strictness=strictness, start_asap=start_asap, timeout=timeout)
 
     if res:
-        Unload_controller_list_srv(kill_controllers, ns=ns)
+        unload_controller_list_srv(kill_controllers, ns=ns)
         return True
     else:
         return False

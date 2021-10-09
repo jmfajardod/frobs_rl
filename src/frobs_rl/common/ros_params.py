@@ -5,7 +5,7 @@ import rospkg
 import os
 import rosparam
 
-def ROS_Load_YAML_from_pkg(pkg_name, file_name, ns='/') -> bool:
+def ros_load_yaml_from_pkg(pkg_name, file_name, ns='/') -> bool:
     """
     Fetch a YAML file from a package and load it into the ROS Parameter Server.
     @param pkg_name: name of package.
@@ -40,7 +40,7 @@ def ROS_Load_YAML_from_pkg(pkg_name, file_name, ns='/') -> bool:
 
     return True
 
-def ROS_Load_YAML_from_path(file_path, ns='/') -> bool:
+def ros_load_yaml_from_path(file_path, ns='/') -> bool:
     """
     Fetch a YAML file from a path and load it into the ROS Parameter Server.
 

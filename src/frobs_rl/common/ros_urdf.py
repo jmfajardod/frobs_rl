@@ -5,7 +5,7 @@ import rospkg
 import os
 import xacro
 
-def URDF_load_from_pkg(pkg_name, model_name, param_name, ns=None, args_xacro=None) -> bool:
+def urdf_load_from_pkg(pkg_name, model_name, param_name, folder="/urdf", ns=None, args_xacro=None) -> bool:
     """
     Function to load a URDF from a ROS package to the parameter server.
 
@@ -17,6 +17,9 @@ def URDF_load_from_pkg(pkg_name, model_name, param_name, ns=None, args_xacro=Non
 
     @param param_name: The parameter name.
     @type param_name: str
+
+    @param folder: The folder where the model is located. Default: "/urdf"
+    @type folder: str
 
     @param ns: The namespace of the parameter.
     @type ns: str
@@ -35,7 +38,7 @@ def URDF_load_from_pkg(pkg_name, model_name, param_name, ns=None, args_xacro=Non
         rospy.logerr("Package NOT FOUND")
         return False
 
-    file_path = pkg_path + "/urdf/" + model_name
+    file_path = pkg_path + folder + "/" + model_name
 
     if os.path.exists(file_path) is False:
         print("Error: model path does not exist")
@@ -58,7 +61,7 @@ def URDF_load_from_pkg(pkg_name, model_name, param_name, ns=None, args_xacro=Non
     rospy.set_param(final_param_name, model_string)
     return True
 
-def URDF_load_from_path(model_path, param_name, ns=None, args_xacro=None) -> bool:
+def urdf_load_from_path(model_path, param_name, ns=None, args_xacro=None) -> bool:
     """
     Function to load a URDF from a file to the parameter server.
 
@@ -98,7 +101,7 @@ def URDF_load_from_path(model_path, param_name, ns=None, args_xacro=None) -> boo
     rospy.set_param(final_param_name, model_string)
     return True
 
-def URDF_parse_from_pkg(pkg_name, model_name, args_xacro=None) -> str:
+def urdf_parse_from_pkg(pkg_name, model_name, folder="/urdf", args_xacro=None) -> str:
     """
     Function to parse a URDF from a ROS package and return the URDF string.
 
@@ -107,6 +110,9 @@ def URDF_parse_from_pkg(pkg_name, model_name, args_xacro=None) -> str:
 
     @param model_name: The model file name.
     @type model_name: str
+
+    @param folder: The folder where the model is located. Default: "/urdf"
+    @type folder: str
 
     @param args_xacro: The xacro arguments in a list. Eg: ['arg1:=True','arg2:=10.0']
     @type args_xacro: list of str.
@@ -121,7 +127,7 @@ def URDF_parse_from_pkg(pkg_name, model_name, args_xacro=None) -> str:
         rospy.logerr("Package NOT FOUND")
         return None
 
-    file_path = pkg_path + "/urdf/" + model_name
+    file_path = pkg_path + folder + "/" + model_name
 
     if os.path.exists(file_path) is False:
         print("Error: model path does not exist")
@@ -138,7 +144,7 @@ def URDF_parse_from_pkg(pkg_name, model_name, args_xacro=None) -> str:
 
     return model_string
 
-def URDF_parse_from_path(model_path, args_xacro=None) -> bool:
+def urdf_parse_from_path(model_path, args_xacro=None) -> bool:
     """
     Function to parse a URDF from a file and return the URDF string.
 

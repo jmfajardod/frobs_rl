@@ -1,17 +1,18 @@
 #!/bin/python3
 
-import gym
 from gym import spaces
 from gym.envs.registration import register
-from frobs_rl.common import ros_gazebo
-from frobs_rl.common import ros_controllers
-from frobs_rl.common import ros_node
-from frobs_rl.common import ros_launch
-from frobs_rl.common import ros_params
-from frobs_rl.common import ros_urdf
-from frobs_rl.common import ros_spawn
-from frobs_rl.templates import CustomRobotEnv
+from frobs_rl.templates import CustomRobotEnv # Replace with your own robot env
 import rospy
+
+#- Uncomment the library modules as neeeed
+# from frobs_rl.common import ros_gazebo
+# from frobs_rl.common import ros_controllers
+# from frobs_rl.common import ros_node
+# from frobs_rl.common import ros_launch
+# from frobs_rl.common import ros_params
+# from frobs_rl.common import ros_urdf
+# from frobs_rl.common import ros_spawn
 
 register(
         id='CustomTaskEnv-v0',

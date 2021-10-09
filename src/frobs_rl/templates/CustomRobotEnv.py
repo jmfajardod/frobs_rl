@@ -1,17 +1,18 @@
 #!/bin/python3
 
-import gym
 from gym import spaces
 from gym.envs.registration import register
-from frobs_rl.common import ros_gazebo
-from frobs_rl.common import ros_controllers
-from frobs_rl.common import ros_node
-from frobs_rl.common import ros_launch
-from frobs_rl.common import ros_params
-from frobs_rl.common import ros_urdf
-from frobs_rl.common import ros_spawn
 from frobs_rl.envs import robot_BasicEnv
 import rospy
+
+#- Uncomment the library modules as neeeed
+# from frobs_rl.common import ros_gazebo
+# from frobs_rl.common import ros_controllers
+# from frobs_rl.common import ros_node
+# from frobs_rl.common import ros_launch
+# from frobs_rl.common import ros_params
+# from frobs_rl.common import ros_urdf
+# from frobs_rl.common import ros_spawn
 
 """
 Although it is best to register only the task environment, one can also register the
@@ -60,6 +61,7 @@ class CustomRobotEnv(robot_BasicEnv.RobotBasicEnv):
         namespace="/robot"
         pkg_name=None
         urdf_file=None
+        urdf_folder="/urdf"
         controller_file=None
         controller_list=None
         urdf_xacro_args=None
@@ -91,7 +93,7 @@ class CustomRobotEnv(robot_BasicEnv.RobotBasicEnv):
                     gazebo_use_gui=gazebo_use_gui, gazebo_recording=gazebo_recording, gazebo_freq=gazebo_freq, world_path=world_path, 
                     world_pkg=world_pkg, world_filename=world_filename, gazebo_max_freq=gazebo_max_freq, gazebo_timestep=gazebo_timestep,
                     spawn_robot=spawn_robot, model_name_in_gazebo=model_name_in_gazebo, namespace=namespace, pkg_name=pkg_name, 
-                    urdf_file=urdf_file, controller_file=controller_file, controller_list=controller_list, 
+                    urdf_file=urdf_file, urdf_folder=urdf_folder, controller_file=controller_file, controller_list=controller_list, 
                     urdf_xacro_args=urdf_xacro_args, rob_state_publisher_max_freq= rob_state_publisher_max_freq,
                     model_pos_x=model_pos_x, model_pos_y=model_pos_y, model_pos_z=model_pos_z, 
                     model_ori_x=model_ori_x, model_ori_y=model_ori_y, model_ori_z=model_ori_z, model_ori_w=model_ori_w,
@@ -106,9 +108,9 @@ class CustomRobotEnv(robot_BasicEnv.RobotBasicEnv):
         """
         If using the __check_subs_and_pubs_connection method, then un-comment the lines below.
         """
-        # ros_gazebo.Gazebo_unpause_physics()
-        # self.__check_subs_and_pubs_connection()
-        # ros_gazebo.Gazebo_unpause_physics()
+        # ros_gazebo.gazebo_unpause_physics()
+        # self._check_subs_and_pubs_connection()
+        # ros_gazebo.gazebo_pause_physics()
 
         """
         Finished __init__ method

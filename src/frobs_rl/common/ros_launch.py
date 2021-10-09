@@ -6,7 +6,7 @@ import os
 import subprocess
 import time
 
-def ROS_Launch_from_pkg(pkg_name, launch_file, args=None, launch_new_term=True) -> bool:
+def ros_launch_from_pkg(pkg_name, launch_file, args=None, launch_new_term=True) -> bool:
     """
     Function to execute a roslaunch from package with args.
     @param pkg_name: Name of the package where the launch file is located.
@@ -51,7 +51,7 @@ def ROS_Launch_from_pkg(pkg_name, launch_file, args=None, launch_new_term=True) 
 
     return True
 
-def ROS_Launch_from_path(launch_file_path, args=None, launch_new_term=True) -> bool:
+def ros_launch_from_path(launch_file_path, args=None, launch_new_term=True) -> bool:
     """
     Function to execute a roslaunch from a path with args.
     @param launch_file_path: Path of the launch file.
@@ -84,7 +84,7 @@ def ROS_Launch_from_path(launch_file_path, args=None, launch_new_term=True) -> b
 
     return True
 
-def ROS_Kill_Launch_Process() -> bool:
+def ros_kill_launch_process() -> bool:
     """
     Function to kill all roslaunch processes.
 
