@@ -29,7 +29,7 @@ After creating the enviroment the user can simply import the file and initialize
 Note that the string input of the Gym *make* function is the ID of the env used when registering it.
 
 FRobs_RL Env Wrappers
-=====================
+---------------------
 
 To change some properties of the enviroments without changing the class env code the user can use Gym Wrappers. These wrappers are used to change properties like the observation or action space of the enviroment without the need to change them directly in the class. This is useful when the user might want to normalize the observation or action space (to change the speed of learning) or when the user want to specify a limit of steps per episode. In **FRobs_RL** the previous wrappers are already included with the names:
 
@@ -75,12 +75,12 @@ To use them the user only needs to import them from the library and pass the ini
         env.reset()
 
 Included RL models
-===================
+---------------------
 
 In the next step the RL models included from `stable-baselines3 <https://stable-baselines3.readthedocs.io/en/master/>`_ in the **FRobs_RL** and how to use them is shown.
 
 Enviroment Wrappers
-===================
+---------------------
 
 .. automodule:: NormalizeActionWrapper
   :members:
