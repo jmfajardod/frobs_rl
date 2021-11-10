@@ -125,7 +125,7 @@ if on_rtd:
 else:
     html_theme = "sphinx_rtd_theme"
 
-html_logo = "https://c.tenor.com/_HigPGKNH2AAAAAi/alienpls3-alienpls.gif"
+html_logo = "_static/img/frobs_rl_logo.png"
 
 # def setup(app):
 #     app.add_css_file("css/baselines_theme.css")
