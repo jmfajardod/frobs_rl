@@ -532,8 +532,8 @@ def gazebo_spawn_urdf_path( model_path, model_name="robot1", robot_namespace="/"
     :param ori_w: W part of Quaternion of model orientation in model's reference frame.
     :type ori_w: float
 
-    :return: True if the command was sent and False otherwise.
-    :rtype: bool
+    :return: [True if the command was sent and False otherwise, Status message].
+    :rtype: [bool, str]
     """
     
     rospy.wait_for_service("/gazebo/spawn_urdf_model")
@@ -556,7 +556,7 @@ def gazebo_spawn_urdf_path( model_path, model_name="robot1", robot_namespace="/"
     
     try:
         result = client_srv(srv_model)
-        return result.success
+        return result.success, result.status_message
     except ServiceException:
         print("Error: Package used in model was not found, source the workspace in all terminals.")
         return False
@@ -601,8 +601,8 @@ def gazebo_spawn_urdf_pkg(  pkg_name, file_name, file_folder="/urdf", model_name
     :param ori_w: W part of Quaternion of model orientation in model's reference frame.
     :type ori_w: float
 
-    :return: True if the command was sent and False otherwise.
-    :rtype: bool
+    :return: [True if the command was sent and False otherwise, Status message].
+    :rtype: [bool, str]
     """
     
     rospy.wait_for_service("/gazebo/spawn_urdf_model")
@@ -635,7 +635,7 @@ def gazebo_spawn_urdf_pkg(  pkg_name, file_name, file_folder="/urdf", model_name
     
     try:
         result = client_srv(srv_model)
-        return result.success
+        return result.success, result.status_message
     except ServiceException:
         print("Error: Package used in model was not found, source the workspace in all terminals.")
         return False
@@ -674,8 +674,8 @@ def gazebo_spawn_urdf_string(   model_string, model_name="robot1", robot_namespa
     :param ori_w: W part of Quaternion of model orientation in model's reference frame.
     :type ori_w: float
 
-    :return: True if the command was sent and False otherwise.
-    :rtype: bool
+    :return: [True if the command was sent and False otherwise, Status message].
+    :rtype: [bool, str]
     """
     
     rospy.wait_for_service("/gazebo/spawn_urdf_model")
@@ -690,7 +690,7 @@ def gazebo_spawn_urdf_string(   model_string, model_name="robot1", robot_namespa
     
     try:
         result = client_srv(srv_model)
-        return result.success
+        return result.success, result.status_message
     except ServiceException:
         print("Error: Package used in model was not found, source the workspace in all terminals.")
         return False
@@ -729,8 +729,8 @@ def gazebo_spawn_urdf_param(    param_name, model_name="robot1", robot_namespace
     :param ori_w: W part of Quaternion of model orientation in model's reference frame.
     :type ori_w: float
 
-    :return: True if the command was sent and False otherwise.
-    :rtype: bool
+    :return: [True if the command was sent and False otherwise, Status message].
+    :rtype: [bool, str]
     """
 
     rospy.wait_for_service("/gazebo/spawn_urdf_model")
@@ -753,7 +753,7 @@ def gazebo_spawn_urdf_param(    param_name, model_name="robot1", robot_namespace
     
     try:
         result = client_srv(srv_model)
-        return result.success
+        return result.success , result.status_message
     except ServiceException:
         print("Error: Package used in model was not found, source the workspace in all terminals.")
         return False

@@ -99,28 +99,30 @@ def spawn_model_in_gazebo(  pkg_name, model_urdf_file,
 
     # Load the model URDF in the parameter server
     if ros_urdf.urdf_load_from_pkg(pkg_name, model_urdf_file, "robot_description", folder=model_urdf_folder, ns=ns, args_xacro=args_xacro):
-        rospy.loginfo("URDF file loaded successfully")
+        rospy.logwarn("URDF file loaded successfully")
     else:
-        rospy.loginfo("Error while loading URDF file")
+        rospy.logwarn("Error while loading URDF file")
         return False
     
     time.sleep(0.1)
 
     # Initialize the Robot State Publisher
     if init_robot_state_pub(namespace=ns, max_pub_freq=max_pub_freq, launch_new_term=rob_st_term):
-        rospy.loginfo("Robot state publisher initialized")
+        rospy.logwarn("Robot state publisher initialized")
     else:
-        rospy.loginfo("Error while initializing robot state publisher")
+        rospy.logwarn("Error while initializing robot state publisher")
         return False
 
     time.sleep(0.1)
 
     # Spawn the model in gazebo
-    if ros_gazebo.gazebo_spawn_urdf_param("robot_description", model_name=gazebo_name, robot_namespace=ns, reference_frame=gaz_ref_frame,
-                                        pos_x=pos_x, pos_y=pos_y, pos_z=pos_z, ori_w=ori_w, ori_x=ori_x, ori_y=ori_y, ori_z=ori_z,):
-        rospy.loginfo("Model spawned successfully")
+    result_spawn, message = ros_gazebo.gazebo_spawn_urdf_param("robot_description", model_name=gazebo_name, robot_namespace=ns, reference_frame=gaz_ref_frame,
+                                        pos_x=pos_x, pos_y=pos_y, pos_z=pos_z, ori_w=ori_w, ori_x=ori_x, ori_y=ori_y, ori_z=ori_z,)
+    if result_spawn:
+        rospy.logwarn("Model spawned successfully")
     else:
-        rospy.loginfo("Error while spawning model")
+        rospy.logwarn("Error while spawning model")
+        rospy.logwarn(message)
         return False
 
     time.sleep(0.1)
@@ -128,19 +130,18 @@ def spawn_model_in_gazebo(  pkg_name, model_urdf_file,
     if controllers_file is not None:
         # Load the robot controllers from YAML files in the parameter server
         if ros_params.ros_load_yaml_from_pkg(pkg_name, controllers_file, ns=ns):
-            rospy.loginfo("Robot controllers loaded successfully")
+            rospy.logwarn("Robot controllers loaded successfully")
         else:
-            rospy.loginfo("Error while loading robot controllers")
+            rospy.logwarn("Error while loading robot controllers")
             return False
 
         time.sleep(0.1)
 
         # Spawn the controllers
         if ros_controllers.spawn_controllers_srv(controllers_list, ns=ns):
-            rospy.loginfo("Controllers spawned successfully")
+            rospy.logwarn("Controllers spawned successfully")
         else:
-            rospy.loginfo("Error while spawning controllers")
+            rospy.logwarn("Error while spawning controllers")
             return False
     
     return True
-

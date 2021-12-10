@@ -16,6 +16,10 @@ FRobs_RL has the following goals:
 <li>Provide a framework to easily use, test or create state-of-the-art RL algorithms in robotics applications.</li>
 </ol>
 
+# Documentation
+
+Documentation is available at: [frobs-rl.readthedocs.io](https://frobs-rl.readthedocs.io/en/latest)
+
 # Installation Instructions
 
 FRobs_RL has been tested in ROS [Noetic](https://wiki.ros.org/noetic), although it should work in previous versions of ROS like [Melodic](https://wiki.ros.org/melodic) or [Kinetic](https://wiki.ros.org/Kinetic) with minimal changes. Although it is recommended that the user has previous knowledge of the ROS ecosystem, and has a working ROS distribution environment, in the following instructions an example of the installation of ROS will be provided, especially for the Noetic distribution.
