@@ -120,4 +120,11 @@ tensorboard serve --logdir_spec=td3_logs:./td3/TD3_New/
 
 This will open a web browser in the localhost:6006 port, where the user can see the training process logs located in the `TD3_New` folder, as configured in the `train.py` and `td3.yaml` files.
 
+
 If some error occurs when launching the ROS Nodes, make sure that the `train.py` are executables using the `ll` and `chmod a+x train.py` commands.
+
+## Official video
+
+In the following video all FRobs_RL capabilies are shown. Training in virtual environments, Gazebo simulations, ROS integration and Deployment on real hardware.
+
+[![FRobs_RL video](https://img.youtube.com/vi/x6QIPuHeOSo/maxresdefault.jpg)](https://youtu.be/x6QIPuHeOSo)
