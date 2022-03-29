@@ -82,6 +82,7 @@ Note that the following commands will try to install a PyTorch version without G
 
 ```sh
 roscd frobs_rl # Only works the setup.bash has been sourced
+sudo apt install pip
 python3 -m pip install -r requirements.txt
 ```
 
