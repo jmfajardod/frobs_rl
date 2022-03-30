@@ -58,6 +58,11 @@ As `XTerm` is widely used in the library to execute some processes in a lightwei
 ```sh
 sudo apt install xterm
 ```
+The library requieres Moveit! to run, to install it just run:
+
+```shell
+sudo apt install ros-noetic-moveit
+```
 
 ## Workspace creation and library compilation
 
