@@ -30,6 +30,7 @@ Contents
    guide/train_model
    guide/rl_models
    guide/use_trained_model
+   guide/example_enviroment
 
 .. toctree::
    :maxdepth: 2
