@@ -1,5 +1,5 @@
 import gymnasium as gym
-
+from typing import Any
 class TimeLimitWrapper(gym.Wrapper):
   """
   Wrapper to limit the number of steps per episode.
@@ -14,13 +14,13 @@ class TimeLimitWrapper(gym.Wrapper):
     # Counter of steps per episode
     self.current_step = 0
   
-  def reset(self):
+  def reset(self, seed: Any =None, options: Any =None, **kwargs):
     """
     Reset the environment 
     """
     # Reset the counter
     self.current_step = 0
-    return self.env.reset()
+    return self.env.reset(seed=seed, options=options, **kwargs)
 
   def step(self, action):
     """
@@ -31,13 +31,14 @@ class TimeLimitWrapper(gym.Wrapper):
     :rtype: (np.ndarray, float, bool, dict)
     """
     self.current_step += 1
-    obs, reward, done, info = self.env.step(action)
+    observation, reward, terminated, truncated, info = self.env.step(action)
     
     # Overwrite the done signal when 
     if self.current_step >= self.max_steps:
-      done = True
+      terminated = True
+      truncated = True
       # Update the info dict to signal that the limit was exceeded
       info['time_limit_reached'] = True
       self.info['is_success'] = 0.0
 
-    return obs, reward, done, info
+    return observation, reward, terminated, truncated, info

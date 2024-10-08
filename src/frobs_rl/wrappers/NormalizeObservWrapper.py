@@ -1,7 +1,7 @@
 
 import numpy as np
 import gymnasium as gym
-
+from typing import Any
 class NormalizeObservWrapper(gym.Wrapper):
     """
     Wrapper to normalize the observation space.
@@ -31,16 +31,26 @@ class NormalizeObservWrapper(gym.Wrapper):
         :return: scaled observation
         :rtype: np.ndarray
         """
+        # TODO (jose.fajardo): Remove this when the issue with the observation is solved
+        if isinstance(observation, tuple):
+            observation = observation[0]
+
+        observation = np.array(observation)
+        
+        # Ensure observation, self.low, and self.high have the same shape
+        if observation.shape != self.low.shape or observation.shape != self.high.shape:
+            raise ValueError(f"Observation shape {observation.shape} doesn't match low {self.low.shape} or high {self.high.shape}")
+        
         return ((observation - self.low) * (1.0/(0.5*(self.high-self.low)))) - 1.0
 
-    def reset(self):
+    def reset(self, seed: Any =None, options: Any =None, **kwargs):
         """
         Reset the environment 
         """
         # 
-        observation = self.env.reset()
+        observation = self.env.reset(seed=seed, options=options, **kwargs)
         scaled_obs = self.scale_observation(observation)
-        return scaled_obs
+        return scaled_obs, {}
 
     def step(self, action):
         """
@@ -50,7 +60,7 @@ class NormalizeObservWrapper(gym.Wrapper):
         :return: observation, reward, is the episode over, additional informations
         :rtype: (np.ndarray, float, bool, dict)
         """
-        observation, reward, done, info = self.env.step(action)
+        observation, reward, terminated, truncated, info = self.env.step(action)
         # Rescale observation from [low, high] to [-1, 1] interval
         scaled_obs = self.scale_observation(observation)
-        return scaled_obs, reward, done, info
+        return scaled_obs, reward, terminated, truncated, info

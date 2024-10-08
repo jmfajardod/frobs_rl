@@ -1,7 +1,7 @@
 
 import numpy as np
 import gymnasium as gym
-
+from typing import Any
 class NormalizeActionWrapper(gym.Wrapper):
     """
     Wrapper to normalize the action space.
@@ -33,12 +33,12 @@ class NormalizeActionWrapper(gym.Wrapper):
         """
         return self.low + (0.5 * (scaled_action + 1.0) * (self.high -  self.low))
 
-    def reset(self):
+    def reset(self, seed: Any =None, options: Any =None, **kwargs):
         """
         Reset the environment 
         """
         # Reset the counter
-        return self.env.reset()
+        return self.env.reset(seed=seed, options=options, **kwargs)
 
     def step(self, action):
         """
@@ -50,5 +50,6 @@ class NormalizeActionWrapper(gym.Wrapper):
         """
         # Rescale action from [-1, 1] to original [low, high] interval
         rescaled_action = self.rescale_action(action)
-        obs, reward, done, info = self.env.step(rescaled_action)
-        return obs, reward, done, info
+        observation, reward, terminated, truncated, info = self.env.step(rescaled_action)
+
+        return observation, reward, terminated, truncated, info

@@ -1,5 +1,6 @@
 #!/bin/python3
 
+from typing import Any
 import gymnasium as gym
 from frobs_rl.common import ros_gazebo
 from frobs_rl.common import ros_controllers
@@ -154,11 +155,12 @@ class RobotBasicEnv(gym.Env):
 
         self.observation = self._get_observation()
         self.reward = self._get_reward()
-        self.done   = self._check_if_done()
+        self.terminated = self._check_if_done()
+        self.truncated  = False
 
-        return self.observation, self.reward, self.done, self.info
+        return self.observation, self.reward, self.terminated, self.truncated, self.info
 
-    def reset(self):
+    def reset(self, seed: Any =None, options: Any =None, **kwargs):
         """
         Function to reset the enviroment after an episode is done.
         """
@@ -168,7 +170,7 @@ class RobotBasicEnv(gym.Env):
         self._reset_gazebo()
         self.observation = self._get_observation()
 
-        return self.observation  
+        return self.observation, {}
 
     def close (self):
         """
