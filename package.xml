@@ -37,6 +37,8 @@
 
 
   <!-- The export tag contains other, unspecified, tags -->
-  <export></export>
+  <export>
+    <build_type>catkin</build_type>
+  </export>
 
 </package>
