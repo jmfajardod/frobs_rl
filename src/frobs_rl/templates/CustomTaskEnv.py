@@ -1,7 +1,7 @@
 #!/bin/python3
 
-from gym import spaces
-from gym.envs.registration import register
+from gymnasium import spaces
+from gymnasium.envs.registration import register
 from frobs_rl.templates import CustomRobotEnv # Replace with your own robot env
 import rospy
 

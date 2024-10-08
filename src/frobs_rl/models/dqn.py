@@ -98,7 +98,7 @@ class DQN(basic_model.BasicModel):
             #--- Logger
             self.set_model_logger()
 
-
+    @staticmethod
     def load_trained(model_path, env=None):
         """
         Load a trained model. Use only with predict function, as the logs will not be saved.

@@ -1,6 +1,6 @@
 #!/bin/python3
 
-import gym
+import gymnasium as gym
 from frobs_rl.common import ros_gazebo
 from frobs_rl.common import ros_controllers
 from frobs_rl.common import ros_node

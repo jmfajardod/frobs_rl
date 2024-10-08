@@ -6,7 +6,7 @@
 
 ## Description
 
-FRobs_RL is a flexible robotics reinforcement learning (RL) library. It is primarly designed to be used in robotics applications using the [ROS](https://www.ros.org) framework. It is written in Python and uses libraries based on the [PyTorch](https://pytorch.org) framework to handle the machine learning. The library uses [OpenAI Gym](https://gym.openai.com/docs/) to create and handle the RL environments, [stable-baselines3](https://stable-baselines3.readthedocs.io/en/master/) to provide state-of-the-art RL algorithms, [Gazebo](http://gazebosim.org) to simulate the physical environments, and [XTerm](https://invisible-island.net/xterm/) to display and launch many of the ROS nodes and processes in a lightweight terminal.
+FRobs_RL is a flexible robotics reinforcement learning (RL) library. It is primarly designed to be used in robotics applications using the [ROS](https://www.ros.org) framework. It is written in Python and uses libraries based on the [PyTorch](https://pytorch.org) framework to handle the machine learning. The library uses [Gymnasium](https://gymnasium.farama.org/index.html) to create and handle the RL environments, [stable-baselines3](https://stable-baselines3.readthedocs.io/en/master/) to provide state-of-the-art RL algorithms, [Gazebo](http://gazebosim.org) to simulate the physical environments, and [XTerm](https://invisible-island.net/xterm/) to display and launch many of the ROS nodes and processes in a lightweight terminal.
 
 FRobs_RL has the following goals:
 
@@ -81,7 +81,7 @@ source devel/setup.bash
 
 ## Python dependencies
 
-As the library is based in the [OpenAI Gym](https://github.com/openai/gym) and [stable-baselines3](https://github.com/DLR-RM/stable-baselines3) libraries, one must install these libraries along with PyTorch and TensorBoard. To go to the `frobs_rl` package and install these dependencies execute the following commands. 
+As the library is based in the [Gymnasium](https://gymnasium.farama.org/index.html) and [stable-baselines3](https://github.com/DLR-RM/stable-baselines3) libraries, one must install these libraries along with PyTorch and TensorBoard. To go to the `frobs_rl` package and install these dependencies execute the following commands. 
 
 Note that the following commands will try to install a PyTorch version without GPU support, as it is written in the dependencies of stable-baselines3, if your computer supports GPUs, you can install the GPU version of PyTorch by following the instructions on the [PyTorch website](https://pytorch.org).
 

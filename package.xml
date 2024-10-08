@@ -1,11 +1,11 @@
 <?xml version="1.0"?>
 <package format="2">
   <name>frobs_rl</name>
-  <version>0.0.3</version>
+  <version>0.0.4</version>
   <description>Flexible Robotics Reinforcement learning library.</description>
 
-  <author email="jmfajardod@unal.edu.co">Jose Fajardo</author>
-  <maintainer email="jmfajardod@unal.edu.co">Jose Fajardo</maintainer>
+  <author email="jmfajardod@gmail.com">Jose Fajardo</author>
+  <maintainer email="jmfajardod@gmail.com">Jose Fajardo</maintainer>
 
   <license>MIT</license>
 

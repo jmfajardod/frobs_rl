@@ -11,7 +11,7 @@ setup_args = generate_distutils_setup(
     description="Flexible Robotics Reinforcement learning library.",
     url="https://github.com/jmfajardod/frobs_rl",
     keywords="robotics reinforcement-learning-algorithms reinforcement-learning machine-learning "
-    "gym openai stable baselines toolbox python",
+    "gymnasium stable baselines toolbox python",
     license="MIT",
 )
 

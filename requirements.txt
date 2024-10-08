@@ -11,6 +11,6 @@ stable_baselines3
 psutil
 
 ###### Requirements with Version Specifiers ######
-torch>=1.8.1
-gym>=0.17,<0.20
-tensorboard>=2.2.0
+torch>=2.4.1
+gymnasium==0.29.1
+tensorboard>=2.14.0

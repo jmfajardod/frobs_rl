@@ -1,4 +1,4 @@
-import gym
+import gymnasium as gym
 
 class TimeLimitWrapper(gym.Wrapper):
   """
