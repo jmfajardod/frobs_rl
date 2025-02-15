@@ -2,7 +2,6 @@
 
 import os
 from datetime import datetime
-from frobs_rl.models.utils import get_policy_kwargs, get_action_noise
 
 # ROS packages required
 import rospy
@@ -13,11 +12,12 @@ from stable_baselines3.common.callbacks import CheckpointCallback
 # Logger
 from stable_baselines3.common.logger import configure
 
+from frobs_rl.models.utils import get_action_noise, get_policy_kwargs
+
 
 class BasicModel:
-
     """
-    
+
     Base class for all the algorithms supported by the frobs_rl library.
 
     :param env: The environment to be used.
@@ -25,10 +25,12 @@ class BasicModel:
     :param log_path: The path to save the log.
     :param ns: The namespace of the parameters.
     :param load_trained: Whether or not to load a trained model.
-    
+
     """
 
-    def __init__(self, env, save_model_path, log_path, ns="/", load_trained=False) -> None:
+    def __init__(
+        self, env, save_model_path, log_path, ns="/", load_trained=False
+    ) -> None:
         """
         BasicModel constructor.
         """
@@ -42,18 +44,18 @@ class BasicModel:
 
         if load_trained is False:
 
-            #--- Policy kwargs
+            # --- Policy kwargs
             self.policy_kwargs = get_policy_kwargs(ns=ns)
 
-            #--- Noise kwargs
+            # --- Noise kwargs
             self.action_noise = get_action_noise(self.env.action_space.shape[-1], ns=ns)
-            
-            #--- Callback
-            save_freq   = rospy.get_param(ns + "/model_params/save_freq")
-            save_prefix = rospy.get_param(ns + "/model_params/save_prefix")
-            self.checkpoint_callback = CheckpointCallback(  save_freq=save_freq, save_path=save_model_path,
-                                                            name_prefix=save_prefix)
 
+            # --- Callback
+            save_freq = rospy.get_param(ns + "/model_params/save_freq")
+            save_prefix = rospy.get_param(ns + "/model_params/save_prefix")
+            self.checkpoint_callback = CheckpointCallback(
+                save_freq=save_freq, save_path=save_model_path, name_prefix=save_prefix
+            )
 
     def train(self) -> bool:
         """
@@ -66,14 +68,20 @@ class BasicModel:
 
         training_steps = rospy.get_param(self.ns + "/model_params/training_steps")
         learn_log_int = rospy.get_param(self.ns + "/model_params/log_interval")
-        learn_reset_num_tm = rospy.get_param(self.ns + "/model_params/reset_num_timesteps")
-        
+        learn_reset_num_tm = rospy.get_param(
+            self.ns + "/model_params/reset_num_timesteps"
+        )
+
         if learn_reset_num_tm is False:
             self.env = self.model.get_env()
             self.env.reset()
 
-        self.model.learn(total_timesteps=int(training_steps), callback=self.checkpoint_callback, 
-                log_interval=learn_log_int, reset_num_timesteps=learn_reset_num_tm)
+        self.model.learn(
+            total_timesteps=int(training_steps),
+            callback=self.checkpoint_callback,
+            log_interval=learn_log_int,
+            reset_num_timesteps=learn_reset_num_tm,
+        )
 
         self.save_model()
 
@@ -87,20 +95,29 @@ class BasicModel:
         :rtype: bool
         """
 
-        #--- Model name
-        trained_model_name = rospy.get_param(self.ns + "/model_params/trained_model_name")
-        
+        # --- Model name
+        trained_model_name = rospy.get_param(
+            self.ns + "/model_params/trained_model_name"
+        )
+
         # If file exists, name the new model with a suffix
         self.save_trained_model_path = self.save_model_path + trained_model_name
         if os.path.isfile(self.save_model_path + trained_model_name + ".zip"):
             now = datetime.now()
             dt_string = now.strftime("%d_%m_%Y_%H_%M_%S")
-            self.save_trained_model_path = self.save_trained_model_path +"_" + dt_string
-            rospy.logwarn("Trained model name already exists, saving as: " + trained_model_name + "_" + dt_string)
+            self.save_trained_model_path = (
+                self.save_trained_model_path + "_" + dt_string
+            )
+            rospy.logwarn(
+                "Trained model name already exists, saving as: "
+                + trained_model_name
+                + "_"
+                + dt_string
+            )
 
         self.model.save(self.save_trained_model_path)
         self.save_replay_buffer()
-        
+
         return True
 
     def save_replay_buffer(self) -> bool:
@@ -116,7 +133,14 @@ class BasicModel:
 
         if rospy.get_param(self.ns + "/model_params/save_replay_buffer"):
             rospy.logwarn("Saving replay buffer")
-            self.model.save_replay_buffer(self.save_trained_model_path+'_replay_buffer')
+            try:
+                self.model.save_replay_buffer(
+                    self.save_trained_model_path + "_replay_buffer"
+                )
+                return True
+            except Exception as e:
+                rospy.logwarn("Error saving replay buffer: " + str(e))
+                return True
 
     def set_model_logger(self) -> bool:
         """
@@ -127,9 +151,11 @@ class BasicModel:
         """
 
         log_folder = rospy.get_param(self.ns + "/model_params/log_folder")
-        log_path   = self.log_path + log_folder 
-        assert not os.path.exists(log_path), f"Log folder {log_path} already exists, to log into that folder first delete it." 
-        new_logger = configure(log_path+'/', ["stdout", "csv", "tensorboard"])
+        log_path = self.log_path + log_folder
+        assert not os.path.exists(
+            log_path
+        ), f"Log folder {log_path} already exists, to log into that folder first delete it."
+        new_logger = configure(log_path + "/", ["stdout", "csv", "tensorboard"])
         self.model.set_logger(new_logger)
 
         return True
@@ -176,5 +202,6 @@ class BasicModel:
         :rtype: ndarray, ndarray
         """
 
-        return self.model.predict(observation, state=state, mask=mask, deterministic=deterministic)
-    
+        return self.model.predict(
+            observation, state=state, mask=mask, deterministic=deterministic
+        )
