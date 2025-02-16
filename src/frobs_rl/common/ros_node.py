@@ -1,15 +1,26 @@
 #!/bin/python3
 
-import rospy
-import rospkg
 import subprocess
-import time 
+import time
+
+import rospkg
+import rospy
 
 """
 Functions related to the handling of ROS nodes.
 """
 
-def ros_node_from_pkg(pkg_name, node_name, launch_master=False, launch_master_term=True, launch_new_term=True, name=None, ns="/", output="log") -> bool:
+
+def ros_node_from_pkg(
+    pkg_name,
+    node_name,
+    launch_master=False,
+    launch_master_term=True,
+    launch_new_term=True,
+    name=None,
+    ns="/",
+    output="log",
+) -> bool:
     """
     Function to launch a ROS node from a package.
 
@@ -81,11 +92,12 @@ def ros_node_from_pkg(pkg_name, node_name, launch_master=False, launch_master_te
 
     if launch_new_term:
         term_command = "xterm -e ' " + term_command + "'"
-    
+
     subprocess.Popen(term_command, shell=True)
     time.sleep(5.0)
 
     return True
+
 
 def ros_kill_node(node_name) -> bool:
     """
@@ -102,6 +114,7 @@ def ros_kill_node(node_name) -> bool:
     subprocess.Popen("xterm -e ' " + term_command + "'", shell=True).wait()
     return True
 
+
 def ros_kill_all_nodes() -> bool:
     """
     Function to kill all running ROS nodes.
@@ -113,6 +126,7 @@ def ros_kill_all_nodes() -> bool:
     term_command = "rosnode kill -a"
     subprocess.Popen("xterm -e ' " + term_command + "'", shell=True).wait()
     return True
+
 
 def ros_kill_master() -> bool:
     """
@@ -137,6 +151,7 @@ def ros_kill_master() -> bool:
 
         return True
 
+
 def ros_kill_all_processes() -> bool:
     """
     Function to kill all running ROS related processes.
@@ -145,6 +160,6 @@ def ros_kill_all_processes() -> bool:
     :rtype: bool
     """
 
-    term_command = "killall -9 rosout roslaunch rosmaster gzserver nodelet robot_state_publisher gzclient"
+    term_command = "killall -9 rosout roslaunch rosmaster gzserver nodelet robot_state_publisher gzclient xterm"
     subprocess.Popen("xterm -e ' " + term_command + "'", shell=True).wait()
     return True
