@@ -5,6 +5,8 @@ import os
 # ROS packages required
 import rospy
 import stable_baselines3
+import stable_baselines3.common
+import stable_baselines3.common.buffers
 from stable_baselines3.common.policies import ActorCriticPolicy
 
 from frobs_rl.common import ros_params
@@ -66,7 +68,63 @@ class PPO(basic_model.BasicModel):
             rospy.logwarn("Loading imitation learning policy")
             self.model = stable_baselines3.PPO.load(il_policy_path, env=env)
 
+            # Modify hyperparameters
+            self.model.batch_size = rospy.get_param(
+                ns + "/model_params/ppo_params/batch_size"
+            )
+            self.model.learning_rate = rospy.get_param(
+                ns + "/model_params/ppo_params/learning_rate"
+            )
+            self.model.n_steps = rospy.get_param(
+                ns + "/model_params/ppo_params/n_steps"
+            )
+            self.model.n_epochs = rospy.get_param(
+                ns + "/model_params/ppo_params/n_epochs"
+            )
+            self.model.gamma = rospy.get_param(ns + "/model_params/ppo_params/gamma")
+            self.model.gae_lambda = rospy.get_param(
+                ns + "/model_params/ppo_params/gae_lambda"
+            )
+            self.model.ent_coef = rospy.get_param(
+                ns + "/model_params/ppo_params/ent_coef"
+            )
+            self.model.vf_coef = rospy.get_param(
+                ns + "/model_params/ppo_params/vf_coef"
+            )
+            self.model.max_grad_norm = rospy.get_param(
+                ns + "/model_params/ppo_params/max_grad_norm"
+            )
+
+            self.model.policy.use_sde = rospy.get_param(ns + "/model_params/use_sde")
+            self.model.rollout_buffer = stable_baselines3.common.buffers.RolloutBuffer(
+                buffer_size=self.model.n_steps,
+                observation_space=self.model.observation_space,
+                action_space=self.model.action_space,
+                device=self.model.device,
+                gae_lambda=self.model.gae_lambda,
+                gamma=self.model.gamma,
+                n_envs=self.model.n_envs,
+            )
+            self.model.rollout_buffer.full = False
+
+            # Set SDE
+            if rospy.get_param(ns + "/model_params/use_sde"):
+                self.model.use_sde = True
+                self.model.sde_sample_freq = rospy.get_param(
+                    ns + "/model_params/sde_params/sde_sample_freq"
+                )
+                self.model.action_noise = None
+                rospy.logerr(f"IL policy SDE sample freq: {self.model.sde_sample_freq}")
+            else:
+                self.model.use_sde = False
+                self.model.sde_sample_freq = -1
+
             rospy.logwarn(f"IL policy Net arch: {self.model.policy.net_arch}")
+            rospy.logwarn(f"IL policy Activation fn: {self.model.policy.activation_fn}")
+            rospy.logwarn(f"IL policy Batch size: {self.model.batch_size}")
+            rospy.logwarn(f"IL policy Learning rate: {self.model.learning_rate}")
+            rospy.logwarn(f"IL policy N steps: {self.model.n_steps}")
+
             self.set_model_logger()
         else:
             # --- SDE for PPO
